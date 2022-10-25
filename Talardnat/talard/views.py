@@ -7,4 +7,4 @@ def index(request):
     return render(request, 'talard/index.html')
 
 def about(request):
-    pass
+    return render(request, 'talard/about.html')

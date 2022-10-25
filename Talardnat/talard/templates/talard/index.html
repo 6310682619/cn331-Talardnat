@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>TU TALARDNAT</title>
-</head>
-<style>
-    h1 {
-        text-align: center;
-        font-family:verdana;
-        font-size:50px;
-    }
+{% extends 'talard/layout.html' %}
+{% block body %}
 
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 30%;
-    }
-</style>
-<body>
+<div>
     <h1>TU TALARDNAT</h1>
-    <img src="https://cdn-icons-png.flaticon.com/512/862/862856.png" alt="Market" class="center">
+    <img src="https://cdn-icons-png.flaticon.com/512/3361/3361384.png" alt="Market" class="center"><br><br><br>
+    <a href="{% url 'about'%}"><button class="center btn about"><i>ABOUT US</i></button></a>
+</div>
 
-</body>
-</html>
+{% endblock %}
