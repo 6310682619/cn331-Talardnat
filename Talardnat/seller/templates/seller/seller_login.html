@@ -1,0 +1,21 @@
+{% extends "seller\\layout.html" %}
+{% block title %}
+SELLER LOGIN
+{% endblock%}
+<div>
+    {% block body %}
+    <h1>LOGIN</h1>
+    {% if message %}
+        <p>
+            {{message}}
+        </p>
+    {% endif%}
+    <form action="{% url 'seller_login' %}" method="post">
+        {% csrf_token %}
+        <input class="box1" type="text" name="username" placeholder="username"><br><br>
+        <input class="box1" type="password" name="password" placeholder="password"><br><br>
+        <input id='loginbox' type="submit" value="Login"><br><br><br><br>
+    </form>
+    <a href= "{% url 'seller_signup' %}">Sign Up as Seller</a>
+    {% endblock %}
+</div>

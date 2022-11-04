@@ -8,3 +8,6 @@ def index(request):
 
 def about(request):
     return render(request, 'talard/about.html')
+
+def allshop(request):
+    return render(request, 'talard/allshop.html')
