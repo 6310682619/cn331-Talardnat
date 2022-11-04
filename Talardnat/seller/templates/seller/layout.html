@@ -1,16 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}
-        {% endblock %}
-    </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
+<style>
+    div{
+        font-family: Caveat;
+        background-color: rgba(0,0,0,0.1);
+        border: solid 5px black;
+        width: 550px;
+        height: auto;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:60px;
+    }
+
+    body {
+        background-color: #FFF8ED;
+    }
+
+    .back{
+        background-color:#E6DAC7;
+        width:85px;
+        height:40px;
+        font-family: Caveat;
+        font-size: 30px;
+        margin-top:1px;
+        margin-right:2px;
+        float: right;
+    }
+    .back:hover{
+        background-color:#C7B9A2;
+        transition: 0.15s;}
+
+    h1{
+        margin-top:20px;
+        font-size: 70px;
+    }
+    
+    #loginbox{
+        background-color:#EED9B8;
+        width:120px;
+        height:60px;
+        font-family: Caveat;
+        font-weight: bold;
+        font-size: 35px;
+        margin-top:25px;
+        margin-bottom:10px;
+
+    }
+
+    #loginbox:hover{
+        background-color:#D7BE97;
+        transition: 0.1s;}
+
+    .box1{
+        color:black;
+        background-color:
+        rgba(255,255,255,0.3);
+        width:180px;
+        height:40px;
+        font-size: 30px;
+        font-family:Caveat;
+    }
+
+    ::-ms-input-placeholder{ /* Microsoft Edge */
+            color: #9b9bac;
+    }
+    ::placeholder { /* Chrome, Firefox */
+            color: #9b9bac;
+            opacity: 1;
+    }
+
+    a{
+        font-size:20px;
+        color:#94713C ;
+    }
+    a:hover{
+        color:#BFA174;
+        transition: 0.1s;}
+
+    .invalid{
+        font-size:25px;
+        color:#FF0000;
+        font-weight: bold;
+        margin-top:0px;
+        margin-bottom:0px;
+    }
+    
+</style>
 <body>
-    <p>
-        <div>    
-            {% block body %}
-            {% endblock %}
-        </div>>
-    </p>
+    {% block body %}
+    {% endblock %}
 </body>
-</html>
