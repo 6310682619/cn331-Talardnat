@@ -1,21 +1,25 @@
-{% extends "seller/layout.html" %}
+{% extends "seller\\layout.html" %}
 {% block title %}
 CUSTOMER LOGIN
 {% endblock%}
+{% block body %}
 <div>
-    {% block body %}
+    <a href="{% url 'taview'%}"><button class="back">Back</button></a><br>
     <h1>LOGIN AS CUSTOMER</h1>
-    {% if message %}
-        <div>
-            {{message}}
-        </div>
-    {% endif%}
     <form action="{% url 'customer_login' %}" method="post">
         {% csrf_token %}
         <input class="box1" type="text" name="username" placeholder="username"><br><br>
         <input class="box1" type="password" name="password" placeholder="password"><br><br>
-        <input id='loginbox' type="submit" value="Login"><br><br><br><br>
+        {% if message %}
+            <p class="invalid">
+                {{message}}
+            </p>
+        {% endif%}
+        <br>
+
+        <input id='loginbox' type="submit" value="Login"><br><br>
     </form>
-    <a href= "{% url 'register' %}">Sign Up as Customer</a>
-    {% endblock %}
+    <a href= "{% url 'register' %}">Sign Up as Customer</a><br><br><br>
+    
 </div>
+{% endblock %}
