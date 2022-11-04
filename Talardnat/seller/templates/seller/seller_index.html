@@ -9,12 +9,12 @@ Seller Profile
     <ul>
         <p3>Name: {{ request.user.first_name }} {{ request.user.last_name }} <br><br></p3>
         <p3>Username: {{ request.user.username }} <br><br></p3>
-        <p3>Email: {{ request.user.email }} <br><br></p3>
+        <p3>Email: {{ request.user.email }} <br></p3>
 
     </ul>
 
-    <a ID="logoutt" href="{% url 'seller_logout' %}">Logout</a>
     <a href="{% url 'myshop_index' sid %}"><button class="myshopbutton">MY SHOP</button></a><br><br>
+    <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br><br>
 </div>
     
 

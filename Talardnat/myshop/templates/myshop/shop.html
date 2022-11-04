@@ -1,11 +1,12 @@
 {% extends "myshop/layout.html" %}
 {% block body%}
+<div>
 <h1>{{ shop.id }} Shop: {{ shop.name }} expire: {{ shop.expire }}</h1>
 <ul>
     <li>Code: {{ shop.id }}</li>
     <li>Name: {{ shop.name }}</li>
     <li>Queue: {{ shop.queue }}</li>
 </ul>
-
-<a href= "{% url 'myshop_index' seller %}">Back to My shop List</a>
+<a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
+</div>
 {% endblock %}

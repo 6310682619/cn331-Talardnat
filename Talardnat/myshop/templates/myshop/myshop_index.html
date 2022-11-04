@@ -1,6 +1,6 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-
+<div>
 <h1>My Shop List</h1>
 <ul>
     {% for s in shop %}
@@ -11,8 +11,8 @@
     </li>
     {% empty %}
     <li>No subject.</li>
-    {% endfor %}
+    {% endfor %}<br><br>
 
 </ul>
-
+</div>
 {% endblock body %}
