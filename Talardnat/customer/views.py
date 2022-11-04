@@ -31,11 +31,6 @@ def logout_view(request):
         'message': 'You have been logged out!'
     })
 
-def index(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
-    return render(request, 'customer/index.html')
-
 def user(request):
     return render(request, 'customer/index.html')
 

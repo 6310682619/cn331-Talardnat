@@ -12,12 +12,12 @@ class RegisterForm(UserCreationForm):
 		model = User
 		fields = ("firstname", "lastname", "address", "username", "email", "password1", "password2")
 
-	def save(self, commit=True):
-		user = super(RegisterForm, self).save(commit=False)
-		user.email = self.cleaned_data["email"]
-		user.firstname = self.cleaned_data["firstname"]
-		user.lastname = self.cleaned_data["lastname"]
-		user.address = self.cleaned_data["address"]
-		if commit:
-			user.save()
-		return user
+	# def save(self, commit=True):
+	# 	user = super(RegisterForm, self).save(commit=False)
+	# 	user.email = self.cleaned_data["email"]
+	# 	user.firstname = self.cleaned_data["firstname"]
+	# 	user.lastname = self.cleaned_data["lastname"]
+	# 	user.address = self.cleaned_data["address"]
+	# 	if commit:
+	# 		user.save()
+	# 	return user
