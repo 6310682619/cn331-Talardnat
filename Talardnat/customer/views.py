@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse('index'))
         else:
-            return render(request, 'user/login.html', {
+            return render(request, 'customer/login.html', {
                 'message': 'Invalid credentials.'
             })
     return render(request, 'customer/login.html')
@@ -37,18 +38,29 @@ def user(request):
     return render(request, 'customer/index.html')
 
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful." )
-            return redirect("homepage")
-            messages.error(request, "Unsuccessful registration.")
-        form = RegisterForm()
-        return render (request=request, template_name="customer/register.html")
+            messages.success(request, 'Welcome to TU TALARDNAT!' )
+            return redirect('homepage')
+            messages.error(request, 'Unsuccessful registration! Please try again.')
+    form = RegisterForm()
+    return render(request, 'customer/register.html')
 
+def profile(request, u_id):
+    user = User.objects.get(id=u_id)
+    firstname = RegisterForm.objects.get(firstname=firstname)
+    lastname = RegisterForm.objects.get(lastname=lastname)
+    email = RegisterForm.objects.get(email=email)
 
+    return render(request, 'customer/profile.html'),{
+        'user' : user,
+        'firstname' : firstname,
+        'lastname' : lastname,
+        'email' : email,
+    }
 			
 		
 	
