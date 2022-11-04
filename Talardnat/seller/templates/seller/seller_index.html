@@ -11,7 +11,7 @@ Seller Profile
         <p3>Email: {{ request.user.email }} <br><br></p3>
 
     </ul>
-
+    <a href="{% url 'myshop_index' sid %}">See my shop</a><br><br><br><br>
     <a ID="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br><br><br>
 
     {% endblock %}

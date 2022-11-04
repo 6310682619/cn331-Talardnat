@@ -7,10 +7,10 @@ from seller.models import seller_detail
 from seller.forms import sellerForm
 # Create your views here.
 
-def index(request):
+def index(request, sid):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("seller_login"))
-    return render(request, "seller/seller_index.html")
+    return render(request, "seller/seller_index.html", {'sid': sid})
 
 def signup(request):
     if request.method == 'POST':
@@ -33,10 +33,12 @@ def login_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(username=username, password=password)
+        u = User.objects.get(username=username)
+        sell = seller_detail.objects.get(sname=u)
         isseller = seller_detail.objects.filter(sname=user).exists()
         if (user is not None) and (isseller):
             login(request, user)
-            return HttpResponseRedirect(reverse("seller_index"))
+            return HttpResponseRedirect(reverse("seller_index", args=(sell.id,)))
         else:
             return render(request, "seller/seller_login.html", {"message":"Invalid credentials."})
     return render(request, "seller/seller_login.html")
