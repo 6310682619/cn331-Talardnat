@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('talard.urls')),
     path('seller/', include('seller.urls')),
     path('customer/', include('customer.urls')),
+    path('myshop/', include('myshop.urls')),
 ]
