@@ -3,13 +3,21 @@
 <head>
     <title>TU TALARDNAT</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3361/3361384.png">
-    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
 <style>
 
     div {font-family: "Caveat"}
-
+    .bodytalard{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-image: url('https://media.discordapp.net/attachments/715798345037381683/1038097287248883822/Untitled_Artwork.png?width=1180&height=670');
+    }
     html {
         box-sizing: border-box;
     }
@@ -46,16 +54,26 @@
         text-align: center;
     }
 
+    .talardpic{
+        text-align: center;
+        width: 65%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-top:150px;
+    }
+
     .a-button {
         border: none;
         color: white;
-        padding: 16px 32px;
+        padding: 10px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 16px;
+        font-size: 20px;
         transition-duration: 0.4s;
         cursor: pointer;
+        font-family: "Caveat"
     }
     .a-button:hover{
         background-color:#BAA8A8;
@@ -67,10 +85,22 @@
         transform: translateX(-50%);
     }
 
+    .spb{
+        display: inline-block;
+        font-size: 80px;
+        margin-left:70px;
+        margin-right:70px;
+        font-weight: bold;
+    }
+
+    #images2{
+        text-align:center;
+    }
+
     .about {
         background-color: white;
         color: black;
-        border: 4px solid #4caf81;
+        border: 3px solid #4caf81;
     }
 
     .about:hover {

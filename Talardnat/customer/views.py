@@ -45,9 +45,10 @@ def register(request):
             login(request, user)
             messages.success(request, 'Welcome to TU TALARDNAT!' )
             return redirect('homepage')
-            messages.error(request, 'Unsuccessful registration! Please try again.')
-    form = RegisterForm()
-    return render(request, 'customer/register.html')
+            #messages.error(request, 'Unsuccessful registration! Please try again.')
+    else:
+        form = RegisterForm()
+    return render(request,"customer/register.html", {'form': form})
 
 def profile(request, u_id):
     user = User.objects.get(id=u_id)

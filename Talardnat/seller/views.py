@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, exceptions
 from django.contrib.auth.models import User, Group
 from seller.models import seller_detail
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def index(request):
@@ -11,6 +12,21 @@ def index(request):
         return HttpResponseRedirect(reverse("login"))
     return render(request, "seller/seller_index.html")
 
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=raw_password)
+            u = User.objects.get(username=username)
+            new = seller_detail(sname = u)
+            new.save()
+            return HttpResponseRedirect(reverse("seller_login"))
+    else:
+        form = UserCreationForm()
+    return render(request, 'seller/seller_signup.html', {'form': form})
 
 def login_view(request):
     if request.method == "POST":

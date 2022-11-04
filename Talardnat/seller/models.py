@@ -6,3 +6,5 @@ class seller_detail(models.Model):
 
     def __str__(self):
         return f"{self.sname}"
+
+        
