@@ -7,6 +7,6 @@ urlpatterns = [
     path('about', talard_view.about, name='about'),
     path('login', views.login_view, name='customer_login'),
     path('logout', views.logout_view, name='customer_logout'),
-    path('register', views.register, name='register'),
-    path('<int:u_id>/profile/', views.profile, name='profile'),
+    path('signup', views.register, name='register'),
+    path('profile', views.profile, name='profile'),
 ]

@@ -3,20 +3,14 @@
 CUSTOMER REGISTER
 {% endblock%}
 
-{% block body %} 
-
 <div>
-	<h1>Register</h1>
-	<form action="{% url 'register' %}" method="POST">
-		{% csrf_token %} 
-		<input class="box1" type="text" name="username" placeholder="username"><br><br>
-        <input class="box1" type="text" name="firstname" placeholder="firstname"><br><br>
-        <input class="box1" type="text" name="lastname" placeholder="lastname"><br><br>
-        <input class="box1" type="text" name="email" placeholder="email"><br><br>
-        <input class="box1" type="text" name="address" placeholder="address"><br><br>
-        <input class="box1" type="password" name="password" placeholder="password"><br><br>               
-		<button type="submit">Register</button>
-	</form>
+    {% block body %}
+    <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
     {% endblock %}
 </div>
 
