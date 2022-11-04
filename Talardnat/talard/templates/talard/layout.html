@@ -3,11 +3,12 @@
 <head>
     <title>TU TALARDNAT</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3361/3361384.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
 <style>
 
-    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+    div {font-family: "Caveat"}
 
     html {
         box-sizing: border-box;
@@ -27,8 +28,14 @@
 
     h1 {
         text-align: center;
-        font-family:verdana;
         font-size:50px;
+        line-height: 40px;
+    }
+
+    h3{
+        font-size:30px;
+        margin-top: 0px;
+        line-height: 0px;
     }
 
     .center {
@@ -50,6 +57,9 @@
         transition-duration: 0.4s;
         cursor: pointer;
     }
+    .a-button:hover{
+        background-color:#BAA8A8;
+        transition: 0.2s;}
 
     .center-horizontal {
         position: absolute;
@@ -70,9 +80,13 @@
 
     .imgbtn {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 50px;
+        margin-right: 50px;
         width: 18%;
+        display: inline;
+    }
+    #image1{
+        text-align: center;
     }
 
     .container:after,.container:before{
@@ -109,7 +123,9 @@
 
     .card{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
 
-    .opacity{opacity:0.60}
+    .opacity{
+        opacity:0.60;
+        font-size:20px;}
 
     .button{
         border:none;
