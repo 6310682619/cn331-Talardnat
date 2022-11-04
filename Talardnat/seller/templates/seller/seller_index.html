@@ -2,9 +2,10 @@
 {% block title %}
 Seller Profile
 {% endblock%}
+{% block body %}
+
 <div>
-    {% block body %}
-    <h1>Your Profile</h1>
+    <h1>Your Profile : Seller</h1>
     <ul>
         <p3>Name: {{ request.user.first_name }} {{ request.user.last_name }} <br><br></p3>
         <p3>Username: {{ request.user.username }} <br><br></p3>
@@ -12,7 +13,8 @@ Seller Profile
 
     </ul>
 
-    <a ID="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br><br><br>
-
-    {% endblock %}
+    <a ID="logoutt" href="{% url 'seller_logout' %}">Logout</a>
+    <button class="myshopbutton">MY SHOP</button><br><br>
 </div>
+
+{% endblock %}
