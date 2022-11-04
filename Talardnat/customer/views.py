@@ -14,10 +14,11 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        iscustomer = customer_profile.objects.filter(cusname=user).exists()
 
-        if user is not None:
+        if (user is not None) and (iscustomer):
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('profile'))
         else:
             return render(request, 'customer/login.html', {
                 'message': 'Invalid credentials.'
@@ -49,24 +50,12 @@ def register(request):
             u = User.objects.get(username=username)
             new = customer_profile(cusname = u)
             new.save()
-            return HttpResponseRedirect(reverse("customer_login"))
+            return HttpResponseRedirect(reverse('customer_login'))
     else:
         form = RegisterForm()
-    return render(request,"customer/register.html", {'form': form})
+    return render(request,'customer/register.html', {'form': form})
 
-def profile(request, u_id):
-    user = User.objects.get(id=u_id)
-    firstname = RegisterForm.objects.get(firstname=firstname)
-    lastname = RegisterForm.objects.get(lastname=lastname)
-    email = RegisterForm.objects.get(email=email)
-
-    return render(request, 'customer/profile.html'),{
-        'user' : user,
-        'firstname' : firstname,
-        'lastname' : lastname,
-        'email' : email,
-    }
-			
-		
-	
-	
+def profile(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('customer_login'))
+    return render(request, 'customer/profile.html')		
