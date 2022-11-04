@@ -1,0 +1,18 @@
+{% extends 'myshop/layout.html' %}
+{% block body %}
+
+<h1>My Shop List</h1>
+<ul>
+    {% for s in shop %}
+    <li>
+        <a href= "{% url 'myshop' s.id %}">
+            {{ s }}
+        </a>
+    </li>
+    {% empty %}
+    <li>No subject.</li>
+    {% endfor %}
+
+</ul>
+
+{% endblock body %}

@@ -14,7 +14,8 @@ Seller Profile
     </ul>
 
     <a ID="logoutt" href="{% url 'seller_logout' %}">Logout</a>
-    <button class="myshopbutton">MY SHOP</button><br><br>
+    <a href="{% url 'myshop_index' sid %}"><button class="myshopbutton">MY SHOP</button></a><br><br>
 </div>
+    
 
 {% endblock %}
