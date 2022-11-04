@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from customer.models import customer_profile
 
 # Create your views here.
 
@@ -41,11 +42,14 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, 'Welcome to TU TALARDNAT!' )
-            return redirect('homepage')
-        messages.error(request, 'Unsuccessful registration! Please try again.')
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=raw_password)
+            u = User.objects.get(username=username)
+            new = customer_profile(cusname = u)
+            new.save()
+            return HttpResponseRedirect(reverse("customer_login"))
     else:
         form = RegisterForm()
     return render(request,"customer/register.html", {'form': form})

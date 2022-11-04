@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class customer_detail(models.Model):
+class customer_profile(models.Model):
     cusname = models.ForeignKey(User, on_delete=models.CASCADE, null=True , related_name="cusname")
 
     def __str__(self):

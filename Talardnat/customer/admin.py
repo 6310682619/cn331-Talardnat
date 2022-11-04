@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .forms import RegisterForm
+from .models import customer_profile
 
 # Register your models here.
 
 class SignUpAdmin(admin.ModelAdmin):
-     list_display = ["firstname", "lastname", "address", "username", "email", "password1", "password2"]
+     pass
 
-#admin.site.register([RegisterForm], SignUpAdmin)
+admin.site.register(customer_profile)
