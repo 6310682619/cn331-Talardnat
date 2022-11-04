@@ -1,16 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}
-        {% endblock %}
-    </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
+<style>
+    div{
+        font-family: Caveat;
+        background-color: rgba(0,0,0,0.1);
+        border: solid 2px black;
+        width: 700px;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:60px;
+        padding:20px;
+    }
+    body {
+        background-color: #FFF8ED;
+    }
+
+    h1{
+        font-size:60px;
+        text-align: center;
+    }
+
+    a{
+        font-size:40px;
+        text-decoration: none;
+        color:#352F3B;
+    }
+
+    li{
+        font-size:40px;
+        text-decoration: none;
+        color:#352F3B;
+        padding:6px;
+    }
+
+    a:hover{
+        color:#8C78A0;
+        transition: 0.15s;
+    }
+
+    .backtolist{
+        color:#7C51A6;
+        margin-left:15px;
+    }
+
+
+
+
+</style>
 <body>
-    <p>
-        <div>    
-            {% block body %}
-            {% endblock %}
-        </div>>
-    </p>
+    {% block body %}
+    {% endblock %}
 </body>
-</html>
