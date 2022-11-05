@@ -154,3 +154,7 @@ SETTINGS_PATH = os.path.realpath(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     "talard/templates",
     os.path.join(SETTINGS_PATH, 'templates'),)
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

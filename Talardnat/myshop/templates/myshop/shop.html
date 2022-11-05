@@ -2,14 +2,18 @@
 {% block body%}
 
 <div>
-    <h1>{{ shop.name }}</h1>
+    <h1>{{ shop.id }} Shop: {{ shop.name }} expire: {{ shop.expire }}</h1>
     <table>
         <tr>
-            <th width="70%"><a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>  
+            {% comment %} <th width="70%"><a href="{% url 'product' shop.id %}"><button class="myshopb">Product</button></a><br><br>  
                 <div class="myshoppic"><a href="{% url 'myshop_index' seller%}"><div class="invibox2"></div></a></div>
                 <div class="myreviewpic"><a href="{% url 'myshop_index' seller%}"><div class="invibox3"></div></a></th>
 
-            <th class="interactpic"><a href="{% url 'myshop_index' seller%}"><div class="invibox"></div></a></th>
+            <th class="interactpic"><a href="{% url 'myshop_index' seller%}"><div class="invibox"></div></a></th> {% endcomment %}
+            <th><a href="{% url 'product' shop.id %}"><button class="myshopb">Product</button></a><br><br>  
+                <a href="{% url 'myshop_index' seller%}"><button>My shop</button></a>
+                <a href="{% url 'myshop_index' seller%}"><button>Review</button></a></th>
+            <th class="interactpic"><a href="{% url 'myshop_index' seller%}"><div class=invibox></div></a></th>
         </tr>
     </table>
 
@@ -17,26 +21,4 @@
     <br><br>
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
 </div>
-
-
-
-<!--
-
-<th><a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>  
-                <a href="{% url 'myshop_index' seller%}"><button>My shop</button></a>
-                <a href="{% url 'myshop_index' seller%}"><button>Review</button></a></th>
-
-
-<div>
-<h1>{{ shop.id }} Shop: {{ shop.name }} expire: {{ shop.expire }}</h1>
-<ul>
-    <li>Code: {{ shop.id }}</li>
-    <li>Name: {{ shop.name }}</li>
-    <li>Queue: {{ shop.queue }}</li>
-</ul>
-<h1>
-<a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
-</h1>
-</div>
--->
 {% endblock %}
