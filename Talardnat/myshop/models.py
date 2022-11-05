@@ -8,7 +8,8 @@ class shop_detail(models.Model):
     seller_id = models.ForeignKey(seller_detail, on_delete=models.CASCADE, related_name = "shop", null=True)
     name = models.CharField(max_length=64)
     category = models.CharField(max_length=10, null=True)
-    interact = models.CharField(max_length=64, null=True)
+    in_interact = models.CharField(max_length=100, null=True)
+    ex_interact = models.CharField(max_length=64, null=True)
     expire = models.IntegerField(default=0)
     queue = models.IntegerField(null=True)
 
