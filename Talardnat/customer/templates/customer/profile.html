@@ -1,4 +1,4 @@
-{% extends "customer\\layout.html" %}
+{% extends "customer/layout.html" %}
 {% block title %}
 YOUR PROFILE
 {% endblock%}
@@ -7,9 +7,10 @@ YOUR PROFILE
 <div>
     <h1>Your Profile : Customer</h1>
     <ul>
-        <li>Name: {{ request.user.firstname }} {{ request.user.lastname }} <br><br></li>
+        <li>Name: {{ request.user.first_name }} {{ request.user.last_name }} <br><br></li>
         <li>Username: {{ request.user.username }} <br><br></li>
         <li>Email: {{ request.user.email }} <br><br></li>
+        <!-- <li>Address: {{ profile_form.address }} <br><br></li> -->
 
     </ul>
 
