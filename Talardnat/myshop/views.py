@@ -66,5 +66,5 @@ def edit(request,shop_id):
 
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
-    rev = review.objects.get(sname = s)
+    rev = review.objects.filter(shop = s)
     return render(request, "myshop/myreview.html", {"rev":rev})
