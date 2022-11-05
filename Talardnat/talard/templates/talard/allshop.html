@@ -1,0 +1,28 @@
+{% extends 'talard/layout.html' %}
+{% block body %}
+<div>
+    <h1>Talard</h1>
+    <ul>
+    {% for c in allshop %}
+    {% if c.category == category %}
+        <li>
+            <a href= "{% url 'customer_logout' %}">
+                {{ c }}
+            </a>
+        </li>
+    {% endif %}
+    {% endfor %}
+
+    {% for x in allshop %}
+    {% if x.category != category %}
+        <li>
+            <a href= "#">
+                {{ x }}
+            </a>
+        </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+</div>
+{% endblock body %}
