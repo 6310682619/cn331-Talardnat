@@ -2,6 +2,7 @@ from code import interact
 from unicodedata import category
 from django.db import models
 from seller.models import seller_detail
+from customer.models import Profile
 
 # Create your models here.
 class shop_detail(models.Model):
@@ -24,4 +25,13 @@ class product(models.Model):
 
     def __str__(self):
         return f"{self.id} product: {self.product_name}"
+
+class review(models.Model):
+    customer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name = "rev", null=True)
+    shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, related_name = "rev", null=True)
+    score = models.IntegerField(null=True)
+    description = models.CharField(max_length=300)
+
+    def __str__(self):
+        return f"shop: {self.shop} score: {self.score}"
 

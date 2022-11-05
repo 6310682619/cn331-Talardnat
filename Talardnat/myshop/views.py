@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import shop_detail
+from .models import shop_detail, review
 from .models import product as pd
 from seller.models import seller_detail
 from django.urls import reverse, exceptions
@@ -63,3 +63,8 @@ def edit(request,shop_id):
     else:
         form = ShopForm(instance=s)
     return render(request, 'myshop/edit.html', {'form' : form, 'shop_id':shop_id})
+
+def myreview(request, shop_id):
+    s = shop_detail.objects.get(pk=shop_id)
+    rev = review.objects.filter(shop = s)
+    return render(request, "myshop/myreview.html", {"rev":rev})

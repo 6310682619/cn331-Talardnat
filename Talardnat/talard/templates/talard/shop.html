@@ -1,0 +1,17 @@
+{% extends 'talard/layout.html' %}
+{% block body %}
+<div>
+<h1>{{ this_shop.name }}</h1>
+<h3>Expire Date: {{ shop.expire }}</h3>
+
+<ul>
+    {% for m in menu %}
+        <li>
+            Product: {{ p.product_name }} Price: {{ p.price }} 
+        </li>
+    {% endfor %}
+</ul>
+    
+    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+</div>
+{% endblock body %}

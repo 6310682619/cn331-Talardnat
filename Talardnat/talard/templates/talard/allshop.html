@@ -6,7 +6,7 @@
     {% for c in allshop %}
     {% if c.category == category %}
         <li>
-            <a href= "{% url 'customer_logout' %}">
+            <a href= "{% url 'thisshop' c.id %}">
                 {{ c }}
             </a>
         </li>
@@ -16,7 +16,7 @@
     {% for x in allshop %}
     {% if x.category != category %}
         <li>
-            <a href= "#">
+            <a href= "{% url 'thisshop' c.id %}">
                 {{ x }}
             </a>
         </li>
