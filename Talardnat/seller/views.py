@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, exceptions
@@ -33,11 +33,11 @@ def login_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(username=username, password=password)
-        u = User.objects.get(username=username)
-        sell = seller_detail.objects.get(sname=u)
         isseller = seller_detail.objects.filter(sname=user).exists()
         if (user is not None) and (isseller):
             login(request, user)
+            u = User.objects.get(username=username)
+            sell = seller_detail.objects.get(sname=u)
             return HttpResponseRedirect(reverse("seller_index", args=(sell.id,)))
         else:
             return render(request, "seller/seller_login.html", {"message":"Invalid credentials."})
