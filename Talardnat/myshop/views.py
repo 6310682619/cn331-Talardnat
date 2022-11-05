@@ -52,3 +52,14 @@ def del_prod(request,shop_id,prod_id):
     prod = pd.objects.get(pk = prod_id)
     prod.delete()
     return HttpResponseRedirect(reverse("product", args=(shop_id,)))
+
+def edit(request,shop_id):
+    s = shop_detail.objects.get(pk=shop_id)
+    if request.method == 'POST':
+        form = ShopForm(request.POST, instance=s)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
+    else:
+        form = ShopForm(instance=s)
+    return render(request, 'myshop/edit.html', {'form' : form, 'shop_id':shop_id})
