@@ -4,7 +4,7 @@ SELLER LOGIN
 {% endblock%}
 {% block body %}
 <div>   
-    <a href="{% url 'taview'%}"><button class="back">Back</button></a><br>
+    <a href="{% url 'taview'%}" class="back">Back</a><br>
     <h1>LOGIN:SELLER</h1>
     <form action="{% url 'seller_login' %}" method="post">
         {% csrf_token %}

@@ -1,5 +1,25 @@
-{% extends "myshop/layout.html" %}
+{% extends "myshop/layout_shop.html" %}
 {% block body%}
+
+<div>
+    <h1>{{ shop.name }}</h1>
+    <table>
+        <tr>
+            <th><a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>  
+                <a href="{% url 'myshop_index' seller%}"><button>My shop</button></a>
+                <a href="{% url 'myshop_index' seller%}"><button>Review</button></a></th>
+            <th class="interactpic"><a href="{% url 'myshop_index' seller%}"><div class=invibox></div></a></th>
+        </tr>
+    </table>
+
+
+    <br><br>
+    <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
+</div>
+
+
+
+<!--
 <div>
 <h1>{{ shop.id }} Shop: {{ shop.name }} expire: {{ shop.expire }}</h1>
 <ul>
@@ -7,7 +27,13 @@
     <li>Name: {{ shop.name }}</li>
     <li>Queue: {{ shop.queue }}</li>
 </ul>
+<<<<<<< HEAD
 <a href= "{% url 'product' shop.id %}"><u>Product</u></a>
+=======
+<h1>
+>>>>>>> 3aff19a07b17923ad74e85157bf6e262a512bb18
 <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
+</h1>
 </div>
+-->
 {% endblock %}
