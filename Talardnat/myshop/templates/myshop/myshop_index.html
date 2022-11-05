@@ -1,18 +1,18 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
 <div>
-<h1>My Shop List</h1>
-<ul>
+    <h1>My Shop List</h1>
+    <ul>
     {% for s in shop %}
-    <li>
-        <a href= "{% url 'myshop' s.id %}">
-            {{ s }}
-        </a>
-    </li>
+        <li>
+            <a href= "{% url 'myshop' s.id %}">
+                {{ s }}
+            </a>
+        </li>
     {% empty %}
-    <li>No subject.</li>
+        <li>NO SHOP</li>
     {% endfor %}<br><br>
-
-</ul>
+    </ul>
+    <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br>
 </div>
 {% endblock body %}
