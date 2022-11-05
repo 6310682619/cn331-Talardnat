@@ -10,7 +10,7 @@
     
     h1{
         background-color: rgba(0,0,0,0.1);
-        border: solid 2px black;
+        border: solid 2px rgba(0,0,0,0.3);
         width: 700px;
         height: 80px;
         margin-left: auto;
@@ -59,33 +59,58 @@
 
     .myshoppic{
         background:url(https://media.discordapp.net/attachments/715798345037381683/1038421058077868092/Untitled_Artwork.png?width=1405&height=670);
-        width:300px;
-        height:140px;
-        background-size:300px 140px;
+        width:250px;
+        height:120px;
+        background-size:250px 120px;
     }
 
     .myreviewpic{
         background:url(https://media.discordapp.net/attachments/715798345037381683/1038420992239878244/Untitled_Artwork.png?width=1405&height=670);
+        width:250px;
+        height:120px;
+        background-size:250px 120px;
+    }
+
+    .myproductpic{
+        background:url(https://media.discordapp.net/attachments/715798345037381683/1038490279419850793/Untitled_Artwork.png?width=1440&height=518) no-repeat;
         width:300px;
-        height:140px;
-        background-size:300px 140px;
+        height:110px;
+        background-size:300px 110px;
+        margin-left: auto;
+        margin-right: auto;
+        
+
     }
 
     table{
         margin-left: auto;
         margin-right: auto;
+        margin-top:0px;
     }
 
     table, th, td {
-        border: 1px solid;
+        {% comment %} border: 1px solid; {% endcomment %}
     }
 
+    #firstcell{
+        line-height: 5px;
+    }
+
+
     .invibox{
-        background-color:rgba(0,0,0,0.4);
+        background-color:rgba(0,0,0,0.0);
         width:280px;
         height:120px;
         margin-top:89px;
         margin-left:35px;
+    }
+
+    p{
+        font-size:30px;
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center;
+        margin-left:500px;
     }
 
 
