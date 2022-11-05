@@ -1,0 +1,24 @@
+{% extends 'myshop/layout.html' %}
+{% block body %}
+<div>
+<h1>My Product</h1>
+<ul>
+    {% for p in product %}
+    <li>
+            Product: {{ p.product_name }} Price: {{ p.price }} 
+            <a href="{% url 'delprod' shop_id p.id %}">remove</a>
+            <img src="{{ p.product_im.url }}" style="width: 100%; float: left; margin-right: 10px;" />
+    </li>
+    {% empty %}
+    <li>No subject.</li>
+    {% endfor %}<br><br>
+    <li>
+        <form method = "post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+    </li>
+</ul>
+</div>
+{% endblock body %}
