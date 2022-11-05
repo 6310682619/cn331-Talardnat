@@ -26,12 +26,14 @@
     <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br>
     
 </div>
+
 <div class="temp">
-    <form method = "post" enctype="multipart/form-data">
+    <h>ADD SHOP</h>
+    <form method = "post" enctype="multipart/form-data" class="addsh">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Upload</button>
     </form>
+    <button type="submit">ADD</button>
 </div>
 
 {% endblock body %}
