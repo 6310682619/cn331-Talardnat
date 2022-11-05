@@ -3,11 +3,15 @@
 
 <div>
     <h1>{{ shop.name }}</h1>
-    <a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>
-    
-    <a href="{% url 'myshop_index' seller%}"><button>My shop</button>
-    <a href="{% url 'myshop_index' seller%}"><button>Review</button>
-    <a href="{% url 'myshop_index' seller%}"><button>Interact</button>
+    <table>
+        <tr>
+            <th><a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>  
+                <a href="{% url 'myshop_index' seller%}"><button>My shop</button></a>
+                <a href="{% url 'myshop_index' seller%}"><button>Review</button></a></th>
+            <th class="interactpic"><a href="{% url 'myshop_index' seller%}"><div class=invibox></div></a></th>
+        </tr>
+    </table>
+
 
     <br><br>
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
