@@ -1,0 +1,21 @@
+{% extends 'talard/layout.html' %}
+{% block body %}
+<div>
+    <h1>Talard</h1>
+    <ul>
+        <div>
+        <a href= "{% url 'allshop' 'food' %}">
+            food
+        </a>
+        </div>
+        <div>
+            <a href= "{% url 'allshop' 'utensil' %}">
+            utensil
+        </a>
+        </div>
+        
+
+    </ul>
+    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+</div>
+{% endblock body %}
