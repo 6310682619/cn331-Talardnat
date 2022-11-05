@@ -2,6 +2,7 @@
 {% block body%}
 
 <div>
+    <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
     <h1>{{ shop.name }}</h1>
     <p>ID:{{ shop.id }} Expire: {{ shop.expire }}</p>
     <table>
@@ -18,8 +19,9 @@
         </tr>
     </table>
 
+    <h2>Order</h2>
+    <div class="orderbox"> <!--list order here--> </div>
+
     <br><br>
-    <a href= "{% url 'edit' shop.id %}"><u>Edit</u></a>
-    <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
 </div>
 {% endblock %}
