@@ -8,10 +8,16 @@
             <a href= "{% url 'myshop' s.id %}">
                 {{ s }}
             </a>
+            <a href= "{% url 'delshop' s.id %}">remove</a>
         </li>
     {% empty %}
         <li>NO SHOP</li>
     {% endfor %}<br><br>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
     </ul>
     <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br>
 </div>
