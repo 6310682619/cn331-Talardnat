@@ -1,13 +1,13 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-<div>
-<h1>edit detail</h1>
-<ul>
-        <form method = "post" enctype="multipart/form-data">
+<div class="temp">
+    <p class="back"><a>Back</a></p><br>
+    <h1>Edit detail</h1>
+
+        <form method = "post" enctype="multipart/form-data" class="addsh">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Upload</button>
         </form>
-</ul>
+        <button type="submit">Edit</button><br><br>
 </div>
 {% endblock body %}
