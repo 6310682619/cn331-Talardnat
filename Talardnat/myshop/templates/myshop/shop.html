@@ -1,5 +1,21 @@
-{% extends "myshop/layout.html" %}
+{% extends "myshop/layout_shop.html" %}
 {% block body%}
+
+<div>
+    <h1>{{ shop.name }}</h1>
+    <a href="{% url 'myshop_index' seller%}"><button class="myshopb">Product</button></a><br><br>
+    
+    <a href="{% url 'myshop_index' seller%}"><button>My shop</button>
+    <a href="{% url 'myshop_index' seller%}"><button>Review</button>
+    <a href="{% url 'myshop_index' seller%}"><button>Interact</button>
+
+    <br><br>
+    <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
+</div>
+
+
+
+<!--
 <div>
 <h1>{{ shop.id }} Shop: {{ shop.name }} expire: {{ shop.expire }}</h1>
 <ul>
@@ -11,4 +27,5 @@
 <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
 </h1>
 </div>
+-->
 {% endblock %}
