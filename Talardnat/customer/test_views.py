@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
+from customer import forms
+from customer.models import Profile
 
 # Create your tests here.
 
@@ -15,7 +17,6 @@ class CustomerViewTest(TestCase):
                {'username': 'sunday', 
                'password': 'sunday11'})
         response = c.get(reverse('profile'))
-
         # Check response
         self.assertEqual(response.status_code, 200)
         # Check template
@@ -42,11 +43,31 @@ class CustomerViewTest(TestCase):
         response = c.post(reverse('customer_login'),
                {'username': 'user3', 
                'password': 'tuesday3'})
-
+        # Check response
         self.assertTrue(response.context['message'] == 'Invalid credentials.')
 
-        response = c.get(reverse('login'))
+        response = c.get(reverse('customer_login'))
         self.assertEqual(response.status_code, 200)
 
-        response = c.get(reverse('index'))
+        response = c.get(reverse('homepage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_register_get(self):
+        c = Client()
+        response = c.get(reverse('register'))
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        # Check template
+        self.assertTemplateUsed(response, 'customer/register.html')
+
+        self.failUnless(isinstance(response.context['form'],
+                                   forms.RegisterForm))
+
+    def test_register_success(self):
+        c = Client()
+        response = c.post(reverse('register'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+        response = c.get(reverse('profile'))
+        # Check response
         self.assertEqual(response.status_code, 302)

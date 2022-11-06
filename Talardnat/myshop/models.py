@@ -20,11 +20,21 @@ class shop_detail(models.Model):
 class product(models.Model):
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, related_name = "prod", null=True)
     product_name = models.CharField(max_length=64)
-    price = models.IntegerField(null=True)
+    price = models.DecimalField(null=True, decimal_places=2, max_digits=8)
     product_im = models.ImageField(upload_to='images/')
+    count = models.IntegerField(null=True)
 
     def __str__(self):
         return f"{self.id} product: {self.product_name}"
+
+    def prodprice(self):
+        return self.price
+    
+    def prodcount(self):
+        return self.count
+
+    def ordered(self):
+        return self.count - 1
 
 class review(models.Model):
     customer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name = "rev", null=True)
@@ -34,4 +44,10 @@ class review(models.Model):
 
     def __str__(self):
         return f"shop: {self.shop} score: {self.score}"
+
+class MyOrder(models.Model):
+     customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="order")
+     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
+     prod = models.ManyToManyField(product, blank=True, related_name="ordered")
+     count = models.IntegerField(default=1)
 

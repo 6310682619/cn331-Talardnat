@@ -35,6 +35,6 @@ def thisshop(request, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
     menu = product.objects.filter(shop=this_shop)
     return render(request, 'talard/shop.html', {
-        "this_shop" : this_shop},
-        {"menu" : menu
+        "this_shop" : this_shop,
+        "menu" : menu
     })

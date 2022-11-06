@@ -1,20 +1,19 @@
 {% extends 'talard/layout.html' %}
 {% block body %}
-<div>
+<div class="bgfoodandutencil">
     <h1>Talard</h1>
+    <br><br><br><br><br><br>
     <ul>
-        <div>
-        <a href= "{% url 'allshop' 'food' %}">
+        <div class = "c">
+        <a href= "{% url 'allshop' 'food' %}"><button class="spb a-button catagory">
             food
-        </a>
-        </div>
-        <div>
-            <a href= "{% url 'allshop' 'utensil' %}">
-            utensil
-        </a>
-        </div>
+        </button></a>
         
-
+        <a href= "{% url 'allshop' 'utensil' %}"><button class="spb a-button catagory">
+            utensil
+        </button></a>
+        </div>
+    
     </ul>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>

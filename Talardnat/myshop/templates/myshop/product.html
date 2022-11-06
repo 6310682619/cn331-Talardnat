@@ -5,7 +5,8 @@
 <ul>
     {% for p in product %}
     <li>
-            Product: {{ p.product_name }} Price: {{ p.price }} 
+            Product: {{ p.product_name }} Price: {{ p.price }} Count: {{ p.count }}
+            <a href="{% url 'editprod' shop_id p.id %}">edit</a>
             <a href="{% url 'delprod' shop_id p.id %}">remove</a>
             <img src="{{ p.product_im.url }}" style="width: 100%; float: left; margin-right: 10px;" />
     </li>

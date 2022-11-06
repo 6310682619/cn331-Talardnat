@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import shop_detail, review
 from .models import product as pd
+from .models import MyOrder as od
 from seller.models import seller_detail
 from django.urls import reverse, exceptions
 from django.http import HttpResponseRedirect
@@ -25,7 +26,8 @@ def shop(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     user = User.objects.get(username=s.seller_id)
     seller = seller_detail.objects.get(sname = user)
-    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id})
+    order = od.objects.filter(shop = s)
+    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id, "oder":order})
 
 def del_shop(request, shop_id):
     s = shop_detail.objects.get(pk = shop_id)
@@ -63,6 +65,17 @@ def edit(request,shop_id):
     else:
         form = ShopForm(instance=s)
     return render(request, 'myshop/edit.html', {'form' : form, 'shop_id':shop_id})
+
+def editProd(request,shop_id,prod_id):
+    p = pd.objects.get(pk=prod_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=p)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("product", args=(shop_id,)))
+    else:
+        form = ProductForm(instance=p)
+    return render(request, 'myshop/editprod.html', {'form' : form, 'prod_id':prod_id})
 
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
