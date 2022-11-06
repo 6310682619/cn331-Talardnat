@@ -9,11 +9,11 @@ from django.contrib.auth import get_user_model
 
 class CustomerFormTest(TestCase):
     def setUp(self)-> None:
-        self.username = 'sunday'
-        self.first_name = 'sunday'
-        self.last_name = 'morning'
-        self.email = 'sunday@morning.com'
-        self.password1 = 'Cn331Tu'
+        self.username = 'sunday',
+        self.first_name = 'sunday',
+        self.last_name = 'morning',
+        self.email = 'sunday@morning.com',
+        self.password1 = 'Cn331Tu',
         self.password2 = 'Tu331Cn'
 
     def test_register_form(self):
