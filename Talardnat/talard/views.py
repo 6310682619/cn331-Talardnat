@@ -27,15 +27,6 @@ def allshop(request, category, u_id):
         "allshop" : allshop, "category" :category, "u_id":u_id
     })
 
-
-# def thisshop(request, shop_id):
-#     this_shop = shop_detail.objects.get(id=shop_id)
-#     #menu = product.objects.filter(shop=this_shop)
-#     return render(request, 'talard/shop.html', {
-#         "this_shop" : this_shop
-#     })
-
-
 def thisshop(request, u_id, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
     menu = product.objects.filter(shop=this_shop)
@@ -65,6 +56,7 @@ def buy(request, u_id, shop_id, prod_id):
             prod.count = prodcount
             prod.save()
             return HttpResponseRedirect(reverse("thisshop", args=(u_id,shop_id)))
+            
         return render(request, "talard/shop.html", {"this_shop" : shop,
         "menu" : menu, "u_id":u_id, "message":f"invalid count. Have {prod.prodcount()} got {in_count}"})
 
