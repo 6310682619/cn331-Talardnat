@@ -14,7 +14,7 @@ YOUR PROFILE
 
     </ul>
 
-    <a href="{% url 'talard' %}"><button class="shop">SHOP</button></a><br><br>
+    <a href="{% url 'talard' user.id %}"><button class="shop">SHOP</button></a><br><br>
     <a class="logoutt" href="{% url 'customer_logout' %}">Logout</a><br><br><br><br>
 
     {% endblock %}
