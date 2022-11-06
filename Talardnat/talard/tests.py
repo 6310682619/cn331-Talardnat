@@ -7,7 +7,7 @@ from seller.models import seller_detail
 
 # Create your tests here.
 
-class TalardViewTest(TestCase):
+class TalardViewsTest(TestCase):
     def setUp(self):
 
         user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
@@ -66,7 +66,6 @@ class TalardViewTest(TestCase):
                {'username': 'sunday', 
                'password': 'sunday11'})
         shop1 = shop_detail.objects.first()
-        seller1 = seller_detail.objects.first()
 
         response=c.get(reverse('thisshop', args=[shop1.id]))
         # Check response
