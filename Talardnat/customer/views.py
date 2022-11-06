@@ -14,9 +14,7 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        iscustomer = Profile.objects.filter(customer=user).exists()
-
-        if (user is not None) and (iscustomer):
+        if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('profile'))
         else:
@@ -30,9 +28,6 @@ def logout_view(request):
     return render(request, 'customer/login.html', {
         'message': 'You have been logged out!'
     })
-
-def user(request):
-    return render(request, 'customer/index.html')
 
 def register(request):
     if request.method == 'POST':

@@ -16,7 +16,7 @@
     {% for x in allshop %}
     {% if x.category != category %}
         <li>
-            <a href= "{% url 'thisshop' c.id %}">
+            <a href= "{% url 'thisshop' x.id %}">
                 {{ x }}
             </a>
         </li>

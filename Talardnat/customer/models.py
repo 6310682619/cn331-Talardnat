@@ -11,5 +11,5 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.customer}"
 
-class MyOrder(models.Model):
-    c_name = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="c_name")
+# class MyOrder(models.Model):
+#     c_name = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="c_name")
