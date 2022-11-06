@@ -48,7 +48,9 @@ def register(request):
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('customer_login'))
-    return render(request, 'customer/profile.html')	
+    return render(request, 'customer/profile.html')
+
+
 
 # class RegisterView(View):
 #     form_1 = RegisterForm

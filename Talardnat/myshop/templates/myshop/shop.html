@@ -20,8 +20,17 @@
     </table>
 
     <h2>Order</h2>
-    <div class="orderbox"> <!--list order here--> </div>
-
+    <div class="orderbox"> 
+        <ul>
+            {% for o in order %}
+            <li>
+                Order ID : {{o.id}} From : {{o.customer}} Count: {{o.price}}
+            </li>
+            {% empty %}
+            <li>No order.</li>
+            {% endfor %}<br><br>
+        </ul> </div>
+    </div>
     <br><br>
 </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -10,6 +11,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.customer}"
-
-# class MyOrder(models.Model):
-#     c_name = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="c_name")
