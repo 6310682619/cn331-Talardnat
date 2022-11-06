@@ -27,7 +27,7 @@ def shop(request, shop_id):
     user = User.objects.get(username=s.seller_id)
     seller = seller_detail.objects.get(sname = user)
     order = od.objects.filter(shop = s)
-    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id, "oder":order})
+    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id, "order":order})
 
 def del_shop(request, shop_id):
     s = shop_detail.objects.get(pk = shop_id)

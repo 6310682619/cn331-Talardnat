@@ -1,6 +1,7 @@
 {% extends 'talard/layout.html' %}
 {% block body %}
 <div>
+    <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
     <h1>{{ this_shop.name }}</h1>
     <h3>Expire Date: {{ this_shop.expire }}</h3>
 
@@ -8,13 +9,22 @@
             {% for m in menu %}
                 <li>
                     Product: {{ m.product_name }} Price: {{ m.price }} Count: {{ m.count }}
-                    <a href="#"><button>buy</button></a>
+                    <form action="{% url 'buy' u_id this_shop.id m.id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="number" name="count">
+                        <input class="buttonadd" type="submit" value="add">
+                    </form>
+                    {% if message %}
+                    <p>
+                         {{message}}
+                    </p>
+                    {% endif%}
                     <br>
                     <img src="{{ m.product_im.url }}" style="width: 10%; float: left; margin-right: 10px;" /><br>
                 </li>
             {% endfor %}
         </ul>
             
-            <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+            <a class="logout" href="{% url 'customer_logout'%}">Logout</a><br><br>
 </div>
 {% endblock %}

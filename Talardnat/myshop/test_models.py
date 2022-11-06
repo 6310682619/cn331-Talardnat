@@ -32,7 +32,7 @@ class MyShopModelsTest(TestCase):
             shop = shop1,
             product_name = "Chocolate bar",
             price = 50,
-            count = 10
+            count = 1
         )
 
         customer1 = Profile.objects.create(
@@ -58,6 +58,9 @@ class MyShopModelsTest(TestCase):
         product1 = product.objects.first()
 
         self.assertEqual(str(product1.product_name),'Chocolate bar')
+        self.assertEqual(int(product1.price), 50)
+        self.assertEqual(str(product1.price), '50.00')
+        self.assertTrue(int(product1.id) < 10)
 
     def test_review(self):
         review1 = review.objects.first()
@@ -65,3 +68,15 @@ class MyShopModelsTest(TestCase):
 
         self.assertEqual(review1.score, 10)
         self.assertEqual(review1.shop, shop1)
+        self.assertTrue(len(review1.description) < 300)
+
+    def test_product_available(self):
+        product1 = product.objects.first()
+        c = product1.prodcount()
+        self.assertTrue(c > 0)
+
+    def test_product_not_available(self):
+        product1 = product.objects.first()
+        c = product1.prodcount()
+        c-=1
+        self.assertFalse(c > 0)

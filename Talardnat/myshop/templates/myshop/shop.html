@@ -24,7 +24,7 @@
         <ul class="orderlist">
             {% for o in order %}
             <li>
-                Order ID : {{o.id}} From : {{o.customer}} Count: {{o.price}}
+                Order ID : {{o.id}} From : {{o.customer}} Count: {{o.count}}
             </li>
             {% empty %}
             <li>No order.</li>

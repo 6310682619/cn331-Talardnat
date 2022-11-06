@@ -165,3 +165,19 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(review.objects.count(), 1)
         # Check template
         self.assertTemplateUsed(response, 'myshop/myreview.html')
+
+    def test_myshop_edit(self):
+        c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+
+        shop1 = shop_detail.objects.first()
+        product1 = product.objects.first()
+        response=c.get(reverse('editprod', args=[shop1.id, product1.id]))
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.failUnless(isinstance(response.context['form'],
+                                   forms.ProductForm))
+        # Check template
+        self.assertTemplateUsed(response, 'myshop/editprod.html')

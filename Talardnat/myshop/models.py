@@ -1,8 +1,10 @@
 from code import interact
+from email.policy import default
 from unicodedata import category
 from django.db import models
 from seller.models import seller_detail
 from customer.models import Profile
+from django.core.validators import MaxValueValidator, MinValueValidator 
 
 # Create your models here.
 class shop_detail(models.Model):
@@ -49,5 +51,5 @@ class MyOrder(models.Model):
      customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="order")
      shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
      prod = models.ManyToManyField(product, blank=True, related_name="ordered")
-     count = models.IntegerField(default=1)
+     count = models.IntegerField(default = 1)
 
