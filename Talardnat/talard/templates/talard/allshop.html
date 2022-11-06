@@ -2,6 +2,7 @@
 {% block body %}
 <div>
     <h1>Talard</h1>
+    <a href="{% url 'talard'%}"><button class="back">Back</button></a><br>
     <ul>
     {% for c in allshop %}
     {% if c.category == category %}
