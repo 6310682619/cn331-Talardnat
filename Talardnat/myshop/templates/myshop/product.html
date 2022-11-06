@@ -1,25 +1,36 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-<div>
+<div class="divproduct">
 <h1>My Product</h1>
-<ul>
+<ol>
     {% for p in product %}
-    <li>
-            Product: {{ p.product_name }} Price: {{ p.price }} Count: {{ p.count }}
-            <a href="{% url 'editprod' shop_id p.id %}">edit</a>
-            <a href="{% url 'delprod' shop_id p.id %}">remove</a>
-            <img src="{{ p.product_im.url }}" style="width: 100%; float: left; margin-right: 10px;" />
+    <li class="listpro">
+        <img src="{{ p.product_im.url }}" style="width: 200px; height:200px;">
+        Product: {{ p.product_name }}<br>
+        Price: {{ p.price }}<br>
+        Count: {{ p.count }}<br>
+        <a href="{% url 'editprod' shop_id p.id %}" class="editpro">edit</a>
+        <a href="{% url 'delprod' shop_id p.id %}" onclick="
+        if (confirm('Are you sure to remove your product?')){
+            return true;
+        }
+        else{
+            event.stopPropagation();
+            event.preventDefault();
+        };" class="removepro">remove</a>
     </li>
+    
     {% empty %}
-    <li>No subject.</li>
+    <ul><li>No Product</li></ul>
     {% endfor %}<br><br>
-    <li>
-        <form method = "post" enctype="multipart/form-data">
+    <li class="listpro">Add product
+        <form method = "post" enctype="multipart/form-data" class="addpro">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Upload</button>
+            <button type="submit">Add</button>    
         </form>
     </li>
-</ul>
+</ol>
+
 </div>
 {% endblock body %}

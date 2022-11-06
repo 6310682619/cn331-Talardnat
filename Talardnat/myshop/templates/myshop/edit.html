@@ -1,21 +1,31 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
 <div class="temp">
-    <p class="back"><a>Back</a></p><br>
+    <p href= "{% url 'myshop' shop_id %}" class="back"><a>Back</a></p><br>
     <h1>Edit detail</h1>
 
-        <form method = "post" enctype="multipart/form-data" class="addsh">
-            {% csrf_token %}
-            <!--{{ form.as_p }}-->
-            <input class="box1" type="text" name="name" placeholder="name"><br><br>
-            <select class="box1" name="category">
-                    <option value="{{ 'food' }}">food</option>
-                    <option value="{{ 'utensil' }}">utensil</option>
-            </select><br><br>
-            <input class="box1" type="text" name="in_interact" placeholder="in interact"><br><br>
-            <input class="box1" type="text" name="ex_interact" placeholder="ex interact"><br><br>
+        <form method = "post" enctype="multipart/form-data">
+            <div class="addsh">{% csrf_token %}
+            {{ form.as_p }}</div>
+            
+            {% comment %}
+            <form method = "post" enctype="multipart/form-data" class="addsh">
+                {% csrf_token %}
+                <!--{{ form.as_p }}-->
+                <input class="box1" type="text" name="name" placeholder="name"><br><br>
+                <select class="box1" name="category">
+                        <option value="{{ 'food' }}">food</option>
+                        <option value="{{ 'utensil' }}">utensil</option>
+                </select><br><br>
+                <input class="box1" type="text" name="in_interact" placeholder="in interact"><br><br>
+                <input class="box1" type="text" name="ex_interact" placeholder="ex interact"><br><br>
+            {% endcomment %}
+
+
 
             <button type="submit">Edit</button><br><br>
+            
         </form>
+        
 </div>
 {% endblock body %}
