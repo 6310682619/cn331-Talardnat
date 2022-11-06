@@ -13,6 +13,13 @@ class CustomerModelsTestCase(TestCase):
             customer = user1
         )
 
+    def test_customer(self):
+        customer = Profile.objects.first()
+        self.assertEqual(str(customer),'sunday')
+
     def test_customer_profile(self):
         customer1 = Profile.objects.first()
+        user1 = User.objects.first()
+
         self.assertEqual(Profile.objects.count(), 1)
+        self.assertEqual(str(customer1.customer), user1.username)

@@ -7,6 +7,11 @@
         <form method = "post" enctype="multipart/form-data" class="addsh">
             {% csrf_token %}
             {{ form.as_p }}
+            <!-- <input class="box1" type="text" name="name" placeholder="name"><br><br>
+            <input class="box1" type="text" name="category" placeholder="category"><br><br>
+            <input class="box1" type="text" name="in_interact" placeholder="in interact"><br><br>
+            <input class="box1" type="text" name="ex_interact" placeholder="ex interact"><br><br> -->
+
             <button type="submit">Edit</button><br><br>
         </form>
 </div>
