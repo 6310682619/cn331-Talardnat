@@ -24,7 +24,9 @@
                 </li>
             {% endfor %}
         </ul>
-            
-            <a class="logout" href="{% url 'customer_logout'%}">Logout</a><br><br>
+        <div>
+            <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
+        </div>   
+
 </div>
 {% endblock %}

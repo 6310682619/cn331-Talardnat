@@ -67,7 +67,7 @@ class SellerViewsTest(TestCase):
         response = c.get(reverse('taview'))
         self.assertEqual(response.status_code, 200)
 
-    def test_register_get(self):
+    def test_signup_get(self):
         c = Client()
         response = c.get(reverse('seller_signup'))
         # Check response

@@ -144,9 +144,6 @@ class MyShopViewsTest(TestCase):
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_image_upload(self):
-            # temp_img = tempfile.NamedTemporaryFile()
-            # test_image = create_image(temp_img)
-
             pic = product.objects.first()
             self.assertEqual(len(product.objects.all()), 1)
         
@@ -166,7 +163,7 @@ class MyShopViewsTest(TestCase):
         # Check template
         self.assertTemplateUsed(response, 'myshop/myreview.html')
 
-    def test_myshop_edit(self):
+    def test_myshop_edit_prod(self):
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
