@@ -10,13 +10,20 @@
 
     div {font-family: "Caveat"}
     .bodytalard{
+    }
+    
+    .bodytalard .bg {
         position: fixed;
+        z-index: -1;
         top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: url('https://media.discordapp.net/attachments/859376635697168395/1040313701909135411/IMG_5159.gif?width=1180&height=670') center center;
+        background-size: cover;
+        opacity: .3;
         width: 100%;
         height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-image: url('https://media.discordapp.net/attachments/715798345037381683/1038097287248883822/Untitled_Artwork.png?width=1180&height=670');
     }
 
     .bgfoodandutencil{
@@ -44,7 +51,8 @@
     }
 
     body {
-        background-color: rgb(255, 248, 237);
+        background-color:pink;
+        {% comment %} background-color: rgb(255, 248, 237); {% endcomment %}
     }
 
     h1 {
