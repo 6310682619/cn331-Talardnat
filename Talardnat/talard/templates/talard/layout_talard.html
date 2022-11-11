@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
+</head>
+<style>
+    div{
+        font-family: Caveat;
+    }
+
+    h2{
+        font-size:80px;
+        position:absolute;
+        text-align:center;
+        margin-top:5px;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 700px;
+        
+    }
+
+    h1{
+        background-color: rgba(255,255,255,0.5);
+        border: solid 2px rgba(0,0,0,0.1);
+        width: 700px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 0px;;
+        text-align: center;
+        font-size:70px;
+    }
+    
+    .menubox{
+        background-color: rgba(255,255,255,0.5);
+        border: solid 1px rgba(0,0,0,0.2);
+        width: 900px;
+        height: 800px;
+        margin-top: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        padding:20px;
+    }
+    .menulist{
+        font-size:30px;
+        margin-top:30px;
+    }
+
+    body, html {
+      height: 100%;
+      line-height: 1.8;
+      overflow-x:hidden
+    }
+
+    body {
+        background-color:pink;
+        <!--background-color: rgb(255, 248, 237);-->
+    }
+
+    .back{
+        background-color:#E6DAC7;
+        width:85px;
+        height:40px;
+        font-family: Caveat;
+        font-size: 30px;
+        float: left;
+        text-decoration:none;
+    }
+
+    .back:hover{
+        background-color:#C7B9A2;
+        transition: 0.15s;}
+
+</style>
+<body>
+    {% block body %}
+    {% endblock %}
+</body>

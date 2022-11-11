@@ -3,7 +3,7 @@
 <div>
     <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
     <h1>Talard</h1>
-    <ul>
+    <div>
     {% for c in allshop %}
     {% if c.category == category %}
         <li>
@@ -13,7 +13,7 @@
         </li>
     {% endif %}
     {% endfor %}
-
+    
     {% for x in allshop %}
     {% if x.category != category %}
         <li>
@@ -23,7 +23,7 @@
         </li>
     {% endif %}
     {% endfor %}
-    </ul>
+    </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>
 {% endblock body %}
