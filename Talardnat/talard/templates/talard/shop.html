@@ -26,6 +26,11 @@
                 </li>
             {% endfor %}
         </ul>
+
+
+        <div>
+            <a href="{% url 'shopreview' u_id this_shop.id %}"><button class="spb a-button about">Review</button></a>
+        </div> 
     </div>
             <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
       
