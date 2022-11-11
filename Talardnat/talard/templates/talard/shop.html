@@ -1,11 +1,13 @@
-{% extends 'talard/layout.html' %}
+{% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
     <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
     <h1>{{ this_shop.name }}</h1>
     <h3>Expire Date: {{ this_shop.expire }}</h3>
 
-        <div>
+    <h2>Menu</h2>
+    <div class="menubox">
+        <ul class="menulist">
             {% for m in menu %}
                 <li>
                     Product: {{ m.product_name }} Price: {{ m.price }} Count: {{ m.count }}
@@ -23,15 +25,15 @@
                     <img src="{{ m.product_im.url }}" style="width: 10%; float: left; margin-right: 10px;" /><br>
                 </li>
             {% endfor %}
-        </div>
+        </ul>
+
 
         <div>
             <a href="{% url 'shopreview' u_id this_shop.id %}"><button class="spb a-button about">Review</button></a>
-        </div>  
-
-        <div>
+        </div> 
+    </div>
             <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
-        </div>   
+      
 
 </div>
 {% endblock %}
