@@ -3,7 +3,7 @@
 CUSTOMER REGISTER
 {% endblock%}
 {% block body %}
-<div class="signuptemp">
+<div class="signuptemp box-body">
   <a href="{% url 'customer_login'%}"><button class="back">Back</button></a><br>
 
     <h1>Sign up</h1>
@@ -12,9 +12,14 @@ CUSTOMER REGISTER
     <input class="box1" type="text" name="first_name" placeholder="firstname"><br><br>
     <input class="box1" type="text" name="last_name" placeholder="lastname"><br><br>
     <input class="box1" type="text" name="username" placeholder="username"><br><br>
-    <input class="box1" type="text" name="email" placeholder="email"><br><br>
+    <input class="box1" type="email" name="email" placeholder="email"><br><br>
     <input class="box1" type="password" name="password1" placeholder="password"><br><br>
     <input class="box1" type="password" name="password2" placeholder="password"><br><br>
+    <input class="box1" type="text" name="address" placeholder="address"><br><br>
+    <input class="box1" type="text" name="city" placeholder="city"><br><br>
+    <input class="box1" type="text" name="state" placeholder="state"><br><br>
+    <input class="box1" type="number" name="zip" placeholder="zip"><br><br>
+    <input class="box1" type="tel" name="phone" placeholder="phone"><br><br>
     <button type="submit" class="loginbox">Sign up</button>
   </form>
    
