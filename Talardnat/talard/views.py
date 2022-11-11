@@ -37,7 +37,7 @@ def thisshop(request, u_id, shop_id):
 
 def buy(request, u_id, shop_id, prod_id):
     shop = shop_detail.objects.get(id=shop_id)
-    customer = cs.objects.get(id=u_id)
+    customer = cs.objects.get(customer=u_id)
     prod = product.objects.get(pk=prod_id)
     menu = product.objects.filter(shop=shop)
     oder = MyOrder.objects.filter(shop=shop,customer=customer)

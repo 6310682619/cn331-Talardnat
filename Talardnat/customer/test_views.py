@@ -34,7 +34,7 @@ class CustomerViewTest(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['message'] == 'You have been logged out!')
+        self.assertTrue(response.context['message'] == 'You are logged out!')
         # Check template
         self.assertTemplateUsed(response, 'customer/login.html')
 
