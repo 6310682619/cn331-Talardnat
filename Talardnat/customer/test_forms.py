@@ -19,10 +19,10 @@ class CustomerFormTest(TestCase):
     def test_register_form(self):
         c = Client()
         response = c.post(reverse('register'), data={
-            'username': self.username,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'email': self.email,
+            'username': 'sunday',
+            'first_name': 'sunday',
+            'last_name': 'morning',
+            'email': 'sunday@morning.com',
             'password1': self.password1,
             'password2': self.password2
         })

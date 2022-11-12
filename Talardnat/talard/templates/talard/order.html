@@ -1,0 +1,30 @@
+{% extends 'talard/layout.html' %}
+{% block body %}
+<div>
+    <ul>
+        <script>
+            var sum = 0;
+            var p;
+
+        </script>
+        {% for o in order %}
+            <li>
+                Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                <script>
+                    p = "{{ o.price }}";
+                    sum += Number(p);
+                </script>
+                <a href="{% url 'delorder' u_id o.id %}">remove</a>
+            </li>
+            
+        {% endfor %}
+        Total:
+        <script>
+            document.write(sum);
+        </script>
+
+    <br><br>
+    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+</div>
+
+{% endblock body %}

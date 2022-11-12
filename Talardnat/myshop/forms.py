@@ -14,7 +14,7 @@ class ShopForm(forms.ModelForm):
     class Meta:
         model = shop_detail
         
-        fields = ['name', 'category', 'in_interact', 'ex_interact']
+        fields = ['name', 'category', 'in_interact', 'ex_interact', 'payment']
   
 class ProductForm(forms.ModelForm):
   
