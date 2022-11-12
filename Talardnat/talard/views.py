@@ -34,6 +34,7 @@ def thisshop(request, u_id, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
     menu = product.objects.filter(shop=this_shop)
     user = User.objects.get(id=u_id)
+    customer = cs.objects.get(customer=user)
     reviews = Review.objects.filter(shop=this_shop)
     # user = cs.objects.get(customer=u_id)
 
@@ -67,8 +68,9 @@ def thisshop(request, u_id, shop_id):
 
 def buy(request, u_id, shop_id, prod_id):
     shop = shop_detail.objects.get(id=shop_id)
-    customer = cs.objects.get(customer=u_id)
-    prod = product.objects.get(pk=prod_id)
+    user = User.objects.get(id=u_id)
+    customer = cs.objects.get(customer=user)
+    prod = product.objects.get(id=prod_id)
     menu = product.objects.filter(shop=shop)
     oder = MyOrder.objects.filter(shop=shop,customer=customer,prod=prod)
     hadod = oder.exists()
@@ -105,7 +107,6 @@ def del_order(request, u_id, oid):
     prod.save()
     order.delete()
     return HttpResponseRedirect(reverse("order", args=(u_id,)))
-    
 def addreview(request, u_id, shop_id):
     url = request.META.get('HTTP_REFERER')
     shop = shop_detail.objects.get(id=shop_id)
