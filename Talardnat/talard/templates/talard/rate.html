@@ -1,0 +1,28 @@
+{% extends 'talard/layout_talard.html' %}
+{% block body %}
+<div class="box-body">
+    <p style="text-align: center; font-size: 30px;">RATE US</p>
+    <br><br>
+    <form action="{% url 'rating' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h5>Rate our website</h5>
+            <br>
+            <div class="rate">
+                <input type="radio" name="rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
+                <input type="radio" name="rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
+                <input type="radio" name="rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
+                <input type="radio" name="rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
+                <input type="radio" name="rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
+            </div>
+            <br>
+            <p>What do you think about our website?</p>
+            <textarea name="rate_text" rows="4"></textarea>
+            <br>
+            <input type="submit" value="submit" class="spb a-button catagory">
+            <br><br>
+    </form>
+
+    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
+</div>
+
+{% endblock body %}

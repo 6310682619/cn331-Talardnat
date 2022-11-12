@@ -14,7 +14,7 @@ class ReviewForm(forms.ModelForm):
 		model= Review
 		fields= ["review_text", "review_rating"]
 
-# class RateUsForm(forms.ModelForm):
-# 	class Meta:
-# 		model= RateUs
-# 		fields= ["rating"]
+class RateUsForm(forms.ModelForm):
+	class Meta:
+		model= RateUs
+		fields= ["rate_text","rating"]

@@ -83,54 +83,6 @@
 
 		</div>
     
-
-        <!-- <div>
-        <header>
-            <h3>Reviews - <span>{{avg_reviews.avg_rating}}</span>/5 <i class="fa fa-star"></i>        
-        </header>
-            <h5>Add Review</h5>       
-                <form method="post" action="{% url 'addreview' u_id this_shop.id %}">
-                    {% csrf_token %}
-                    <input class="box1" type="text" name="review_text" placeholder="review_text"><br><br>
-                    <input class="box1" type="number" name="review_rating"><br><br>
-                    <button type="submit" >Submit</button>
-                    <input type="reset" value="Reset" id="reset" />
-        
-                </form>
-        </div> 
-        
-        {% for review in reviews %}
-                        <article class="box-body">
-                            <div class="icontext w-100">
-        
-                                <div class="text">
-                                    <h6>{{review.user.username}} </h6>
-                                    
-                                </div>
-                            </div>icontext.//
-                            <div class="card">
-                                <div class="card"style="max-height: 400px; overflow: auto;">
-                                    {% if avg_rating != 0 %}
-                                        {% for r in reviews %}
-                                            <blockquote>
-                                              <p>{{r.review_text}}</p>
-                                              <footer>{{r.user}} 
-                                                  <cite title="Source Title">
-                                                    {{r.review_rating}} 
-                                                  </cite>
-                                              </footer>
-                                            </blockquote>
-                                            <hr />
-                                            {% endfor %}
-                                    {% else %}
-                                        <p>Add First Review</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </article>
-        {% endfor %} -->
-
-
     
         <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
     </div>
