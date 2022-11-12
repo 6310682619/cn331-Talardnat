@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import shop_detail, review
+from .models import shop_detail, review,round
 from .models import product as pd
 from .models import MyOrder as od
 from seller.models import seller_detail
@@ -81,3 +81,23 @@ def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     rev = review.objects.filter(shop = s)
     return render(request, "myshop/myreview.html", {"rev":rev})
+
+def addqueue(request, shop_id):
+    s = shop_detail.objects.get(pk=shop_id)
+    allr = round.objects.filter()
+    found = round.objects.all().exists()
+    if not found:
+        allr = round(round_queue = 1)
+        allr.save()
+    for a in allr:
+        if a.numshop < 9:
+            a.shop.add(s)
+            a.numshop += 1
+            a.save()
+        elif a.numshop > 8 and a.round_queue == allr.lenght:
+            new_r = round(round_queue = (a.round_queue+1), numshop = 1)
+            new_r.save()
+            new_r.shop.add(s)
+            new_r.save()
+    
+    return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))

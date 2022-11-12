@@ -13,8 +13,8 @@ class shop_detail(models.Model):
     category = models.CharField(max_length=10, null=True)
     in_interact = models.CharField(max_length=100, null=True)
     ex_interact = models.CharField(max_length=64, null=True)
-    expire = models.IntegerField(default=0)
-    queue = models.IntegerField(null=True)
+    #expire = models.IntegerField(null=True)
+    #queue = models.IntegerField(null=True)
     payment = models.CharField(max_length=100, null=True)
 
     def __str__(self):
@@ -53,6 +53,14 @@ class MyOrder(models.Model):
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
     prod = models.ForeignKey(product, on_delete=models.CASCADE, null=True , related_name="ordered")
     count = models.IntegerField(default = 1)
-
     def price(self):
         return self.prod.price * self.count
+
+class round(models.Model):
+    shop = models.ManyToManyField(shop_detail, blank=True, related_name = "addqueue")
+    round_queue = models.IntegerField(default = 0)
+    numshop = models.IntegerField(default = 0)
+    expire = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"round: {self.round_queue}"
