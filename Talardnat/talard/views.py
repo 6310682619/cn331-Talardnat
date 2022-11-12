@@ -107,6 +107,7 @@ def del_order(request, u_id, oid):
     prod.save()
     order.delete()
     return HttpResponseRedirect(reverse("order", args=(u_id,)))
+    
 def addreview(request, u_id, shop_id):
     url = request.META.get('HTTP_REFERER')
     shop = shop_detail.objects.get(id=shop_id)
