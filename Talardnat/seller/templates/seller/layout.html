@@ -9,8 +9,9 @@
     }
 
     .conbox{
-        background-color: rgba(255,255,255,0.6);
+        background-color: rgba(255,255,255,0.4);
         border: solid 5px black;
+        border-color:rgba(175,86,137,0.8);
         width: 550px;
         height: auto;
         text-align: center;
@@ -34,7 +35,7 @@
     }
 
     body {
-        background-color: #FFF8ED;
+        background-color: rgba(175,86,137,0.4);;
     }
 
     .back{
@@ -58,7 +59,6 @@
     }
     
     .loginbox{
-        background-color:#EED9B8;
         width:120px;
         height:60px;
         font-family: Caveat;
@@ -66,10 +66,13 @@
         font-size: 35px;
         margin-top:25px;
         margin-bottom:10px;
+        background-color:rgba(175,86,137,0.4);
+        border-color:rgba(145,66,107,1);
+        border-radius: 20px;
     }
 
     .loginbox:hover{
-        background-color:#D7BE97;
+        background-color:rgba(145,66,107,0.7);
         transition: 0.1s;}
 
     .box1{
@@ -124,9 +127,9 @@
         font-size:30px;
         text-align: left;
     }
-
+    
     .myshopbutton{
-        background-color:#FFC975;
+        background-color:rgba(175,86,137,0.4);;
         width:210px;
         height:90px;
         font-family: Caveat;
@@ -134,17 +137,26 @@
         font-size: 35px;
         margin-top:0px;
         margin-bottom:10px;
+        border:none;
+        border-radius: 20px;
     }
 
     .myshopbutton:hover{
-        background-color:#E1B165;
+        background-color:rgba(145,66,107,0.7);;
         transition: 0.1s;
+        font-size: 40px;
     }
 
     .logoutt{
         font-size:30px;
+        color:rgba(175,86,137,1);
     }
 
+    .logoutt:hover{
+        color:rgba(145,56,107,1);
+    }
+
+    
 </style>
 <body>
     {% block body %}
