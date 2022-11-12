@@ -4,7 +4,7 @@ from django.db.models import Avg
 from myshop.models import shop_detail, product, MyOrder
 from django.contrib.auth.models import User
 from customer.models import Profile as cs
-from .forms import OrderForm, ReviewForm
+from .forms import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse, exceptions
 from django.db.models import Sum
@@ -36,17 +36,6 @@ def thisshop(request, u_id, shop_id):
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
     reviews = Review.objects.filter(shop=this_shop)
-    # user = cs.objects.get(customer=u_id)
-
-    # if request.method == 'POST':
-    #     form = ReviewForm(request.POST)
-    #     if form.is_valid():
-    #         data = Review()
-    #         data.review_text = form.cleaned_data['review_text']
-    #         data.review_rating = form.cleaned_data['review_rating']
-    #         data.shop = this_shop
-    #         data.user = user
-    #         data.save()
 
     if request.user.is_authenticated:
         try:
@@ -107,6 +96,7 @@ def del_order(request, u_id, oid):
     prod.save()
     order.delete()
     return HttpResponseRedirect(reverse("order", args=(u_id,)))
+    
 def addreview(request, u_id, shop_id):
     url = request.META.get('HTTP_REFERER')
     shop = shop_detail.objects.get(id=shop_id)
@@ -121,6 +111,23 @@ def addreview(request, u_id, shop_id):
             data.user = user
             data.save()
             return redirect(url)
+
+
+def rating(request):
+    if request.method == 'POST':
+        form = RateUsForm(request.POST)
+        if form.is_valid():
+            rate = RateUs()
+            rate.rate_text = form.cleaned_data['rate_text']
+            rate.rating = form.cleaned_data['rating']
+            rate.user = request.user
+            rate.save()
+            return HttpResponseRedirect(reverse("index"))
+    return render(request, 'talard/rate.html')
+    
+
+def rateus(request):
+    return render(request, 'talard/rate.html')
 
 
         #reviews = Review.objects.filter(user=user, shop=shop)
@@ -139,26 +146,4 @@ def addreview(request, u_id, shop_id):
             #     data.save()
             #     return redirect(url)
 
-def rate(request,u_id):
-    #rate = RateUs.objects.get(user=u_id)
-    pass
 
-
-# def addreview(request, u_id, shop_id):
-# 	shop = shop_detail.objects.get(id=shop_id)
-# 	user = cs.objects.get(customer=u_id)
-# 	review = Review.objects.create(
-# 		user = user,
-# 		shop = shop,
-# 		review_text = request.POST.get('review_text',False),
-# 		review_rating = request.POST.get('review_rating',False),
-# 		)
-
-# 	data = {
-# 		'user': request.user.username,
-# 		'review_text': request.POST.get('review_text',False),
-# 		'review_rating': request.POST.get('review_rating',False),
-# 	}
-# 	avg_reviews = Review.objects.filter(shop=shop).aggregate(avg_rating = Avg('review_rating'))
-
-# 	return JsonResponse({'bool':True, 'data': data, 'avg_reviews': avg_reviews})
