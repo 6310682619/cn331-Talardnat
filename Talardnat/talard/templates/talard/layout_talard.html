@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
-    div{
+    body{
         font-family: Caveat;
     }
 
@@ -37,7 +38,7 @@
         background-color: rgba(255,255,255,0.5);
         border: solid 1px rgba(0,0,0,0.2);
         width: 900px;
-        height: 800px;
+        height: auto;
         margin-top: 60px;
         margin-left: auto;
         margin-right: auto;
@@ -56,7 +57,34 @@
 
     body {
         background-color:pink;
-        <!--background-color: rgb(255, 248, 237);-->
+        /* background-color: rgb(255, 248, 237); */
+    }
+
+    .box-body{
+        font-family: Caveat;
+        background-color: rgba(232, 224, 224, 0.738);
+        border: solid 5px black;
+        width: 550px;
+        height: auto;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:60px;
+    }
+
+    .button{
+        border:none;
+        display:inline-block;
+        padding:8px 16px;
+        vertical-align:middle;
+        overflow:hidden;
+        text-decoration:none;
+        color:inherit;
+        background-color:inherit;
+        text-align:center;
+        cursor:pointer;
+        white-space:nowrap;
+        
     }
 
     .back{
@@ -72,6 +100,99 @@
     .back:hover{
         background-color:#C7B9A2;
         transition: 0.15s;}
+
+    .rate > input{
+        display: none;
+    }
+
+    .rate{
+        display: inline-block;;
+        border: 0;
+    }
+
+    .rate > label{
+        float: right;
+    }
+
+    /* Showing the stars */
+    .rate > label:before{
+        display: inline-block;
+        font-size: 1.1rem;
+        font-family: FontAwesome;
+        content: "\f005";
+        margin:0;
+        padding:0.3rem .2rem;
+        cursor: pointer;
+    }
+
+    /* Half star */
+    .rate .half:before{
+        content: "\f089";
+        position: absolute;
+        padding-right: 0;
+    }
+
+    .rating-star i{
+        color: #ffb503;
+    }
+
+    .label-rating {
+    margin-left: 7px;
+    display: inline-block;
+    vertical-align: middle;
+    }
+
+    /* rating-list */
+    .rating-stars {
+    display: inline-block;
+    vertical-align: middle;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    white-space: nowrap;
+    clear: both;
+    }
+
+    .rating-stars i {
+    font-size: 14px;
+    color: #ccc;
+    display: inline;
+    }
+
+    .rating-stars img {
+    height: 14px;
+    max-width: none;
+    }
+    .rating-stars li {
+    display: block;
+    text-overflow: clip;
+    white-space: nowrap;
+    z-index: 1;
+    }
+    .rating-stars li.stars-active {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    }
+    .rating-stars li.stars-active i {
+    color: orange;
+    }
+    .rating-stars.stars-lg img {
+    height: 20px;
+    max-width: none;
+    }
+
+    input:checked ~ label, label:hover ~ label{
+    color: #ffb503;
+    }
+
+    input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+    label:hover ~ input:checked ~ label{
+    color: #cc9000;
+    }
 
 </style>
 <body>
