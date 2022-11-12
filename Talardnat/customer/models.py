@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 # Create your models here.
 
 class Profile(models.Model):
-    customer = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE, default=1)
+    customer = models.ForeignKey(User, related_name="profile", on_delete=models.CASCADE, unique=True)
     address = models.CharField(max_length=150, null=True, blank=True)
     city = models.CharField(max_length=40, null=True, blank=True)
     state = models.CharField(max_length=40, null=True, blank=True)
@@ -19,9 +19,9 @@ class Profile(models.Model):
 
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    try:
-        instance.profile.save()
-    except ObjectDoesNotExist:
-        Profile.objects.create(customer=instance)
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     try:
+#         instance.profile.save()
+#     except ObjectDoesNotExist:
+#         Profile.objects.create(customer=instance)
