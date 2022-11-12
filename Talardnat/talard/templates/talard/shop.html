@@ -1,11 +1,13 @@
-{% extends 'talard/layout.html' %}
+{% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
     <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
     <h1>{{ this_shop.name }}</h1>
     <h3>Expire Date: {{ this_shop.expire }}</h3>
 
-        <ul>
+    <!-- <h2>Menu</h2> -->
+    <div class="menubox">
+        <ul class="menulist">
             {% for m in menu %}
                 <li>
                     Product: {{ m.product_name }} Price: {{ m.price }} Count: {{ m.count }}
@@ -24,7 +26,118 @@
                 </li>
             {% endfor %}
         </ul>
+<<<<<<< HEAD
             <a href="{% url 'order' u_id %}">order</a><br><br>
             <a class="logout" href="{% url 'customer_logout'%}">Logout</a><br><br>
+=======
+    
+        <br>
+        
+        <div>
+			<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
+				{% csrf_token %}
+				<h5>Write Your Review</h5>
+					<label>How do you rate this shop?</label>
+					<br>
+					<div class="rate">
+						<input type="radio" name="review_rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
+						<input type="radio" name="review_rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
+						<input type="radio" name="review_rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
+						<input type="radio" name="review_rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
+						<input type="radio" name="review_rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
+					</div>
+                    <br>
+					Review:
+					<textarea name="review_text" rows="4"></textarea>
+                    <input type="submit" value="submit">
+                    <br><br>
+					<!-- {% if canReview %}  -->
+                        
+					<!-- {% else %} 
+						<p>You must purchase from this shop to post a review.</p>
+					{% endif %}  -->
+            </form>   
+
+            <br>
+            <div>
+                <p style="font-size: 20px;">Customer Reviews </p>
+                <h3>Reviews - <span>{{this_shop.averageReview}}</span>/5 <i class="fa fa-star"></i></h3>
+
+            </div>
+
+            {% for review in reviews %}
+				<article class="box-body">
+					<h6>{{review.user}} </h6>
+							<div class="rating-star">
+								<span>
+									<i class="fa fa-star{% if review.review_rating == 1 %}{% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.review_rating == 1.5 %}-half-o{% elif review.review_rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.review_rating == 2.5 %}-half-o{% elif review.review_rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.review_rating == 3.5 %}-half-o{% elif review.review_rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.review_rating == 4.5 %}-half-o{% elif review.review_rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+								</span>
+							</div>
+						<p>
+						    {{review.review_text}}
+						</p>
+				</article>
+            {% endfor %}
+
+
+		</div>
+    
+
+        <!-- <div>
+        <header>
+            <h3>Reviews - <span>{{avg_reviews.avg_rating}}</span>/5 <i class="fa fa-star"></i>        
+        </header>
+            <h5>Add Review</h5>       
+                <form method="post" action="{% url 'addreview' u_id this_shop.id %}">
+                    {% csrf_token %}
+                    <input class="box1" type="text" name="review_text" placeholder="review_text"><br><br>
+                    <input class="box1" type="number" name="review_rating"><br><br>
+                    <button type="submit" >Submit</button>
+                    <input type="reset" value="Reset" id="reset" />
+        
+                </form>
+        </div> 
+        
+        {% for review in reviews %}
+                        <article class="box-body">
+                            <div class="icontext w-100">
+        
+                                <div class="text">
+                                    <h6>{{review.user.username}} </h6>
+                                    
+                                </div>
+                            </div>icontext.//
+                            <div class="card">
+                                <div class="card"style="max-height: 400px; overflow: auto;">
+                                    {% if avg_rating != 0 %}
+                                        {% for r in reviews %}
+                                            <blockquote>
+                                              <p>{{r.review_text}}</p>
+                                              <footer>{{r.user}} 
+                                                  <cite title="Source Title">
+                                                    {{r.review_rating}} 
+                                                  </cite>
+                                              </footer>
+                                            </blockquote>
+                                            <hr />
+                                            {% endfor %}
+                                    {% else %}
+                                        <p>Add First Review</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </article>
+        {% endfor %} -->
+
+
+    
+        <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
+    </div>
+
+>>>>>>> c19ac2b4704b779faeb114d650f48c0fa3f21c09
 </div>
 {% endblock %}

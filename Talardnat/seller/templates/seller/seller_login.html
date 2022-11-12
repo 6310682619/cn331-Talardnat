@@ -3,7 +3,8 @@
 SELLER LOGIN
 {% endblock%}
 {% block body %}
-<div>   
+<div class="conbox">
+    <div class="bg"></div>   
     <a href="{% url 'taview'%}" class="back">Back</a><br>
     <h1>LOGIN:SELLER</h1>
     <form action="{% url 'seller_login' %}" method="post">

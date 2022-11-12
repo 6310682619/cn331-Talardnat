@@ -3,7 +3,8 @@
 CUSTOMER LOGIN
 {% endblock%}
 {% block body %}
-<div>
+<div class="box-body">
+    <div class="bg"></div>
     <a href="{% url 'taview'%}"><button class="back">Back</button></a><br>
     <h1>LOGIN:CUSTOMER</h1>
     <form action="{% url 'customer_login' %}" method="post">

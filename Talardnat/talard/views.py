@@ -1,12 +1,17 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
+from django.db.models import Avg
 from myshop.models import shop_detail, product, MyOrder
 from django.contrib.auth.models import User
 from customer.models import Profile as cs
-from .forms import OrderForm
+from .forms import OrderForm, ReviewForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse, exceptions
+<<<<<<< HEAD
 from django.db.models import Sum
+=======
+from .models import *
+>>>>>>> c19ac2b4704b779faeb114d650f48c0fa3f21c09
 
 # Create your views here.
 
@@ -31,18 +36,52 @@ def allshop(request, category, u_id):
 def thisshop(request, u_id, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
     menu = product.objects.filter(shop=this_shop)
+<<<<<<< HEAD
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
+=======
+    reviews = Review.objects.filter(shop=this_shop)
+    # user = cs.objects.get(customer=u_id)
+
+    # if request.method == 'POST':
+    #     form = ReviewForm(request.POST)
+    #     if form.is_valid():
+    #         data = Review()
+    #         data.review_text = form.cleaned_data['review_text']
+    #         data.review_rating = form.cleaned_data['review_rating']
+    #         data.shop = this_shop
+    #         data.user = user
+    #         data.save()
+
+    if request.user.is_authenticated:
+        try:
+            canReview = MyOrder.objects.filter(customer=request.user.id, shop=this_shop).exists()
+        except MyOrder.DoesNotExist:
+            canReview = None
+    else:
+        canReview = None
+    
+    #avg_reviews = Review.objects.filter(shop=this_shop).aggregate(avg_rating = Avg('review_rating'))
+
+>>>>>>> c19ac2b4704b779faeb114d650f48c0fa3f21c09
     return render(request, 'talard/shop.html', {
         "this_shop" : this_shop,
-        "menu" : menu, "u_id":u_id
+        "menu" : menu, "u_id":u_id,
+        "reviews": reviews,
+        "canReview": canReview,
+        # "avg_reviews": avg_reviews,
     })
 
 def buy(request, u_id, shop_id, prod_id):
     shop = shop_detail.objects.get(id=shop_id)
+<<<<<<< HEAD
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
     prod = product.objects.get(id=prod_id)
+=======
+    customer = cs.objects.get(customer=u_id)
+    prod = product.objects.get(pk=prod_id)
+>>>>>>> c19ac2b4704b779faeb114d650f48c0fa3f21c09
     menu = product.objects.filter(shop=shop)
     oder = MyOrder.objects.filter(shop=shop,customer=customer,prod=prod)
     hadod = oder.exists()
@@ -63,6 +102,7 @@ def buy(request, u_id, shop_id, prod_id):
         return render(request, "talard/shop.html", {"this_shop" : shop,
         "menu" : menu, "u_id":u_id, "message":f"invalid count. Have {prod.prodcount()} got {in_count}"})
 
+<<<<<<< HEAD
 
 def order(request, u_id):
     user = User.objects.get(id=u_id)
@@ -79,3 +119,60 @@ def del_order(request, u_id, oid):
     prod.save()
     order.delete()
     return HttpResponseRedirect(reverse("order", args=(u_id,)))
+=======
+def addreview(request, u_id, shop_id):
+    url = request.META.get('HTTP_REFERER')
+    shop = shop_detail.objects.get(id=shop_id)
+    user = cs.objects.get(customer=u_id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            data = Review()
+            data.review_text = form.cleaned_data['review_text']
+            data.review_rating = form.cleaned_data['review_rating']
+            data.shop = shop
+            data.user = user
+            data.save()
+            return redirect(url)
+
+
+        #reviews = Review.objects.filter(user=user, shop=shop)
+        # form = ReviewForm(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        # return redirect(url)
+
+            # form = ReviewForm(request.POST)
+            # if form.is_valid():
+            #     data = Review()
+            #     data.review_text = form.cleaned_data['review_text']
+            #     data.review_rating = form.cleaned_data['review_rating']
+            #     data.shop = shop
+            #     data.user = user
+            #     data.save()
+            #     return redirect(url)
+
+def rate(request,u_id):
+    #rate = RateUs.objects.get(user=u_id)
+    pass
+
+
+# def addreview(request, u_id, shop_id):
+# 	shop = shop_detail.objects.get(id=shop_id)
+# 	user = cs.objects.get(customer=u_id)
+# 	review = Review.objects.create(
+# 		user = user,
+# 		shop = shop,
+# 		review_text = request.POST.get('review_text',False),
+# 		review_rating = request.POST.get('review_rating',False),
+# 		)
+
+# 	data = {
+# 		'user': request.user.username,
+# 		'review_text': request.POST.get('review_text',False),
+# 		'review_rating': request.POST.get('review_rating',False),
+# 	}
+# 	avg_reviews = Review.objects.filter(shop=shop).aggregate(avg_rating = Avg('review_rating'))
+
+# 	return JsonResponse({'bool':True, 'data': data, 'avg_reviews': avg_reviews})
+>>>>>>> c19ac2b4704b779faeb114d650f48c0fa3f21c09
