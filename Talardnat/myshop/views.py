@@ -27,7 +27,13 @@ def shop(request, shop_id):
     user = User.objects.get(username=s.seller_id)
     seller = seller_detail.objects.get(sname = user)
     order = od.objects.filter(shop = s)
-    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id, "order":order})
+    queue = s.addqueue.filter()
+    if not queue.exists():
+        queue = 'none'
+    else:
+        queue = (s.addqueue.get()).round_queue
+    
+    return render(request, "myshop/shop.html", {"shop" : s, "seller":seller.id, "order":order, "queue":queue,})
 
 def del_shop(request, shop_id):
     s = shop_detail.objects.get(pk = shop_id)
@@ -84,12 +90,15 @@ def myreview(request, shop_id):
 
 def addqueue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
-    allr = round.objects.filter()
     found = round.objects.all().exists()
     if not found:
-        allr = round(round_queue = 1)
-        allr.save()
+        new_r= round(round_queue = 1)
+        new_r.save()
+    allr = round.objects.filter()
     for a in allr:
+        find = allr.filter(shop = s).exists()
+        if find:
+            break
         if a.numshop < 9:
             a.shop.add(s)
             a.numshop += 1
@@ -99,5 +108,18 @@ def addqueue(request, shop_id):
             new_r.save()
             new_r.shop.add(s)
             new_r.save()
+    
+    return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
+
+def delqueue(request, shop_id):
+    s = shop_detail.objects.get(pk=shop_id)
+    allr = round.objects.filter()
+    q = allr.filter(shop = s)
+    find = q.exists()
+    if find:
+        q = allr.get(shop = s)
+        q.delete()
+        q.numshop -= 1
+        q.save()
     
     return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
