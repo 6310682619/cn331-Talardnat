@@ -2,29 +2,27 @@
 {% block body %}
 <div class="outer-wrapper">
     <div class="wrapper">
+        <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
+        
         <div class="slide">
-            <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
             <h1>Talard</h1>
-        </div>
-        <div class="slide menubox">
             {% for c in allshop %}
             {% if c.category == category %}
-                <li>
+                <div class="talardbox">
                     <a href= "{% url 'thisshop' u_id c.id %}">
                         {{ c }}
                     </a>
-                </li>
+                </div>
             {% endif %}
             {% endfor %}
-        </div>
-        <div class="slide menubox">
+            
             {% for x in allshop %}
             {% if x.category != category %}
-                <li>
+                <div class="talardbox">
                     <a href= "{% url 'thisshop' u_id x.id %}">
                         {{ x }}
                     </a>
-                </li>
+                </div>
             {% endif %}
             {% endfor %}
         </div>
