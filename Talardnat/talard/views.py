@@ -114,6 +114,8 @@ def addreview(request, u_id, shop_id):
 
 
 def rating(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('customer_login'))
     if request.method == 'POST':
         form = RateUsForm(request.POST)
         if form.is_valid():

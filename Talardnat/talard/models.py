@@ -12,6 +12,9 @@ class Review(models.Model):
     review_text = models.TextField(max_length=300)
     review_rating = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.review_rating}"
+
 
 class RateUs(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

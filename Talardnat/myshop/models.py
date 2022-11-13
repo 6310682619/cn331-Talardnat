@@ -18,7 +18,7 @@ class shop_detail(models.Model):
     payment = models.CharField(max_length=100, null=True)
 
     def __str__(self):
-        return f"{self.id} name: {self.name}"
+        return f"{self.id} {self.name}"
 
 class product(models.Model):
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, related_name = "prod", null=True)

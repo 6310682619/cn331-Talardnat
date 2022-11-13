@@ -5,7 +5,7 @@
     <ul>
     {% for s in shop %}
         <li>
-            <a href= "{% url 'myshop' s.id %}">
+            <a href= "{% url 'myshop' s.id %}" class="slist">
                 {{ s }}
             </a>
             <a href= "{% url 'delshop' s.id %}"
