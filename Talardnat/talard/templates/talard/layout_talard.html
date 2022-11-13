@@ -11,7 +11,7 @@
 
     h2{
         font-size:80px;
-        position:absolute;
+        /*position:absolute;*/
         text-align:center;
         margin-top:5px;
         margin-left: auto;
@@ -25,6 +25,7 @@
         background-color: rgba(255,255,255,0.5);
         border: solid 2px rgba(0,0,0,0.1);
         width: 700px;
+        /*width: auto;*/
         height: 100px;
         margin-left: auto;
         margin-right: auto;
@@ -32,6 +33,7 @@
         margin-bottom: 0px;;
         text-align: center;
         font-size:70px;
+        
     }
     
     .menubox{
@@ -57,8 +59,11 @@
     }
 
     body {
-        background-color:pink;
+        background-color:#FBD6CD;
         /* background-color: rgb(255, 248, 237); */
+        font-size:30px;
+        margin-top:10px;
+        text-align:center;
     }
 
     .box-body{
@@ -94,7 +99,7 @@
         height:40px;
         font-family: Caveat;
         font-size: 30px;
-        /*float: left;*/
+        float: left;
         text-decoration:none;
     }
 
@@ -106,17 +111,31 @@
     .talardbox{
         background-color: rgba(255,255,255,0.5);
         border: solid 1px rgba(0,0,0,0.2);
-        width: auto;
+        width: 300px;
         height: auto;
         margin-top: 60px;
         margin-left: auto;
         margin-right: auto;
-        padding:20px;
-        display:inline-block;
+        /*display:inline-block;*/
     }
 
     .sameline{
         float:left;
+    }
+
+    .gotoshop{
+        background-color:rgba(175,86,137,0.4);
+        width:300px;
+        height:55px;
+        font-family: Caveat;
+        font-size: 40px;
+        float: left;
+        text-decoration:none;
+    }
+
+    .gotoshop:hover{
+        background-color:rgba(145,66,107,0.7);
+        transition: 0.15s;
     }
 
     .rate > input{
@@ -179,12 +198,14 @@
     height: 14px;
     max-width: none;
     }
+
     .rating-stars li {
     display: block;
     text-overflow: clip;
     white-space: nowrap;
     z-index: 1;
     }
+
     .rating-stars li.stars-active {
     z-index: 2;
     position: absolute;
@@ -192,9 +213,11 @@
     left: 0;
     overflow: hidden;
     }
+
     .rating-stars li.stars-active i {
     color: orange;
     }
+
     .rating-stars.stars-lg img {
     height: 20px;
     max-width: none;
@@ -212,21 +235,26 @@
         float:left;
     }
 
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
     .slide {
-        width: 100vw;
+        width: 2400px;
         height: 100vh;
     }
 
     .wrapper {
         display: flex;
         flex-direction: row;
-        width: 400vw;
+        width: 2400px;
         transform: rotate(90deg) translateY(-100vh);
         transform-origin: top left;
     }
 
     .outer-wrapper {
-        width: 100vh;
+        width: 2400px;
         height: 100vw;
         transform: rotate(-90deg) translateX(-100vh);
         transform-origin: top left;
@@ -237,10 +265,41 @@
         -ms-overflow-style: none;
     }
 
-    /* ::-webkit-scrollbar {
+    /*::-webkit-scrollbar {
         display:none;
     } */
 
+    h{
+        font-size:40px;
+    }
+
+    .submit{
+        width:85px;
+        height:40px;
+        font-family: Caveat;
+        font-size:25px;
+        border: none;
+        padding:0px;
+        background-color: rgba(15,86,137,0.4);
+        border-radius: 8px;
+    }
+
+    /*.mylistorder{
+        width:120px;
+        height:50px;
+        font-family: Caveat;
+        font-weight: bold;
+        font-size: 35px;
+        margin-top:25px;
+        margin-bottom:10px;
+        background-color:rgba(175,86,137,0.4);
+        border-color:rgba(145,66,107,1);
+        border-radius: 20px;
+    }
+
+    .mylistorder:hover{
+        background-color:rgba(145,66,107,0.7);
+        transition: 0.1s;}*/
     
 
 </style>

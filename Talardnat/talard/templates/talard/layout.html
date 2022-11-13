@@ -4,6 +4,7 @@
     <title>TU TALARDNAT</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3361/3361384.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
 <style>
@@ -45,7 +46,7 @@
     body, html {
       height: 100%;
       line-height: 1.8;
-      overflow-x:hidden
+      overflow-x:hidden;
     }
 
     body {
@@ -106,7 +107,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-    }
+    } 
 
     .spb{
         display: inline-block;
@@ -121,13 +122,13 @@
     }
 
     .about {
-        background-color: white;
+        background-color: rgba(255,255,255,0.5);
         color: black;
-        border: 3px solid #4caf81;
+        border: 3px solid rgba(175,86,137,0.4);
     }
 
     .about:hover {
-        background-color: #4caf81;
+        background-color: rgba(175,86,137,0.4);
         color: white;
     }
 
@@ -212,7 +213,9 @@
         background-color:#f1f1f1;
     }
 
-    .a-block{display:block;width:100%}
+    .a-block{
+        display:block;
+        width:100%;}
 
     .row-padding,.row-padding>.col{padding:0 8px}
 
@@ -252,6 +255,62 @@
         background-color: white;
         color: black;
         border: 3px solid #BAA8A8;
+    }
+
+    .aboutus{
+        float: right;
+        margin-right:20px;
+    }
+
+    .dropbtn {
+        background-color: #BAA8A8;
+        color: white;
+        padding: 16px;
+        font-size: 40px;
+        border: none;
+        border-radius: 100%;
+        height: 100px;
+        width: 100px;
+    }
+
+    .dropup {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropup-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        bottom: 50px;
+        z-index: 1;
+    }
+
+    .dropup-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .dropup-content a:hover {background-color: rgb(229, 216, 216)}
+
+    .dropup:hover .dropup-content {
+        display: block;
+    }
+
+    .dropup:hover .dropbtn {
+        background-color: #BAA8A8;
+    }
+
+    .bottomleft {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+        font-size: 18px;
     }
 
 </style>

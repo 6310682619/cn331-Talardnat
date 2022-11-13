@@ -1,11 +1,11 @@
 {% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div class="box-body">
-    <p style="text-align: center; font-size: 30px;">RATE US</p>
-    <br><br>
+    <!--<p style="text-align: center; font-size: 30px;">RATE US</p>-->
     <form action="{% url 'rating' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h5>Rate our website</h5>
+        <br>
+        <h>Rate our website</h>
             <br>
             <div class="rate">
                 <input type="radio" name="rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
@@ -18,7 +18,7 @@
             <p>What do you think about our website?</p>
             <textarea name="rate_text" rows="4"></textarea>
             <br>
-            <input type="submit" value="submit" class="spb a-button catagory">
+            <input type="submit" value="submit" class="submit">
             <br><br>
     </form>
 

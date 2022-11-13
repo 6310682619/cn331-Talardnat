@@ -21,8 +21,7 @@ class SellerViewsTest(TestCase):
             category = "food",
             in_interact = "Dark Chocolate is sweet",
             ex_interact = "Buy it or Buy it!",
-            expire = 14,
-            queue = 1
+            payment = "12312121"
         )
 
     def test_index(self):
@@ -56,7 +55,7 @@ class SellerViewsTest(TestCase):
     def test_not_user_login(self):
         c = Client()
         response = c.post(reverse('seller_login'),
-               {'username': 'user3', 
+               {'username': 'sunday', 
                'password': 'tuesday3'})
         # Check response
         self.assertTrue(response.context['message'] == 'Invalid credentials.')

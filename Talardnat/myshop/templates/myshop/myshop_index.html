@@ -1,11 +1,15 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-<div>
+<div class="conbox">
+    <div class="back">
+        <a href= "{% url "seller_index" sid %}"><p>Back</p></a>
+    </div>
+    <br><br>
     <h1>My Shop List</h1>
     <ul>
     {% for s in shop %}
         <li>
-            <a href= "{% url 'myshop' s.id %}">
+            <a href= "{% url 'myshop' s.id %}" class="slist">
                 {{ s }}
             </a>
             <a href= "{% url 'delshop' s.id %}"
@@ -23,18 +27,18 @@
         <li>NO SHOP</li>
     {% endfor %}<br><br>
     </ul>
-    <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br>
+    <a class="logoutt" href="{% url 'seller_logout' %}">Logout</a><br><br><br>
     
 </div>
 
-<div class="temp">
+<div class="temp conbox"><br>
     <h>ADD SHOP</h>
     <form method = "post" enctype="multipart/form-data">
         <div class="addsh">{% csrf_token %}
         {{ form.as_p }}</div>
         <button type="submit">ADD</button>
-    </form>
-    
+    </form><br>
 </div>
+<br><br>
 
 {% endblock body %}

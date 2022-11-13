@@ -1,7 +1,10 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-<div class="temp">
-    <p href= "{% url 'myshop' shop_id %}" class="back"><a>Back</a></p><br>
+<div class="temp conbox">
+    <div class="back">
+    <a href= "{% url 'myshop' shop_id %}"><p>Back</p></a>
+    </div>
+    <div>
     <h1>Edit detail</h1>
 
         <form method = "post" enctype="multipart/form-data">

@@ -9,26 +9,39 @@ from customer.models import Profile
 class CustomerViewTest(TestCase):
     def setUp(self):
         user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-        user1.save()
+
+        customer1 = Profile.objects.create(
+            customer = user1,
+            address = "Citypark",
+            city = "TU",
+            state = "Bkk",
+            zip = 11111,
+            phone = 123456789
+        )
 
     def test_profile(self):
+        """Test if user can access profile"""
         c = Client()
         c.post(reverse('customer_login'),
                {'username': 'sunday', 
                'password': 'sunday11'})
-        response = c.get(reverse('profile'))
+
+        customer1 = Profile.objects.first()
+        response = c.get(reverse('profile', args=[customer1.id]))
         # Check response
         self.assertEqual(response.status_code, 200)
         # Check template
         self.assertTemplateUsed(response, 'customer/profile.html')
 
     def test_login_view(self):
+        """Test if user can login"""
         c = Client()
         response = c.get(reverse('customer_login'))
         # Check response
         self.assertEqual(response.status_code, 200)
 
     def test_logged_out(self):
+        """Test if user can logout"""
         c = Client()
         response = c.get(reverse('customer_logout'))
 
@@ -39,11 +52,12 @@ class CustomerViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer/login.html')
 
     def test_not_user_login(self):
+        """Test if user put wrong password"""
         c = Client()
         response = c.post(reverse('customer_login'),
-               {'username': 'user3', 
+               {'username': 'sunday', 
                'password': 'tuesday3'})
-        # Check response
+        
         self.assertTrue(response.context['message'] == 'Invalid credentials.')
 
         response = c.get(reverse('customer_login'))
@@ -62,12 +76,3 @@ class CustomerViewTest(TestCase):
 
         self.failUnless(isinstance(response.context['form'],
                                    forms.RegisterForm))
-
-    def test_register_success(self):
-        c = Client()
-        response = c.post(reverse('register'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
-        response = c.get(reverse('profile'))
-        # Check response
-        self.assertEqual(response.status_code, 302)

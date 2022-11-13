@@ -12,12 +12,9 @@ class Review(models.Model):
     review_text = models.TextField(max_length=300)
     review_rating = models.IntegerField()
 
-    def averageReview(self):
-        reviews = Review.objects.filter(shop=self, status=True).aggregate(average=Avg('review_rating'))
-        avg = 0
-        if reviews['average'] is not None:
-            avg = float(reviews['average'])
-        return avg
+    def __str__(self):
+        return f"{self.review_rating}"
+
 
 class RateUs(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
