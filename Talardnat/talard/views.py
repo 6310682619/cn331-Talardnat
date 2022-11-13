@@ -26,6 +26,8 @@ def category(request, u_id):
 
 def allshop(request, category, u_id):
     r = round.objects.get(round_queue = 0)
+    if not round.objects.filter(round_queue = 0):
+        r = None
     allshop = r.shop
     return render(request, 'talard/allshop.html', {
         "allshop" : allshop, "category" :category, "u_id":u_id
