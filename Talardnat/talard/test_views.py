@@ -113,24 +113,6 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/allshop.html')
 
-    # def test_thisshop_view(self):
-    #     """Test if page is accessible, check response and template"""
-
-    #     c = Client()
-    #     c.post(reverse('customer_login'),
-    #            {'username': 'monday', 
-    #            'password': 'monday22'})
-        
-    #     shop1 = shop_detail.objects.first()
-    #     customer1 = Profile.objects.first()
-    #     data={
-    #         "customer" : customer1,
-    #         "shop" : shop1,
-    #     }
-
-        # response=c.get(reverse('thisshop', args=[customer1.id, shop1.id]),data=data)
-        # self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, 'talard/shop.html')
 
     def test_about_view(self):
         """Test if about page is accessible, check response and template"""
@@ -172,57 +154,6 @@ class TalardViewsTest(TestCase):
         count = MyOrder.objects.all()
         count.delete()
         self.assertEqual(count.count(), 0)
-        # response=c.get(reverse('order', args=[user2.id]))
-        # self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, 'talard/order.html')
-
-    # def test_order(self):
-    #     c = Client()
-    #     c.post(reverse('customer_login'),
-    #            {'username': 'monday', 
-    #            'password': 'monday22'})
-        
-            
-    #     customer1 = Profile.objects.first()
-    #     product1 = product.objects.first()
-    #     shop1 = shop_detail.objects.first()
-    #     data={
-    #         "customer" : customer1.customer,
-    #         "shop" : shop1,
-    #         "prod" : product1,
-    #         "count" : 1
-    #     }
-    #     count = MyOrder.objects.all()
-    #     self.assertEqual(count.count(), 1)
-    #     response=c.get(reverse('order', args=[customer1.id]),data=data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'talard/order.html')
-
-    # def test_buy_view(self):
-    #     c = Client()
-    #     c.post(reverse('customer_login'),
-    #            {'username': 'sunday', 
-    #            'password': 'sunday11'})
-    #     shop1 = shop_detail.objects.first()
-    #     user2 = User.objects.first()
-    #     product1 = product.objects.first()
-
-    #     response=c.get(reverse('buy', args=[user2.id,shop1.id,product1.id]))
-    #     # Check response
-    #     self.assertTemplateUsed(response, 'talard/shop.html')
-
-    # def test_valid_addreview(self):
-    #     customer1 = Profile.objects.first()
-    #     shop1 = shop_detail.objects.first()
-    #     review1 = Review.objects.first()
-    #     data={
-    #         "user": customer1,
-    #         "shop": shop1,
-    #         "review_text": review1.review_text,
-    #         "review_rating": review1.review_rating
-    #     }
-    #     response = self.client.post(reverse('addreview',args=[customer1.id, shop1.id]), data=data)
-    #     self.assertEqual(response.status_code, 302)
 
     def test_valid_rating(self):
         rateus1 = RateUs.objects.first()
@@ -241,3 +172,6 @@ class TalardViewsTest(TestCase):
         response=c.get(reverse('rateus'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/rate.html')
+
+
+ 

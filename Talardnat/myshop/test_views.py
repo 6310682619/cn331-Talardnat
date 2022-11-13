@@ -194,3 +194,28 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.all()
         shop1.delete()
         self.assertEqual(shop1.count(), 0)
+
+    def test_shop_form(self):
+        shop1 = shop_detail.objects.first()
+        data={
+            'name': 'pudding',
+            'category': 'food',
+            'in_interact': 'eat it',
+            'ex_interact': 'eat',
+            'payment': '123',
+        }
+        response = self.client.post(reverse('myshop', args=(shop1.id,)), data=data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_product_form(self):
+        temp_img = tempfile.NamedTemporaryFile()
+        test_image = create_image(temp_img)
+        shop1 = shop_detail.objects.first()
+        data={
+            'product_name': 'pudding',
+            'price': 10,
+            'count': 'eat it',
+            'product_im': test_image.name,
+        }
+        response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
+        self.assertEqual(response.status_code, 200)

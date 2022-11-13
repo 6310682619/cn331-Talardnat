@@ -78,13 +78,3 @@ class MyShopModelsTest(TestCase):
         c = product1.prodcount()
         c-=1
         self.assertFalse(c > 0)
-
-    def test_round(self):
-        shop1 =shop_detail.objects.first()
-        round1 = round.objects.create(
-            round_queue = 1,
-            numshop = 1,
-            expire = 10
-        )
-        round1.shop.set(shop1)
-        self.assertEqual(round1.__str__(), str(round1.round_queue))
