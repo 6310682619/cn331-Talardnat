@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Avg
-from myshop.models import shop_detail, product, MyOrder
+from myshop.models import shop_detail, product, MyOrder, round
 from django.contrib.auth.models import User
 from customer.models import Profile as cs
 from .forms import *
@@ -25,7 +25,8 @@ def category(request, u_id):
     })
 
 def allshop(request, category, u_id):
-    allshop = shop_detail.objects.all()
+    r = round.objects.get(round_queue = 0)
+    allshop = r.shop
     return render(request, 'talard/allshop.html', {
         "allshop" : allshop, "category" :category, "u_id":u_id
     })
