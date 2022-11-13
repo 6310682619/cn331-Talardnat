@@ -15,6 +15,14 @@
         </div>
         <br><br>
     </ul>
-    <a class="logoutt log center-horizontal" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>
+
+<div class="dropup bottomleft">
+    <button class="dropbtn"><i class="fa fa-cutlery"></i></button>
+    <div class="dropup-content">
+      <a href="{% url 'customer_logout' %}">Log out</a>
+      <a href="{% url 'about' %}">About us</a>
+      <a href="{% url 'rateus' %}">Rate us</a>
+    </div>
+  </div>
 {% endblock body %}
