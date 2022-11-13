@@ -45,7 +45,7 @@
     body, html {
       height: 100%;
       line-height: 1.8;
-      overflow-x:hidden
+      overflow-x:hidden;
     }
 
     body {
@@ -102,11 +102,11 @@
         background-color:#BAA8A8;
         transition: 0.2s;}
 
-    .center-horizontal {
+    {% comment %} .center-horizontal {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-    }
+    } {% endcomment %}
 
     .spb{
         display: inline-block;
@@ -121,13 +121,13 @@
     }
 
     .about {
-        background-color: white;
+        background-color: rgba(255,255,255,0.5);
         color: black;
-        border: 3px solid #4caf81;
+        border: 3px solid rgba(175,86,137,0.4);
     }
 
     .about:hover {
-        background-color: #4caf81;
+        background-color: rgba(175,86,137,0.4);
         color: white;
     }
 
@@ -212,7 +212,9 @@
         background-color:#f1f1f1;
     }
 
-    .a-block{display:block;width:100%}
+    .a-block{
+        display:block;
+        width:100%;}
 
     .row-padding,.row-padding>.col{padding:0 8px}
 
@@ -252,6 +254,11 @@
         background-color: white;
         color: black;
         border: 3px solid #BAA8A8;
+    }
+
+    .aboutus{
+        float: right;
+        margin-right:20px;
     }
 
 </style>
