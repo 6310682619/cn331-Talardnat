@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from customer.models import Profile
-from myshop.models import shop_detail, product, review, MyOrder
+from myshop.models import *
 from seller.models import seller_detail
 from myshop import forms
 
@@ -24,8 +24,6 @@ class MyShopModelsTest(TestCase):
             category = "food",
             in_interact = "Chocoland Wonderland",
             ex_interact = "A land of Chocolate",
-            expire = 14,
-            queue = 1
         )
 
         product1 = product.objects.create(
@@ -46,13 +44,13 @@ class MyShopModelsTest(TestCase):
             description = "Bitter but Sweet"
         )
 
+
     def test_shop_detail(self):
         shop1 = shop_detail.objects.first()
         seller1 = seller_detail.objects.first()
 
         self.assertEqual(str(shop1.name),'ChocolateFactory')
         self.assertEqual(str(shop1.seller_id), str(seller1.sname))
-        self.assertEqual(shop1.queue, 1)
 
     def test_product(self):
         product1 = product.objects.first()

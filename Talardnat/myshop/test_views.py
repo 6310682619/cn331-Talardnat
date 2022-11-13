@@ -5,6 +5,7 @@ from customer.models import Profile
 from myshop.models import shop_detail, product, review
 from seller.models import seller_detail
 from myshop import forms
+from .models import *
 from PIL import Image
 import tempfile
 from django.test import override_settings
@@ -35,8 +36,6 @@ class MyShopViewsTest(TestCase):
             category = "food",
             in_interact = "Chocolate Pudding Yummy",
             ex_interact = "Come and get it!",
-            expire = 14,
-            queue = 1
         )
 
         temp_img = tempfile.NamedTemporaryFile()
@@ -59,6 +58,13 @@ class MyShopViewsTest(TestCase):
             shop = shop1,
             score = 10,
             description = "I love Chocolate so much."
+        )
+
+        order1 = MyOrder.objects.create(
+            customer = customer1,
+            shop = shop1,
+            prod = product1,
+            count = 1
         )
 
     def test_myshop_index(self):
@@ -178,3 +184,38 @@ class MyShopViewsTest(TestCase):
                                    forms.ProductForm))
         # Check template
         self.assertTemplateUsed(response, 'myshop/editprod.html')
+
+    def test_del_shop(self):
+        c = Client()
+        c.post(reverse('customer_login'),
+               {'username': 'monday', 
+               'password': 'monday22'})
+
+        shop1 = shop_detail.objects.all()
+        shop1.delete()
+        self.assertEqual(shop1.count(), 0)
+
+    def test_shop_form(self):
+        shop1 = shop_detail.objects.first()
+        data={
+            'name': 'pudding',
+            'category': 'food',
+            'in_interact': 'eat it',
+            'ex_interact': 'eat',
+            'payment': '123',
+        }
+        response = self.client.post(reverse('myshop', args=(shop1.id,)), data=data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_product_form(self):
+        temp_img = tempfile.NamedTemporaryFile()
+        test_image = create_image(temp_img)
+        shop1 = shop_detail.objects.first()
+        data={
+            'product_name': 'pudding',
+            'price': 10,
+            'count': 'eat it',
+            'product_im': test_image.name,
+        }
+        response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
+        self.assertEqual(response.status_code, 200)
