@@ -33,6 +33,8 @@ def allshop(request, category, u_id):
 
 def thisshop(request, u_id, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
+    r = round.objects.all()
+    ex = (r.get(shop=this_shop)).expire
     menu = product.objects.filter(shop=this_shop)
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
@@ -54,6 +56,7 @@ def thisshop(request, u_id, shop_id):
         "reviews": reviews,
         "canReview": canReview,
         "avg_reviews": avg_reviews,
+        "expire":ex,
     })
 
 def buy(request, u_id, shop_id, prod_id):
