@@ -3,30 +3,33 @@
 <div class="outer-wrapper">
     <div class="wrapper">
         <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
-        
-        <div class="slide">
+       
+        <div class=" slide">
             <h1>Talard</h1>
             {% for c in allshop %}
             {% if c.category == category %}
-                <div class="talardbox">
-                    <a href= "{% url 'thisshop' u_id c.id %}">
+                <div class = "talardbox sameline">
+                    <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
                         {{ c }}
-                    </a>
+
+                    </button></a>
                 </div>
             {% endif %}
             {% endfor %}
             
             {% for x in allshop %}
             {% if x.category != category %}
-                <div class="talardbox">
-                    <a href= "{% url 'thisshop' u_id x.id %}">
+                <div class = "talardbox sameline">
+                    <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">
                         {{ x }}
-                    </a>
+
+                    </button></a>
                 </div>
             {% endif %}
             {% endfor %}
         </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
     </div>
+    
 </div>
 {% endblock body %}

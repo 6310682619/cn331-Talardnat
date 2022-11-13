@@ -4,6 +4,7 @@
     <title>TU TALARDNAT</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3361/3361384.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
 </head>
 <style>
@@ -102,11 +103,11 @@
         background-color:#BAA8A8;
         transition: 0.2s;}
 
-    {% comment %} .center-horizontal {
+    .center-horizontal {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-    } {% endcomment %}
+    } 
 
     .spb{
         display: inline-block;
@@ -259,6 +260,57 @@
     .aboutus{
         float: right;
         margin-right:20px;
+    }
+
+    .dropbtn {
+        background-color: #BAA8A8;
+        color: white;
+        padding: 16px;
+        font-size: 40px;
+        border: none;
+        border-radius: 100%;
+        height: 100px;
+        width: 100px;
+    }
+
+    .dropup {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropup-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        bottom: 50px;
+        z-index: 1;
+    }
+
+    .dropup-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .dropup-content a:hover {background-color: rgb(229, 216, 216)}
+
+    .dropup:hover .dropup-content {
+        display: block;
+    }
+
+    .dropup:hover .dropbtn {
+        background-color: #BAA8A8;
+    }
+
+    .bottomleft {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+        font-size: 18px;
     }
 
 </style>
