@@ -31,12 +31,11 @@
                     <p>
                          {{message}}
                     </p>
-                    {% endif%}
-                    
-                    
+                    {% endif%}     
                 </li>
             {% endfor %}
         </ul>
+        <a href="{% url 'order' u_id %}"><button>My Order</button></a>
     </div>
 
     <div class="menubox">
