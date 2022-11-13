@@ -45,14 +45,14 @@ def thisshop(request, u_id, shop_id):
     else:
         canReview = None
     
-    #avg_reviews = Review.objects.filter(shop=this_shop).aggregate(avg_rating = Avg('review_rating'))
+    avg_reviews = reviews.aggregate(avg_rating = Avg('review_rating'))
 
     return render(request, 'talard/shop.html', {
         "this_shop" : this_shop,
         "menu" : menu, "u_id":u_id,
         "reviews": reviews,
         "canReview": canReview,
-        # "avg_reviews": avg_reviews,
+        "avg_reviews": avg_reviews,
     })
 
 def buy(request, u_id, shop_id, prod_id):
