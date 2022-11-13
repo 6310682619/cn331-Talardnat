@@ -11,8 +11,8 @@
                 <div class = "talardbox sameline">
                     <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
                         {{ c }}
-
                     </button></a>
+                    <body>{{ c.ex_interact }}</body>
                 </div>
             {% endif %}
             {% endfor %}
@@ -22,8 +22,8 @@
                 <div class = "talardbox sameline">
                     <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">
                         {{ x }}
-
                     </button></a>
+                    <body>{{ x.ex_interact }}</body>
                 </div>
             {% endif %}
             {% endfor %}

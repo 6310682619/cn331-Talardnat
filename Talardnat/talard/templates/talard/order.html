@@ -1,30 +1,34 @@
-{% extends 'talard/layout.html' %}
+{% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
-    <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
-    <ul>
-        <script>
-            var sum = 0;
-            var p;
+    <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a><br>
+    <h1>My order</h1>
+    <div class = "menubox">
+        <ul class="menulist">
+            <script>
+                var sum = 0;
+                var p;
 
-        </script>
-        {% for o in order %}
-            <li>
-                Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                <script>
-                    p = "{{ o.price }}";
-                    sum += Number(p);
-                </script>
-                <a href="{% url 'delorder' u_id o.id %}">remove</a>
-            </li>
+            </script>
+            {% for o in order %}
+                <li>
+                    Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                    <script>
+                        p = "{{ o.price }}";
+                        sum += Number(p);
+                    </script>
+                    <a href="{% url 'delorder' u_id o.id %}">remove</a>
+                </li>
             
-        {% endfor %}
-        Total:
-        <script>
-            document.write(sum);
-        </script>
-
+            {% endfor %}
+            Total:
+            <script>
+                document.write(sum);
+            </script>
+        </ul>
+    </div>
     <br><br>
+
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>
 

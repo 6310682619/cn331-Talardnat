@@ -21,3 +21,9 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = product
         fields = ['product_name', 'price', 'count', 'product_im']
+
+class QueueForm(forms.ModelForm):
+    
+    class Meta:
+        model = round
+        fields = ['round_queue']
