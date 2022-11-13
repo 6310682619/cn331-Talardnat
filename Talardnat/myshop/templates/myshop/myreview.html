@@ -1,6 +1,9 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
-<div>
+<div class="conbox">
+    <div class="back">
+        <a href= "{% url 'myshop' shop_id %}"><p>Back</p></a>
+    </div>
 <h1>My Review</h1>
 <ul>
     {% for r in rev %}

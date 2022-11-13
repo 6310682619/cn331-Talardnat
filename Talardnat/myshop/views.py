@@ -20,7 +20,7 @@ def index(request, sid):
             newshop.save()
     else:
         form = ShopForm()
-    return render(request, "myshop/myshop_index.html", {'form' : form, "shop":shop})
+    return render(request, "myshop/myshop_index.html", {'form' : form, "shop":shop,"sid":sid})
 
 def shop(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
@@ -86,7 +86,7 @@ def editProd(request,shop_id,prod_id):
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     rev = review.objects.filter(shop = s)
-    return render(request, "myshop/myreview.html", {"rev":rev})
+    return render(request, "myshop/myreview.html", {"rev":rev,"shop_id": shop_id})
 
 def addqueue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
