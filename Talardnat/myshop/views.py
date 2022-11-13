@@ -90,10 +90,6 @@ def myreview(request, shop_id):
 
 def addqueue(request, shop_id, q_id):
     s = shop_detail.objects.get(pk=shop_id)
-    found = round.objects.all().exists()
-    if not found:
-        new_r= round(round_queue = 1)
-        new_r.save()
     allr = round.objects.filter().order_by('round_queue')
     find = allr.filter(shop = s).exists()
     if not find:
@@ -131,6 +127,10 @@ def delqueue(request, shop_id):
 def queue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     allr = round.objects.filter().order_by('round_queue')
+    found = round.objects.all().exists()
+    if not found:
+        new_r= round(round_queue = 0)
+        new_r.save()
     return render(request, "myshop/queue.html", {
             "shop":  s, 
             "round": allr,

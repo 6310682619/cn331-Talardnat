@@ -6,7 +6,7 @@
        
         <div class=" slide">
             <h1>Talard</h1>
-            {% for c in allshop %}
+            {% for c in allshop.all %}
             {% if c.category == category %}
                 <div class = "talardbox sameline">
                     <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
@@ -18,7 +18,7 @@
             {% endif %}
             {% endfor %}
             
-            {% for x in allshop %}
+            {% for x in allshop.all %}
             {% if x.category != category %}
                 <div class = "talardbox sameline">
                     <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">

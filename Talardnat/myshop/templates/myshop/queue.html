@@ -1,20 +1,30 @@
 {% extends "myshop/layout_shop.html" %}
 {% block body%}
     <div>
-        <a href="{% url 'delqueue' shop.id %}">cencle queue</a><br>
+        <a href="{% url 'delqueue' shop.id %}" class="delqueue"
+        onclick="
+                if (confirm('Are you sure to cancle queue?')){
+                    return true;
+                }
+                else{
+                    event.stopPropagation();
+                    event.preventDefault();
+                };">CANCLE QUEUE</a>
         {% if message %}
             {{message}}<br>
         {% endif %}
         {% for r in round %}
-            {% if r.round_queue == 1 %}
+            <li>
+            {% if r.round_queue == 0 %}
             {{ r }} Time:{{ r.start }} - {{ r.expire }} Numbers of shop: {{ r.bumber }} Expire: {{ r.expire|timeuntil }}
             {% else %}
             {{ r }} Time:{{ r.start }} - {{ r.expire }} Numbers of shop: {{ r.bumber }} Expire: {{ r.expire|timeuntil:r.start }}
             {% endif %}
             <a href="{% url 'addqueue' shop.id r.id %}">add queue</a> <br>
             {% for s in r.shop.all %}
-                {{ s }}<br> 
+                {{ s }}<br>
             {% endfor %}
+            </li>
         {% endfor %}
     </div>
 {% endblock %}

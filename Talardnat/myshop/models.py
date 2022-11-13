@@ -4,7 +4,6 @@ from unicodedata import category
 from django.db import models
 from seller.models import seller_detail
 from customer.models import Profile
-from django.core.validators import MaxValueValidator, MinValueValidator 
 
 # Create your models here.
 class shop_detail(models.Model):

@@ -29,7 +29,18 @@ class ReviewTestCase(TestCase):
             review_rating = 5
         )
 
+        rateus1 = RateUs.objects.create(
+            user = user2,
+            rate_text = "cute",
+            rating = 5
+        )
+
     def test_review_model(self):
         r = Review.objects.first()
         self.assertTrue(isinstance(r, Review))
         self.assertEqual(r.__str__(), str(r.review_rating))
+
+    def test_rateus_model(self):
+        r = RateUs.objects.first()
+        self.assertTrue(isinstance(r, RateUs))
+        self.assertEqual(r.__str__(), str(r.rating))
