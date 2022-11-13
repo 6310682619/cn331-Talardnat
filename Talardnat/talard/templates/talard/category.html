@@ -18,11 +18,12 @@
 </div>
 
 <div class="dropup bottomleft">
-    <button class="dropbtn"><i class="fa fa-cutlery"></i></button>
+    <button class="dropbtn"><i class="fas fa-cookie-bite"></i></button>
     <div class="dropup-content">
-      <a href="{% url 'customer_logout' %}">Log out</a>
+      <a href="{% url 'index' %}">Home</a>
       <a href="{% url 'about' %}">About us</a>
       <a href="{% url 'rateus' %}">Rate us</a>
+      <a href="{% url 'customer_logout' %}">Log out</a>
     </div>
   </div>
 {% endblock body %}
