@@ -15,7 +15,8 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         u = User.objects.get(username=username)
-        if user is not None:
+        iscustomer = Profile.objects.filter(customer=user).exists()
+        if (user is not None) and iscustomer:
             login(request, user)
             return HttpResponseRedirect(reverse('profile', args=(u.id,)))
         else:

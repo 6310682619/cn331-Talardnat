@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Avg
-from myshop.models import shop_detail, product, MyOrder
+from myshop.models import shop_detail, product, MyOrder, round
 from django.contrib.auth.models import User
 from customer.models import Profile as cs
 from .forms import *
@@ -25,13 +25,16 @@ def category(request, u_id):
     })
 
 def allshop(request, category, u_id):
-    allshop = shop_detail.objects.all()
+    r = round.objects.get(round_queue = 0)
+    allshop = r.shop
     return render(request, 'talard/allshop.html', {
         "allshop" : allshop, "category" :category, "u_id":u_id
     })
 
 def thisshop(request, u_id, shop_id):
     this_shop = shop_detail.objects.get(id=shop_id)
+    r = round.objects.all()
+    ex = (r.get(shop=this_shop)).expire
     menu = product.objects.filter(shop=this_shop)
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
@@ -53,6 +56,7 @@ def thisshop(request, u_id, shop_id):
         "reviews": reviews,
         "canReview": canReview,
         "avg_reviews": avg_reviews,
+        "expire":ex,
     })
 
 def buy(request, u_id, shop_id, prod_id):
@@ -130,22 +134,3 @@ def rating(request):
 
 def rateus(request):
     return render(request, 'talard/rate.html')
-
-
-        #reviews = Review.objects.filter(user=user, shop=shop)
-        # form = ReviewForm(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        # return redirect(url)
-
-            # form = ReviewForm(request.POST)
-            # if form.is_valid():
-            #     data = Review()
-            #     data.review_text = form.cleaned_data['review_text']
-            #     data.review_rating = form.cleaned_data['review_rating']
-            #     data.shop = shop
-            #     data.user = user
-            #     data.save()
-            #     return redirect(url)
-
-

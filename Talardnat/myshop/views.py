@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import shop_detail, review,round
+from .models import shop_detail,round
 from .models import product as pd
 from .models import MyOrder as od
 from seller.models import seller_detail
+from talard.models import Review
 from django.urls import reverse, exceptions
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -85,15 +86,11 @@ def editProd(request,shop_id,prod_id):
 
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
-    rev = review.objects.filter(shop = s)
+    rev = Review.objects.filter(shop = s)
     return render(request, "myshop/myreview.html", {"rev":rev,"shop_id": shop_id})
 
 def addqueue(request, shop_id, q_id):
     s = shop_detail.objects.get(pk=shop_id)
-    found = round.objects.all().exists()
-    if not found:
-        new_r= round(round_queue = 1)
-        new_r.save()
     allr = round.objects.filter().order_by('round_queue')
     find = allr.filter(shop = s).exists()
     if not find:
@@ -131,6 +128,10 @@ def delqueue(request, shop_id):
 def queue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     allr = round.objects.filter().order_by('round_queue')
+    found = round.objects.all().exists()
+    if not found:
+        new_r= round(round_queue = 0)
+        new_r.save()
     return render(request, "myshop/queue.html", {
             "shop":  s, 
             "round": allr,

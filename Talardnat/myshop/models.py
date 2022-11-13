@@ -4,7 +4,6 @@ from unicodedata import category
 from django.db import models
 from seller.models import seller_detail
 from customer.models import Profile
-from django.core.validators import MaxValueValidator, MinValueValidator 
 
 # Create your models here.
 class shop_detail(models.Model):
@@ -39,15 +38,6 @@ class product(models.Model):
     def ordered(self):
         return self.count - 1
 
-class review(models.Model):
-    customer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name = "rev", null=True)
-    shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, related_name = "rev", null=True)
-    score = models.IntegerField(null=True)
-    description = models.CharField(max_length=300)
-
-    def __str__(self):
-        return f"shop: {self.shop} score: {self.score}"
-
 class MyOrder(models.Model):
     customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="order")
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
@@ -56,7 +46,7 @@ class MyOrder(models.Model):
 
     def price(self):
         return self.prod.price * self.count
-        
+
 class round(models.Model):
     shop = models.ManyToManyField(shop_detail, blank=True, related_name = "addqueue")
     round_queue = models.IntegerField(default = 0)
