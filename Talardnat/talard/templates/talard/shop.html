@@ -3,89 +3,92 @@
 <div>
     <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
     <h1>{{ this_shop.name }}</h1>
-    <h3>Expire Date: {{ this_shop.expire }}</h3>
 
-    <h2><Menu></Menu></h2>
+    <div class="container">
+        <p2 class="expired">Expire Date: {{ this_shop.expire }}</p2>
+        <div class="seller"></div>
+    </div>
+    
+    <div id="conmenu">
+        <h4>Menu</h4>
+    </div>
+
     <div class="menubox">
         <ul class="menulist">
             {% for m in menu %}
-                <li>
-                    Product: {{ m.product_name }} Price: {{ m.price }} Count: {{ m.count }}
+                <li class="listpro">
+                    <img src="{{ m.product_im.url }}" style="width: 200px; height:200px;">
+                    Product: {{ m.product_name }}<br>
+                    Price: {{ m.price }}<br>
+                    Count: {{ m.count }}
                     <form action="{% url 'buy' u_id this_shop.id m.id %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="number" name="count">
-                        <input class="buttonadd" type="submit" value="add">
+                        <p7>Amount: </p7>
+                        <input type="number" name="count" class="num">
+                        <input class="buttonadd" type="submit" value="add" class="addnum">
                     </form>
                     {% if message %}
                     <p>
                          {{message}}
                     </p>
                     {% endif%}
-                    <br>
-                    <img src="{{ m.product_im.url }}" style="width: 10%; float: left; margin-right: 10px;" /><br>
+                    
+                    
                 </li>
             {% endfor %}
         </ul>
-            <a href="{% url 'order' u_id %}"><button class="mylistorder"> my order</button></a><br><br>
-    
-        <br>
-        
-        <div>
-			<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
-				{% csrf_token %}
-				<h5>Write Your Review</h5>
-					<label>How do you rate this shop?</label>
-					<br>
-					<div class="rate">
-						<input type="radio" name="review_rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
-						<input type="radio" name="review_rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
-						<input type="radio" name="review_rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
-						<input type="radio" name="review_rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
-						<input type="radio" name="review_rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
-					</div>
-                    <br>
-					Review:
-					<textarea name="review_text" rows="4"></textarea>
-                    <input type="submit" value="submit">
-                    <br><br>
-					<!-- {% if canReview %}  -->
-                        
-					<!-- {% else %} 
-						<p>You must purchase from this shop to post a review.</p>
-					{% endif %}  -->
-            </form>   
-
-            <br>
-            <div>
-                <p style="font-size: 20px;">Customer Reviews </p>
-                <h3>Reviews - <span>{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star"></i></h3>
-
-            </div>
-
-            {% for review in reviews %}
-				<article class="box-body">
-					<h6>{{review.user}} </h6>
-							<div class="rating-star">
-								<span>
-									<i class="fa fa-star{% if review.review_rating == 1 %}{% endif %}" aria-hidden="true"></i>
-									<i class="fa fa-star{% if review.review_rating == 1.5 %}-half-o{% elif review.review_rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
-									<i class="fa fa-star{% if review.review_rating == 2.5 %}-half-o{% elif review.review_rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
-									<i class="fa fa-star{% if review.review_rating == 3.5 %}-half-o{% elif review.review_rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
-									<i class="fa fa-star{% if review.review_rating == 4.5 %}-half-o{% elif review.review_rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
-								</span>
-							</div>
-						<p>
-						    {{review.review_text}}
-						</p>
-				</article>
-            {% endfor %}
-
-
-		</div>
-    
-    
-        <a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a>
     </div>
+
+    <div class="menubox">
+        <p style="font-size: 20px;">Customer Reviews </p>
+        <h3>Reviews - <span>{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star"></i></h3>
+    </div>
+
+    <div class="menubox">
+		<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
+			{% csrf_token %}
+			<h5>Write Your Review</h5>
+				<label>How do you rate this shop?</label>
+				<br>
+				<div class="rate">
+					<input type="radio" name="review_rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
+					<input type="radio" name="review_rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
+					<input type="radio" name="review_rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
+					<input type="radio" name="review_rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
+					<input type="radio" name="review_rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
+				</div>
+                <br>
+				Review:
+				<textarea name="review_text" rows="4"></textarea>
+                <input type="submit" value="submit">
+                <br><br>
+				<!-- {% if canReview %}  -->                
+				<!-- {% else %} 
+					<p>You must purchase from this shop to post a review.</p>
+				{% endif %}  -->
+        </form>   
+
+        <div>
+            {% for review in reviews %}
+                <article class="box-body">
+                    <h6>{{review.user}} </h6>
+                        <div class="rating-star">
+                            <span>
+                                <i class="fa fa-star{% if review.review_rating == 1 %}{% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.review_rating == 1.5 %}-half-o{% elif review.review_rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.review_rating == 2.5 %}-half-o{% elif review.review_rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.review_rating == 3.5 %}-half-o{% elif review.review_rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.review_rating == 4.5 %}-half-o{% elif review.review_rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    <p>
+                        {{review.review_text}}
+                    </p>
+                </article>
+            {% endfor %}
+        </div>
+    
+    <!--<a href="{% url 'customer_logout'%}"><button class="spb a-button about">Logout</button></a><br><br>-->
 
 </div>
 {% endblock %}

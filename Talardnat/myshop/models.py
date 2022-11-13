@@ -55,7 +55,7 @@ class MyOrder(models.Model):
 
     def price(self):
         return self.prod.price * self.count
-
+        
 class round(models.Model):
     shop = models.ManyToManyField(shop_detail, blank=True, related_name = "addqueue")
     round_queue = models.IntegerField(default = 0)
