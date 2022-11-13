@@ -2,8 +2,9 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from customer.models import Profile
-from myshop.models import shop_detail, product, review
+from myshop.models import shop_detail, product
 from seller.models import seller_detail
+from talard.models import *
 from myshop import forms
 from .models import *
 from PIL import Image
@@ -53,11 +54,11 @@ class MyShopViewsTest(TestCase):
             customer = user2
         )
 
-        review1 = review.objects.create(
-            customer = customer1,
+        review1 = Review.objects.create(
+            user = customer1,
             shop = shop1,
-            score = 10,
-            description = "I love Chocolate so much."
+            review_text = "so good",
+            review_rating = 5
         )
 
         order1 = MyOrder.objects.create(
@@ -160,12 +161,12 @@ class MyShopViewsTest(TestCase):
                'password': 'sunday11'})
 
         shop1 = shop_detail.objects.first()
-        review1 = review.objects.first()
+        review1 = Review.objects.first()
         
         response=c.get(reverse('myreview', args=[shop1.id]))
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(review.objects.count(), 1)
+        self.assertEqual(Review.objects.count(), 1)
         # Check template
         self.assertTemplateUsed(response, 'myshop/myreview.html')
 
