@@ -20,6 +20,7 @@ class CustomerViewTest(TestCase):
         )
 
     def test_profile(self):
+        """Test if user can access profile"""
         c = Client()
         c.post(reverse('customer_login'),
                {'username': 'sunday', 
@@ -33,12 +34,14 @@ class CustomerViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer/profile.html')
 
     def test_login_view(self):
+        """Test if user can login"""
         c = Client()
         response = c.get(reverse('customer_login'))
         # Check response
         self.assertEqual(response.status_code, 200)
 
     def test_logged_out(self):
+        """Test if user can logout"""
         c = Client()
         response = c.get(reverse('customer_logout'))
 
@@ -49,9 +52,10 @@ class CustomerViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer/login.html')
 
     def test_not_user_login(self):
+        """Test if user put wrong password"""
         c = Client()
         response = c.post(reverse('customer_login'),
-               {'username': 'user3', 
+               {'username': 'sunday', 
                'password': 'tuesday3'})
         
         self.assertTrue(response.context['message'] == 'Invalid credentials.')
