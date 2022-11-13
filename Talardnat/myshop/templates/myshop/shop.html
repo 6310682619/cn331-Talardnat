@@ -5,18 +5,9 @@
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
     <h1>{{ shop.name }}</h1>
     <p>ID:{{ shop.id }} Queue: {{ queue }}</p>
-    <a href="{% url 'queue' shop.id %}">queue</a>
+
     <div class="queue">
         <a href="{% url 'queue' shop.id %}" class="addqueue">ADD QUEUE</a>
-        <a href="{% url 'delqueue' shop.id %}" class="delqueue"
-        onclick="
-                if (confirm('Are you sure to cancle queue?')){
-                    return true;
-                }
-                else{
-                    event.stopPropagation();
-                    event.preventDefault();
-                };">CANCLE QUEUE</a>
     </div>
     <table>
         <tr>
