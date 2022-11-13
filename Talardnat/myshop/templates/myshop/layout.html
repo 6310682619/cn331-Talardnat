@@ -6,6 +6,9 @@
 <style>
     div{
         font-family: Caveat;
+    }
+
+    .conbox{
         background-color: rgba(0,0,0,0.1);
         border: solid 2px black;
         width: 700px;
@@ -14,8 +17,10 @@
         margin-left: auto;
         margin-right: auto;
         margin-top:60px;
-        padding:20px;
     }
+    
+    
+
     body {
         background-color: #FFF8ED;
         background-color:rgba(253,237,207,1);
@@ -27,7 +32,7 @@
     }
 
     a{
-        font-size:40px;
+        {% comment %} font-size:40px; {% endcomment %}
         text-decoration: none;
         color:#352F3B;
     }
@@ -38,6 +43,10 @@
         color:#352F3B;
         padding:6px;
         text-align: left;
+    }
+
+    ul{
+        padding-left:70px;
     }
 
     a:hover{
@@ -74,6 +83,7 @@
         color:red;
         float: right;
         margin-right:5px;
+        margin-right:40px;
     }
 
     h{
@@ -112,6 +122,8 @@
         margin-top:0px;
         cursor: pointer;
         position:absolute;
+        font-size:30px;
+        line-height: 0px;
     }
     .back:hover{
         background-color:#C7B9A2;

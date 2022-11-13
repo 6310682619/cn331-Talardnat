@@ -20,7 +20,7 @@ def index(request, sid):
             newshop.save()
     else:
         form = ShopForm()
-    return render(request, "myshop/myshop_index.html", {'form' : form, "shop":shop})
+    return render(request, "myshop/myshop_index.html", {'form' : form, "shop":shop,"sid":sid})
 
 def shop(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
@@ -86,19 +86,18 @@ def editProd(request,shop_id,prod_id):
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     rev = review.objects.filter(shop = s)
-    return render(request, "myshop/myreview.html", {"rev":rev})
+    return render(request, "myshop/myreview.html", {"rev":rev,"shop_id": shop_id})
 
-def addqueue(request, shop_id):
+def addqueue(request, shop_id, q_id):
     s = shop_detail.objects.get(pk=shop_id)
     found = round.objects.all().exists()
     if not found:
         new_r= round(round_queue = 1)
         new_r.save()
-    allr = round.objects.filter()
-    for a in allr:
-        find = allr.filter(shop = s).exists()
-        if find:
-            break
+    allr = round.objects.filter().order_by('round_queue')
+    find = allr.filter(shop = s).exists()
+    if not find:
+        a = round.objects.get(pk = q_id)
         if a.numshop < 9:
             a.shop.add(s)
             a.numshop += 1
@@ -108,8 +107,13 @@ def addqueue(request, shop_id):
             new_r.save()
             new_r.shop.add(s)
             new_r.save()
+        return HttpResponseRedirect(reverse("queue", args=(shop_id,)))
     
-    return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
+    return render(request, "myshop/queue.html", {
+            "shop":  s, 
+            "round": allr,
+            "message":"Already in queue.",
+        })
 
 def delqueue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)
@@ -122,4 +126,12 @@ def delqueue(request, shop_id):
         q.numshop -= 1
         q.save()
     
-    return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
+    return HttpResponseRedirect(reverse("queue", args=(shop_id,)))
+
+def queue(request, shop_id):
+    s = shop_detail.objects.get(pk=shop_id)
+    allr = round.objects.filter().order_by('round_queue')
+    return render(request, "myshop/queue.html", {
+            "shop":  s, 
+            "round": allr,
+        })
