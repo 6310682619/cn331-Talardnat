@@ -14,6 +14,7 @@ class SellerModelsTest(TestCase):
     def test_seller(self):
         seller1 = seller_detail.objects.first()
         self.assertEqual(str(seller1),'sunday')
+        self.assertEqual(seller1.__str__(), str(seller1.sname.username))
 
     def test_seller_detail(self):
         seller1 = seller_detail.objects.first()

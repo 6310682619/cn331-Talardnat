@@ -1,5 +1,9 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
+<div class="conbox">
+    <div class="back">
+        <a href= "{% url 'myshop' shop_id %}"><p>Back</p></a>
+    </div>
 <div class="divproduct">
 <h1>My Product</h1>
 <ol>
@@ -31,6 +35,6 @@
         </form>
     </li>
 </ol>
-
+</div>
 </div>
 {% endblock body %}
