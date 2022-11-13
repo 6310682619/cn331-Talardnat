@@ -5,7 +5,7 @@
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
     <h1>{{ shop.name }}</h1>
     <p>ID:{{ shop.id }} Queue: {{ queue }}</p>
-    <a href="{% url 'queue' shop.id %}">add queue</a> <a href="{% url 'delqueue' shop.id %}">cencle queue</a>
+    <a href="{% url 'queue' shop.id %}">queue</a>
     <table>
         <tr>
             <th width="60%" ID="firstcell"><div class="myproductpic"><a href="{% url 'product' shop.id %}"><div class="invibox4"></div></a></div><br><br>
