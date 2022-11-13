@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import *
+from .forms import *
 from customer.models import Profile
 from myshop.models import shop_detail, product, review
 from seller.models import seller_detail
@@ -42,6 +43,7 @@ class TalardViewsTest(TestCase):
             category = "food",
             in_interact = "Chocolate is the best",
             ex_interact = "Your favourite Choco!",
+            payment = "12312121"
         )
 
         temp_img = tempfile.NamedTemporaryFile()
@@ -55,11 +57,17 @@ class TalardViewsTest(TestCase):
             count = 10
         )
 
-        review = Review.objects.create(
+        review1 = Review.objects.create(
             user = customer1,
             shop = shop1,
             review_text = "so good",
             review_rating = 5
+        )
+
+        rateus1 = RateUs.objects.create(
+            user = customer1,
+            rate_text = "cute",
+            rating = 5
         )
 
     def test_index_view(self):
@@ -76,8 +84,8 @@ class TalardViewsTest(TestCase):
 
         c = Client()
         c.post(reverse('customer_login'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
+               {'username': 'monday', 
+               'password': 'monday22'})
         customer1 = Profile.objects.first()
         response=c.get(reverse('talard',args=[customer1.id]))
 
@@ -89,8 +97,8 @@ class TalardViewsTest(TestCase):
 
         c = Client()
         c.post(reverse('customer_login'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
+               {'username': 'monday', 
+               'password': 'monday22'})
         shop1 = shop_detail.objects.first()
         customer1 = Profile.objects.first()
                
@@ -103,8 +111,9 @@ class TalardViewsTest(TestCase):
 
         c = Client()
         c.post(reverse('customer_login'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
+               {'username': 'monday', 
+               'password': 'monday22'})
+        
         shop1 = shop_detail.objects.first()
         customer1 = Profile.objects.first()
 
@@ -135,8 +144,8 @@ class TalardViewsTest(TestCase):
         
         c = Client()
         c.post(reverse('customer_login'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
+               {'username': 'monday', 
+               'password': 'monday22'})
         response=c.get(reverse('rating'))
         self.assertEqual(response.status_code, 200)
         response=c.get(reverse('rateus'))
@@ -155,3 +164,21 @@ class TalardViewsTest(TestCase):
     #     response=c.get(reverse('buy', args=[customer1.id,shop1.id,product1.id]))
     #     # Check response
     #     self.assertTemplateUsed(response, 'talard/shop.html')
+
+    def test_valid_addreview(self):
+        review1 = Review.objects.first()
+        data={
+            "review_text": review1.review_text,
+            "review_rating": review1.review_rating
+        }
+        form = ReviewForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_valid_rating(self):
+        rateus1 = RateUs.objects.first()
+        data={
+            "rate_text": rateus1.rate_text,
+            "rating": rateus1.rating
+        }
+        form = ReviewForm(data=data)
+        self.assertTrue(form.is_valid())
