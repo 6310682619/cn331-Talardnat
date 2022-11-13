@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from myshop.models import shop_detail, product, review
+from myshop.models import *
 from seller.models import seller_detail
 from seller import forms
 

@@ -5,6 +5,7 @@ from customer.models import Profile
 from myshop.models import *
 from seller.models import seller_detail
 from myshop import forms
+from talard.models import *
 
 # Create your tests here.
 
@@ -37,11 +38,11 @@ class MyShopModelsTest(TestCase):
             customer = user2
         )
 
-        review1 = review.objects.create(
-            customer = customer1,
+        review1 = Review.objects.create(
+            user = customer1,
             shop = shop1,
-            score = 10,
-            description = "Bitter but Sweet"
+            review_text = "so good",
+            review_rating = 5
         )
 
 
@@ -61,12 +62,12 @@ class MyShopModelsTest(TestCase):
         self.assertTrue(int(product1.id) < 10)
 
     def test_review(self):
-        review1 = review.objects.first()
+        review1 = Review.objects.first()
         shop1 = shop_detail.objects.first()
 
-        self.assertEqual(review1.score, 10)
+        self.assertEqual(review1.review_rating, 5)
         self.assertEqual(review1.shop, shop1)
-        self.assertTrue(len(review1.description) < 300)
+        self.assertTrue(len(review1.review_text) < 300)
 
     def test_product_available(self):
         product1 = product.objects.first()

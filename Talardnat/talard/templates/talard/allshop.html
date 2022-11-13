@@ -7,27 +7,31 @@
         <div class=" slide">
             <h1>Talard</h1>
             {% for c in allshop.all %}
-            {% if c.category == category %}
-                <div class = "talardbox sameline">
-                    <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
-                        {{ c }}
-                    </button></a>
-                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041357465343770654/IMG_5166.gif" style="width: 299px; height:299px;">
-                    <body>{{ c.ex_interact }}</body>
-                </div>
-            {% endif %}
+                {% if c.category == category %}
+                    <div class = "talardbox sameline">
+                        <body>
+                            <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
+                                {{ c }}
+                            </button></a>
+                                <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041357465343770654/IMG_5166.gif" style="width: 299px; height:299px;">
+                                {{ c.ex_interact }}
+                        </body>
+                    </div>
+                {% endif %}
             {% endfor %}
             
             {% for x in allshop.all %}
-            {% if x.category != category %}
-                <div class = "talardbox sameline">
-                    <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">
-                        {{ x }}
-                    </button></a>
-                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041360390027743323/IMG_5167.gif" style="width: 299px; height:299px;">
-                    <body>{{ x.ex_interact }}</body>
-                </div>
-            {% endif %}
+                {% if x.category != category %}
+                    <div class = "talardbox sameline">
+                        <body>
+                            <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">
+                                {{ x }}
+                            </button></a>
+                                <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041360390027743323/IMG_5167.gif" style="width: 299px; height:299px;">
+                                {{ x.ex_interact }}
+                        </body>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
