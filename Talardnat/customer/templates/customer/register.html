@@ -6,22 +6,17 @@ CUSTOMER REGISTER
 <div class="signuptemp box-body">
   <a href="{% url 'customer_login'%}"><button class="back">Back</button></a><br>
 
-    <h1>Sign up</h1>
+    <h1 style="font-size:40px";>Sign up</h1>
+  <div class = "signupbox">
   <form method="post">
     {% csrf_token %}
-    <body>First name:</body>
     <input class="box1" type="text" name="first_name" placeholder="firstname"><br><br>
-    <body>Last name:</body>
     <input class="box1" type="text" name="last_name" placeholder="lastname"><br><br>
-    <body>Username:</body>
     <input class="box1" type="text" name="username" placeholder="username"><br><br>
-    <body>Email:</body>
     <input class="box1" type="email" name="email" placeholder="email"><br><br>
-    <body>Password:</body>
     <input class="box1" type="password" name="password1" placeholder="password"><br><br>
-    <body>Password confirmation:</body>
     <input class="box1" type="password" name="password2" placeholder="password"><br><br>
-    <body>Your address:</body><br>
+    <body>Your Address:</body><br>
     <input class="box1" type="text" name="address" placeholder="address"><br><br>
     <input class="box1" type="text" name="city" placeholder="city"><br><br>
     <input class="box1" type="text" name="state" placeholder="state"><br><br>
@@ -29,6 +24,6 @@ CUSTOMER REGISTER
     <input class="box1" type="tel" name="phone" placeholder="phone"><br><br>
     <button type="submit" class="loginbox">Sign up</button>
   </form>
-   
+</div>
 </div>
 {% endblock %}
