@@ -5,9 +5,7 @@
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
     <h1>{{ shop.name }}</h1>
     <p>ID:{{ shop.id }} Queue: {{ queue }}</p>
-<<<<<<< HEAD
     <a href="{% url 'queue' shop.id %}">queue</a>
-=======
     <div class="queue">
         <a href="{% url 'queue' shop.id %}" class="addqueue">ADD QUEUE</a>
         <a href="{% url 'delqueue' shop.id %}" class="delqueue"
@@ -20,7 +18,6 @@
                     event.preventDefault();
                 };">CANCLE QUEUE</a>
     </div>
->>>>>>> 19fb8ae97951da8342f96d6f9d556ec1568ee108
     <table>
         <tr>
             <th width="60%" ID="firstcell"><div class="myproductpic"><a href="{% url 'product' shop.id %}"><div class="invibox4"></div></a></div><br><br>
