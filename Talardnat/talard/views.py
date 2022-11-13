@@ -130,22 +130,3 @@ def rating(request):
 
 def rateus(request):
     return render(request, 'talard/rate.html')
-
-
-        #reviews = Review.objects.filter(user=user, shop=shop)
-        # form = ReviewForm(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        # return redirect(url)
-
-            # form = ReviewForm(request.POST)
-            # if form.is_valid():
-            #     data = Review()
-            #     data.review_text = form.cleaned_data['review_text']
-            #     data.review_rating = form.cleaned_data['review_rating']
-            #     data.shop = shop
-            #     data.user = user
-            #     data.save()
-            #     return redirect(url)
-
-
