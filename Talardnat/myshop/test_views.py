@@ -10,6 +10,7 @@ from .models import *
 from PIL import Image
 import tempfile
 from django.test import override_settings
+import datetime
 
 # Create your tests here.
       
@@ -67,6 +68,15 @@ class MyShopViewsTest(TestCase):
             prod = product1,
             count = 1
         )
+
+        round0 = round.objects.create(
+            shop = shop1,
+            round_queue = 0,
+            numshop = 1,
+            expire = datetime.datetime.today() + datetime.timedelta(days=10),
+            start = datetime.datetime.today()
+        )
+
 
     def test_myshop_index(self):
         c = Client()

@@ -16,7 +16,7 @@ class CustomerViewTest(TestCase):
             city = "TU",
             state = "Bkk",
             zip = 11111,
-            phone = 123456789
+            phone = "123456789"
         )
 
     def test_profile(self):

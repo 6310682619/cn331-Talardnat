@@ -19,7 +19,7 @@ class CustomerFormTest(TestCase):
             city = "TU",
             state = "Bkk",
             zip = 11111,
-            phone = 123456789
+            phone = "123456789"
         )
         data={
             'username': customer1.customer.username,
@@ -47,7 +47,7 @@ class CustomerFormTest(TestCase):
             city = "TU",
             state = "Bkk",
             zip = 11111,
-            phone = 123456789
+            phone = "123456789"
         )
         data={
             'username': customer1.customer.username,

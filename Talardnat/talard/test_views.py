@@ -8,6 +8,7 @@ from myshop.models import *
 from seller.models import *
 from PIL import Image
 import tempfile
+import datetime
 
 # Create your tests here.
 
@@ -34,7 +35,7 @@ class TalardViewsTest(TestCase):
             city = "TU",
             state = "Bkk",
             zip = 11111,
-            phone = 123456789
+            phone = "123456789"
         )
 
         shop1 = shop_detail.objects.create(
@@ -75,6 +76,14 @@ class TalardViewsTest(TestCase):
             shop = shop1,
             prod = product1,
             count = 1
+        )
+
+        round0 = round.objects.create(
+            shop = shop1,
+            round_queue = 0,
+            numshop = 1,
+            expire = datetime.datetime.today() + datetime.timedelta(days=10),
+            start = datetime.datetime.today()
         )
 
     def test_index_view(self):
@@ -173,5 +182,10 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/rate.html')
 
+    def test_thisshop_view(self):
+        user2 = User.objects.filter(username='monday')
+        shop1 = shop_detail.objects.first()
+        c = Client()
+        response=c.post(reverse('thisshop',args=[shop1.category, user2.id]), {})
 
  
