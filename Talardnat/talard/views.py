@@ -138,3 +138,5 @@ def rating(request):
 
 def rateus(request):
     return render(request, 'talard/rate.html')
+
+    

@@ -3,15 +3,32 @@ from .models import *
 
 class ReviewTestCase(TestCase):
     def setUp(self):
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-        user2 = User.objects.create_user(username='monday', password='monday22', email='monday@morning.com')
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
 
         seller1 = seller_detail.objects.create(
             sname = user1
         )
 
         customer1 = Profile.objects.create(
-            customer = user2
+            customer = user2,
+            address = "Citypark",
+            city = "TU",
+            state = "Bkk",
+            zip = 11111,
+            phone = "123456789"
         )
 
         shop1 = shop_detail.objects.create(

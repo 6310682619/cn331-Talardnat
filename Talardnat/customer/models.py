@@ -12,7 +12,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=40, null=True, blank=True)
     state = models.CharField(max_length=40, null=True, blank=True)
     zip = models.IntegerField(null=True, blank=True)
-    phone = models.IntegerField(null=True, blank=True)
+    phone = models.CharField(max_length=20,null=True, blank=True)
 
     def __str__(self):
         return f"{self.customer}"

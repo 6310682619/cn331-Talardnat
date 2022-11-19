@@ -8,6 +8,7 @@ from myshop.models import *
 from seller.models import *
 from PIL import Image
 import tempfile
+import datetime
 
 # Create your tests here.
 
@@ -21,9 +22,21 @@ def create_image(temp_img):
 class TalardViewsTest(TestCase):
     def setUp(self):
 
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-        user2 = User.objects.create_user(username='monday', password='monday22', email='monday@morning.com')
-
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
+        
         seller1 = seller_detail.objects.create(
             sname = user1
         )
@@ -34,7 +47,7 @@ class TalardViewsTest(TestCase):
             city = "TU",
             state = "Bkk",
             zip = 11111,
-            phone = 123456789
+            phone = "123456789"
         )
 
         shop1 = shop_detail.objects.create(
@@ -75,6 +88,14 @@ class TalardViewsTest(TestCase):
             shop = shop1,
             prod = product1,
             count = 1
+        )
+
+        round0 = round.objects.create(
+            shop = shop1,
+            round_queue = 0,
+            numshop = 1,
+            expire = datetime.datetime.today() + datetime.timedelta(days=10),
+            start = datetime.datetime.today()
         )
 
     def test_index_view(self):
@@ -173,5 +194,10 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/rate.html')
 
+    def test_thisshop_view(self):
+        user2 = User.objects.filter(username='monday')
+        shop1 = shop_detail.objects.first()
+        c = Client()
+        response=c.post(reverse('thisshop',args=[shop1.category, user2.id]), {})
 
  
