@@ -4,22 +4,20 @@
 <div>
     <a href= "{% url 'myshop_index' seller %}" class="backtolist"><u>Back to My shop List</u></a>
     <h1>{{ shop.name }}</h1>
-    <p>ID:{{ shop.id }} Queue: {{ queue }}</p>
+    <p>ID:{{ shop.id }} Queue: {{ queue }}
+    <a href="{% url 'queue' shop.id %}" class="addqueue">ADD QUEUE</a></p>
 
-    <div class="queue">
-        <a href="{% url 'queue' shop.id %}" class="addqueue">ADD QUEUE</a>
-    </div>
     <table>
         <tr>
-            <th width="60%" ID="firstcell"><div class="myproductpic"><a href="{% url 'product' shop.id %}"><div class="invibox4"></div></a></div><br><br>
+            <th width="60%" ID="firstcell"><div class="myproductpic"><a href="{% url 'product' shop.id %}"><div class="invibox4">PRODUCT</div></a></div><br><br>
                 <table><tr>
-                    <th><div class="editpic"><a href="{% url 'edit' shop.id%}"><div class="invibox2"></div></a></div></th>
-                    <th><div class="myreviewpic"><a href="{% url 'myreview' shop.id%}"><div class="invibox3"></div></a></th>
+                    <th><div class="editpic"><a href="{% url 'edit' shop.id%}"><div class="invibox2">EDIT</div></a></div></th>
+                    <th><div class="myreviewpic"><a href="{% url 'myreview' shop.id%}"><div class="invibox3">REVIEW</div></a></th>
                 </tr>
                 </table>
             </th>
 
-            <th class="myshoppic"><a href="{% url 'myshop_index' seller%}"><div class="invibox"></div></a></th>
+            <th class="myshoppic"><a href="{% url 'myshop_index' seller%}"><div class="invibox">MY SHOP</div></a></th>
         </tr>
     </table>
 
