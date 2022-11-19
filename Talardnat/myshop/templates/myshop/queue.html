@@ -1,6 +1,9 @@
 {% extends "myshop/layout_shop.html" %}
 {% block body%}
     <div>
+        <div class="backq">
+            <p2>Back</p2>
+        </div>
         <div class="delq">
             <p1>YOUR QUEUE: </p1>
         <a href="{% url 'delqueue' shop.id %}" class="delqueue"
