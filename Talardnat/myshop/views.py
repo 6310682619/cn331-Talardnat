@@ -73,7 +73,7 @@ def edit(request,shop_id):
         form = ShopForm(instance=s)
     return render(request, 'myshop/edit.html', {'form' : form, 'shop_id':shop_id})
 
-def editProd(request,shop_id,prod_id):
+def editprod(request,shop_id,prod_id):
     p = pd.objects.get(pk=prod_id)
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=p)

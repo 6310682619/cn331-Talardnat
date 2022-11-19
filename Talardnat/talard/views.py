@@ -69,20 +69,17 @@ def buy(request, u_id, shop_id, prod_id):
     customer = cs.objects.get(customer=user)
     prod = product.objects.get(id=prod_id)
     menu = product.objects.filter(shop=shop)
-    oder = MyOrder.objects.filter(shop=shop,customer=customer,prod=prod)
+    oder = MyOrder.objects.filter(shop=shop,customer=customer,prod=prod,confirmpay = "not pay yet.")
     hadod = oder.exists()
     if not hadod:
         od = MyOrder(shop=shop,customer=customer,prod=prod)
         od.save()
-    od = MyOrder.objects.get(shop=shop,customer=customer,prod=prod)
+    od = MyOrder.objects.get(shop=shop,customer=customer,prod=prod,confirmpay = "not pay yet.")
     if request.method == 'POST':
         in_count = request.POST["count"]
         if int(in_count) > 0 and int(in_count) <= prod.prodcount():
             od.count = request.POST["count"]
             od.save()
-            prodcount = prod.prodcount() - int(in_count)
-            prod.count = prodcount
-            prod.save()
             return HttpResponseRedirect(reverse("thisshop", args=(u_id,shop_id)))
             
         return render(request, "talard/shop.html", {"this_shop" : shop,
@@ -94,15 +91,30 @@ def order(request, u_id):
     customer = cs.objects.get(customer=user)
     od = MyOrder.objects.filter(customer=customer)
     od2 = MyOrder.objects.filter(customer=customer).values
+    if request.method == 'POST':
+        for o in od:
+            prod = o.prod
+            if not (prod.prodcount() > 0 and o.count <= prod.prodcount()):
+                return render(request, "talard/order.html", {"order" : od, "u_id":u_id, "od2":od2, "message":f"{prod} out of stock"})
+        for o in od:
+            prod = o.prod
+            if prod.prodcount() > 0 and o.count <= prod.prodcount():
+                prodcount = prod.prodcount() - o.count
+                prod.count = prodcount
+                prod.save()
+                o.confirmpay = "paid"
+                o.save()
     return render(request, "talard/order.html", {"order" : od, "u_id":u_id, "od2":od2})
 
 def del_order(request, u_id, oid):
     order = MyOrder.objects.get(id=oid)
-    prod = order.prod
-    prodcount = prod.prodcount() + order.count
-    prod.count = prodcount
-    prod.save()
     order.delete()
+    return HttpResponseRedirect(reverse("order", args=(u_id,)))
+
+def recieved(request, u_id, oid):
+    order = MyOrder.objects.get(id=oid)
+    order.confirmrecieved = "recieved"
+    order.save()
     return HttpResponseRedirect(reverse("order", args=(u_id,)))
     
 def addreview(request, u_id, shop_id):
@@ -138,5 +150,6 @@ def rating(request):
 
 def rateus(request):
     return render(request, 'talard/rate.html')
+    
 
     

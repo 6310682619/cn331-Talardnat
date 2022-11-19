@@ -26,13 +26,34 @@
     <h2>Order</h2>
     <div class="orderbox">
         <ul class="orderlist">
+            <h3>Already Paid</h3>
             {% for o in order %}
-            <li>
-                Order ID : {{o.id}} From : {{o.customer}} Product : {{o.prod}} Count: {{o.count}}
-            </li>
+                {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
+                    <li>
+                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                    </li>
+                {% endif %}
             {% empty %}
             <li>No order.</li>
-            {% endfor %}<br><br>
+            {% endfor %}
+
+            <h3>New Order</h3>
+            {% for o in order %}
+                {% if o.confirmpay != "paid" %}
+                    <li>
+                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <h3>Recieved Order</h3>
+                {% for o in order %}
+                    {% if o.confirmrecieved == "recieved" %}
+                        <li>
+                            Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                        </li>
+                        {% endif %}
+                {% endfor %}
         </ul> </div>
     </div>
     <br><br>
