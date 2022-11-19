@@ -14,7 +14,7 @@ def index(request, sid):
     shop = shop_detail.objects.filter(seller_id= sid)
     seller = seller_detail.objects.get(pk = sid)
     if request.method == 'POST':
-        form = ShopForm(request.POST)
+        form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
             newshop = form.save(commit=False)
             newshop.seller_id = seller
