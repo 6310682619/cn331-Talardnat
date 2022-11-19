@@ -5,7 +5,11 @@
         <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
        
         <div class=" slide">
-            <h1>Talard</h1>
+            <h1>
+                <marquee direction="right" scrollamount="25" behavior="alternate">
+                    TALARDNAT
+                </marquee>
+            </h1>
             {% for c in allshop.all %}
                 {% if c.category == category %}
                     <div class = "talardbox sameline">
