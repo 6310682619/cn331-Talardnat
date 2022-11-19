@@ -6,9 +6,16 @@
     <img src="https://media.discordapp.net/attachments/715798345037381683/1038097672038518874/Untitled_Artwork.png?width=1440&height=264" 
     class="talardpic"><br><br>
     <div id="images2">
-        <a href="{% url 'customer_login'%}"><button class="spb a-button about">SHOPPER</button></a>
-        <a href="{% url 'seller_login'%}"><button class="spb a-button about">SELLER</button></a><br><br>
-        <div class="aboutus">
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' request.user.id %}"><button class="spb a-button about">SHOPPER</button></a>
+            <a href="{% url 'seller_index' sid %}"><button class="spb a-button about">SELLER</button></a><br><br>
+        {% else %}
+            <a href="{% url 'customer_login'%}"><button class="spb a-button about">SHOPPER</button></a>
+            <a href="{% url 'seller_login'%}"><button class="spb a-button about">SELLER</button></a><br><br>
+        {% endif %}
+
+            <div class="aboutus">
             <a href="{% url 'about' %}"><button class="a-button about"><b>ABOUT US</b></button></a><br>
             <a href="{% url 'rateus' %}"><button class="a-button about"><b>RATE US</b></button></a>
         </div>
