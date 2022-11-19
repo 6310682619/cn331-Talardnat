@@ -9,7 +9,7 @@
 <ol>
     {% for p in product %}
     <li class="listpro">
-        <img src="{{ p.product_im.url }}" style="width: 200px; height:200px;">
+        <img src="{{ p.product_im.url }}" class="productimg">
         Product: {{ p.product_name }}<br>
         Price: {{ p.price }}<br>
         Count: {{ p.count }}<br>

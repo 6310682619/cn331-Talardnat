@@ -9,7 +9,6 @@
     <ul>
     {% for s in shop %}
         <li>
-            <img src="{{ s.shop_im.url }}" style="width: 200px; height:200px;">
             <a href= "{% url 'myshop' s.id %}">
                 {{ s }}
             </a>
@@ -23,6 +22,7 @@
                     event.preventDefault();
                 };"
                 class="remove">remove</a>
+            <br><img src="{{ s.shop_im.url }}" class="shopimg">
         </li>
     {% empty %}
         <li>NO SHOP</li>
