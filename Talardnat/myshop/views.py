@@ -99,11 +99,6 @@ def addqueue(request, shop_id, q_id):
             a.shop.add(s)
             a.numshop += 1
             a.save()
-        elif a.numshop > 8 and a.round_queue == allr.lenght:
-            new_r = round(round_queue = (a.round_queue+1), numshop = 1)
-            new_r.save()
-            new_r.shop.add(s)
-            new_r.save()
         return HttpResponseRedirect(reverse("queue", args=(shop_id,)))
     
     return render(request, "myshop/queue.html", {
@@ -119,11 +114,11 @@ def delqueue(request, shop_id):
     find = q.exists()
     if find:
         q = allr.get(shop = s)
-        q.delete()
+        q.shop.remove(s)
         q.numshop -= 1
         q.save()
     
-    return HttpResponseRedirect(reverse("queue", args=(shop_id,)))
+    return HttpResponseRedirect(reverse("queue", args=(s.id,)))
 
 def queue(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)

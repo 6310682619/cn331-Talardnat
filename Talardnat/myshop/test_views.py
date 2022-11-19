@@ -50,6 +50,7 @@ class MyShopViewsTest(TestCase):
             category = "food",
             in_interact = "Chocolate Pudding Yummy",
             ex_interact = "Come and get it!",
+            payment = "1234567"
         )
 
         temp_img = tempfile.NamedTemporaryFile()
@@ -86,13 +87,13 @@ class MyShopViewsTest(TestCase):
             count = 1
         )
 
-        # round0 = round.objects.create(
-        #     shop = shop1,
-        #     round_queue = 0,
-        #     numshop = 1,
-        #     expire = datetime.datetime.today() + datetime.timedelta(days=10),
-        #     start = datetime.datetime.today()
-        # )
+        round1 = round.objects.create(
+            round_queue = 1,
+            numshop = 1,
+            # expire = datetime.datetime.today() + datetime.timedelta(days=10),
+            # start = datetime.datetime.today()
+        )
+        round1.shop.set([shop1])
 
 
     def test_myshop_index(self):
@@ -101,14 +102,19 @@ class MyShopViewsTest(TestCase):
                {'username': 'sunday', 
                'password': 'sunday11'})
         seller1 = seller_detail.objects.first()
+        shop1 = shop_detail.objects.first()
         response=c.get(reverse('myshop_index', args=[seller1.id]))
-
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'myshop/myshop_index.html')
-        self.failUnless(isinstance(response.context['form'],
-                                   forms.ShopForm))
+        
+        response=c.post(reverse('myshop_index', args=[seller1.id]),{
+            'name': shop1.name,
+            'category': shop1.category, 
+            'in_interact': shop1.in_interact, 
+            'ex_interact': shop1.ex_interact, 
+            'payment': shop1.payment,
+        })
+        self.assertEqual(response.status_code, 200)
 
     def test_myshop_shop(self):
         c = Client()
@@ -117,11 +123,18 @@ class MyShopViewsTest(TestCase):
                'password': 'sunday11'})
         shop1 = shop_detail.objects.first()
         response=c.get(reverse('myshop', args=[shop1.id]))
-        
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'myshop/shop.html')
+
+    def test_myshop_queue(self):
+        c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+        shop1 = shop_detail.objects.first()
+        round1 = round.objects.first()
+        queue = (shop1.addqueue.get()).round_queue
+        self.assertTrue(queue)
 
     def test_myshop_delshop(self):
         c = Client()
@@ -131,7 +144,6 @@ class MyShopViewsTest(TestCase):
 
         shop1 = shop_detail.objects.first()
         response=c.get(reverse('delshop', args=[shop1.id]))
-        # Check response
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_product(self):
@@ -141,13 +153,17 @@ class MyShopViewsTest(TestCase):
                'password': 'sunday11'})
 
         shop1 = shop_detail.objects.first()
+        product1 = product.objects.first()
         response=c.get(reverse('product', args=[shop1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        self.failUnless(isinstance(response.context['form'],
-                                   forms.ProductForm))
-        # Check template
         self.assertTemplateUsed(response, 'myshop/product.html')
+
+        response=c.post(reverse('product', args=[shop1.id]),{
+            'product_name': product1.product_name,
+            'price': product1.price, 
+            'count': product1.count, 
+        })
+        self.assertEqual(response.status_code, 200)
     
     def test_myshop_delproduct(self):
         c = Client()
@@ -158,7 +174,6 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.first()
         product1 = product.objects.first()
         response=c.get(reverse('delprod', args=[shop1.id, product1.id]))
-        # Check response
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_edit(self):
@@ -169,12 +184,17 @@ class MyShopViewsTest(TestCase):
 
         shop1 = shop_detail.objects.first()
         response=c.get(reverse('edit', args=[shop1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        self.failUnless(isinstance(response.context['form'],
-                                   forms.ShopForm))
-        # Check template
         self.assertTemplateUsed(response, 'myshop/edit.html')
+
+        response=c.post(reverse('edit', args=[shop1.id]),{
+            'name': 'NewName',
+            'category': shop1.category, 
+            'in_interact': shop1.in_interact, 
+            'ex_interact': shop1.ex_interact, 
+            'payment': shop1.payment,
+        })
+        self.assertEqual(response.status_code, 302)
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_image_upload(self):
@@ -191,10 +211,8 @@ class MyShopViewsTest(TestCase):
         review1 = Review.objects.first()
         
         response=c.get(reverse('myreview', args=[shop1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Review.objects.count(), 1)
-        # Check template
         self.assertTemplateUsed(response, 'myshop/myreview.html')
 
     def test_myshop_edit_prod(self):
@@ -206,12 +224,82 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.first()
         product1 = product.objects.first()
         response=c.get(reverse('editprod', args=[shop1.id, product1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.failUnless(isinstance(response.context['form'],
                                    forms.ProductForm))
-        # Check template
         self.assertTemplateUsed(response, 'myshop/editprod.html')
+
+        response=c.post(reverse('editprod', args=[shop1.id, product1.id]),{
+            'product_name': 'new chocolate',
+            'price': product1.price, 
+            'count': product1.count, 
+        })
+        self.assertEqual(response.status_code, 302)
+
+    def test_myshop_addqueue(self):
+        c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+
+        seller1 = seller_detail.objects.first()
+        shop1 = shop_detail.objects.first()
+        shop2 = shop_detail.objects.create(
+            seller_id = seller1,
+            name = "PetShop",
+            category = "utensil",
+            in_interact = "For your puppy",
+            ex_interact = "Puppy care",
+        )
+        allround = round.objects.filter().order_by('round_queue')
+        find = allround.filter(shop = shop1).exists()
+        notfind = allround.filter(shop = shop2).exists()
+        self.assertTrue(find)
+        self.assertFalse(notfind)
+
+    def test_this_round(self):
+        c = Client()
+        seller1 = seller_detail.objects.first()
+        shop1 = shop_detail.objects.first()
+        shop2 = shop_detail.objects.create(
+            seller_id = seller1,
+            name = "PetShop",
+            category = "utensil",
+            in_interact = "For your puppy",
+            ex_interact = "Puppy care",
+        )
+        round1 = round.objects.first()
+        round1.shop.add(shop2)
+        round1.numshop += 1
+
+        response=c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
+            'round_queue': 1
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(round1.shop.count(), 2)
+        self.assertEqual(round1.numshop, 2)
+
+    def test_next_round(self):
+        c = Client()
+        seller1 = seller_detail.objects.first()
+        shop1 = shop_detail.objects.first()
+        shop2 = shop_detail.objects.create(
+            seller_id = seller1,
+            name = "PetShop",
+            category = "utensil",
+            in_interact = "For your puppy",
+            ex_interact = "Puppy care",
+        )
+        allround = round.objects.filter().order_by('round_queue')
+        round1 = round.objects.first()
+        self.assertEqual(round1.round_queue, len(allround))
+        newround = round.objects.create(round_queue = (round1.round_queue + 1), numshop = 1) 
+        newround.shop.set([shop2])
+
+        response=c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
+            'round_queue': newround.round_queue
+        })
+        self.assertEqual(response.status_code, 200)
 
     def test_del_shop(self):
         c = Client()
@@ -223,27 +311,54 @@ class MyShopViewsTest(TestCase):
         shop1.delete()
         self.assertEqual(shop1.count(), 0)
 
-    def test_shop_form(self):
+    # def test_del_queue(self):
+    #     c = Client()
+    #     shop1 = shop_detail.objects.first()
+    #     round1 = round.objects.first()
+    #     queue = round1
+    #     queue.delete()
+
+    def test_queue(self):
+        c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+
         shop1 = shop_detail.objects.first()
-        data={
-            'name': 'pudding',
-            'category': 'food',
-            'in_interact': 'eat it',
-            'ex_interact': 'eat',
-            'payment': '123',
-        }
-        response = self.client.post(reverse('myshop', args=(shop1.id,)), data=data)
+        allround = round.objects.filter().order_by('round_queue')
+        response=c.get(reverse('queue', args=[shop1.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myshop/queue.html')
+        response=c.post(reverse('queue', args=[shop1.id]),{
+            'shop': shop1,
+            'round': allround
+        })
         self.assertEqual(response.status_code, 200)
 
-    def test_product_form(self):
-        temp_img = tempfile.NamedTemporaryFile()
-        test_image = create_image(temp_img)
-        shop1 = shop_detail.objects.first()
-        data={
-            'product_name': 'pudding',
-            'price': 10,
-            'count': 'eat it',
-            'product_im': test_image.name,
-        }
-        response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
-        self.assertEqual(response.status_code, 200)
+
+
+
+    # def test_shop_form(self):
+    #     shop1 = shop_detail.objects.first()
+    #     data={
+    #         'name': 'pudding',
+    #         'category': 'food',
+    #         'in_interact': 'eat it',
+    #         'ex_interact': 'eat',
+    #         'payment': '123',
+    #     }
+    #     response = self.client.post(reverse('myshop', args=(shop1.id,)), data=data)
+    #     self.assertEqual(response.status_code, 200)
+
+    # def test_product_form(self):
+    #     temp_img = tempfile.NamedTemporaryFile()
+    #     test_image = create_image(temp_img)
+    #     shop1 = shop_detail.objects.first()
+    #     data={
+    #         'product_name': 'pudding',
+    #         'price': 10,
+    #         'count': 'eat it',
+    #         'product_im': test_image.name,
+    #     }
+    #     response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
+    #     self.assertEqual(response.status_code, 200)
