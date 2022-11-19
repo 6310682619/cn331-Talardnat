@@ -2,7 +2,7 @@
 {% block body %}
 <div>
     <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a><br>
-    <h1>My order</h1>
+    <div class = "headbox">My order</div>
     <div class = "menubox">
         <ul class="menulist">
             <script>
@@ -10,16 +10,18 @@
                 var p;
 
             </script>
+            <h3>New Order</h3>
             {% for o in order %}
-                <li>
-                    Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                    <script>
-                        p = "{{ o.price }}";
-                        sum += Number(p);
-                    </script>
-                    <a href="{% url 'delorder' u_id o.id %}">remove</a>
-                </li>
-            
+                {% if o.confirmpay != "paid" %}
+                    <li>
+                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                        <script>
+                            p = "{{ o.price }}";
+                            sum += Number(p);
+                        </script>
+                        <a href="{% url 'delorder' u_id o.id %}">remove</a>
+                    </li>
+                {% endif %}
             {% endfor %}
             Total:
             <script>
@@ -28,6 +30,48 @@
         </ul>
     </div>
     <br><br>
+    <div >
+        Pay
+    </div>
+
+    <div id="pay">
+        <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+              <label>Card Number</label>
+              <input name="card-number" type="text" required>
+            </div>
+            <div>
+              <label>Card Verification Value</label>
+              <input name="name" type="text" placeholder="CVV" required>
+            </div>
+            <div>
+              <label>Expiry Date</label>
+              <input name="card-number" type="text" placeholder="MM/YY" maxlength="3" required>
+            </div>
+            
+            <input type="submit" value="submit" class="submit">
+          </form>
+    </div>
+
+    <h3>Carry Out</h3>
+        {% for o in order %}
+            {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
+                <li>
+                    Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                </li>
+                <a href="{% url 'recieved' u_id o.id %}">recieved</a>
+            {% endif %}
+        {% endfor %}
+
+    <h3>Finished</h3>
+        {% for o in order %}
+            {% if o.confirmrecieved == "recieved" %}
+                <li>
+                    Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
 
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>

@@ -4,6 +4,7 @@ from unicodedata import category
 from django.db import models
 from seller.models import seller_detail
 from customer.models import Profile
+from django.utils import timezone
 
 # Create your models here.
 class shop_detail(models.Model):
@@ -43,6 +44,9 @@ class MyOrder(models.Model):
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
     prod = models.ForeignKey(product, on_delete=models.CASCADE, null=True , related_name="ordered")
     count = models.IntegerField(default = 1)
+    confirmpay = models.CharField(default = "not pay yet.", max_length=64)
+    confirmrecieved = models.CharField(default = "not recieve yet.", max_length=64)
+    date = models.DateTimeField(default=timezone.now, editable=False, blank=True)
 
     def price(self):
         return self.prod.price * self.count
