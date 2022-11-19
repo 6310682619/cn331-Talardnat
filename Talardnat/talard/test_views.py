@@ -36,7 +36,7 @@ class TalardViewsTest(TestCase):
             first_name='monday',
             last_name='weekdays',
         )
-        
+
         seller1 = seller_detail.objects.create(
             sname = user1
         )
@@ -90,13 +90,13 @@ class TalardViewsTest(TestCase):
             count = 1
         )
 
-        round0 = round.objects.create(
-            shop = shop1,
-            round_queue = 0,
+        round1 = round.objects.create(
+            round_queue = 1,
             numshop = 1,
-            expire = datetime.datetime.today() + datetime.timedelta(days=10),
-            start = datetime.datetime.today()
+            start = datetime.datetime(2022, 11, 17),
+            expire = datetime.datetime(2022, 11, 20)
         )
+        round1.shop.set([shop1])
 
     def test_index_view(self):
         """Test if page is accessible, check response and template"""
@@ -195,9 +195,21 @@ class TalardViewsTest(TestCase):
         self.assertTemplateUsed(response, 'talard/rate.html')
 
     def test_thisshop_view(self):
-        user2 = User.objects.filter(username='monday')
+        user2 = User.objects.get(username='monday')
         shop1 = shop_detail.objects.first()
-        c = Client()
-        response=c.post(reverse('thisshop',args=[shop1.category, user2.id]), {})
+        round1 = round.objects.first()
+        ex = round1.expire
+        product1 = product.objects.first()
+        reviews = Review.objects.filter(shop=shop1)
+        avg_reviews = reviews.aggregate(avg_rating = Avg('review_rating'))
 
+        c = Client()
+        response=c.post(reverse('thisshop',args=[user2.id, shop1.id]), {
+            "this_shop" : shop1,
+            "menu" : product1,
+            "reviews": reviews,
+            "avg_reviews": avg_reviews,
+            "expire":ex,
+        })
+        self.assertEqual(response.status_code, 200)
  

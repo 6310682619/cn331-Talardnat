@@ -96,7 +96,7 @@ class MyShopModelsTest(TestCase):
 
     def test_product_ordered(self):
         shop1 = shop_detail.objects.first()
-        product1 = product.objects.get(shop=shop1)
+        product1 = product.objects.first()
         #self.assertEqual(product1.ordered(), product1.count -1)
 
     def test_review(self):
@@ -127,10 +127,9 @@ class MyShopModelsTest(TestCase):
         round1 = round.objects.create(
             round_queue = 1,
             numshop = 1,
-            expire = datetime.datetime.today() + datetime.timedelta(days=10),
-            start = datetime.datetime.today()
+            # expire = datetime.datetime.today() + datetime.timedelta(days=10),
+            # start = datetime.datetime.today()
         )
         round1.shop.set([shop1])
         self.assertEqual(round1.shop.count(), 1)
-
         self.assertEqual(round1.__str__(),f"round: {round1.round_queue}")
