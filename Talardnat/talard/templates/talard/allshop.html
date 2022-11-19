@@ -6,7 +6,7 @@
        
         <div class=" slide">
             <h1>
-                <marquee direction="left" scrollamount="25">
+                <marquee direction="left" scrollamount="25" behavior="alternate">
                     TALARDNAT
                 </marquee>
             </h1>
@@ -45,12 +45,6 @@
                     </div>
                 {% endif %}
             {% endfor %}
-
-            <h1>
-                <marquee direction="right" scrollamount="25">
-                    TALARDNAT
-                </marquee>
-            </h1>
         </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
     </div>
