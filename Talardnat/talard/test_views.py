@@ -22,9 +22,21 @@ def create_image(temp_img):
 class TalardViewsTest(TestCase):
     def setUp(self):
 
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-        user2 = User.objects.create_user(username='monday', password='monday22', email='monday@morning.com')
-
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
+        
         seller1 = seller_detail.objects.create(
             sname = user1
         )

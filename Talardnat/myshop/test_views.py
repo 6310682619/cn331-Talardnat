@@ -25,8 +25,20 @@ def create_image(temp_img):
 class MyShopViewsTest(TestCase):
     def setUp(self):
 
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-        user2 = User.objects.create_user(username='monday', password='monday22', email='monday@morning.com')
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
 
         seller1 = seller_detail.objects.create(
             sname = user1
@@ -52,7 +64,12 @@ class MyShopViewsTest(TestCase):
         )
 
         customer1 = Profile.objects.create(
-            customer = user2
+            customer = user2,
+            address = "Citypark",
+            city = "TU",
+            state = "Bkk",
+            zip = 11111,
+            phone = "123456789"
         )
 
         review1 = Review.objects.create(
@@ -69,13 +86,13 @@ class MyShopViewsTest(TestCase):
             count = 1
         )
 
-        round0 = round.objects.create(
-            shop = shop1,
-            round_queue = 0,
-            numshop = 1,
-            expire = datetime.datetime.today() + datetime.timedelta(days=10),
-            start = datetime.datetime.today()
-        )
+        # round0 = round.objects.create(
+        #     shop = shop1,
+        #     round_queue = 0,
+        #     numshop = 1,
+        #     expire = datetime.datetime.today() + datetime.timedelta(days=10),
+        #     start = datetime.datetime.today()
+        # )
 
 
     def test_myshop_index(self):
