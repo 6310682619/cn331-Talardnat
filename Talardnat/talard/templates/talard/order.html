@@ -30,11 +30,9 @@
         </ul>
     </div>
     <br><br>
-    <div >
-        Pay
-    </div>
 
-    <div id="pay">
+    <div class= "menubox" id="pay">
+        <h3>Pay</h3>
         <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
@@ -54,6 +52,7 @@
           </form>
     </div>
 
+    <div class= "menubox">
     <h3>Carry Out</h3>
         {% for o in order %}
             {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
@@ -63,7 +62,9 @@
                 <a href="{% url 'recieved' u_id o.id %}">recieved</a>
             {% endif %}
         {% endfor %}
+    </div>
 
+    <div class= "menubox">
     <h3>Finished</h3>
         {% for o in order %}
             {% if o.confirmrecieved == "recieved" %}
@@ -72,7 +73,7 @@
                 </li>
             {% endif %}
         {% endfor %}
-
+    </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
 </div>
 
