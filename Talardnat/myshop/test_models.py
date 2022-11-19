@@ -127,8 +127,6 @@ class MyShopModelsTest(TestCase):
         round1 = round.objects.create(
             round_queue = 1,
             numshop = 1,
-            # expire = datetime.datetime.today() + datetime.timedelta(days=10),
-            # start = datetime.datetime.today()
         )
         round1.shop.set([shop1])
         self.assertEqual(round1.shop.count(), 1)
