@@ -8,7 +8,9 @@ from seller.forms import sellerForm
 # Create your views here.
 
 def index(request, sid):
-    if not request.user.is_authenticated:
+    user = User.objects.get(username=request.user.username)
+    isseller = seller_detail.objects.filter(sname=user).exists()
+    if not (request.user.is_authenticated and isseller):
         return HttpResponseRedirect(reverse("seller_login"))
     return render(request, "seller/seller_index.html", {'sid': sid})
 
