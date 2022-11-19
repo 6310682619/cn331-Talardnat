@@ -311,12 +311,18 @@ class MyShopViewsTest(TestCase):
         shop1.delete()
         self.assertEqual(shop1.count(), 0)
 
-    # def test_del_queue(self):
-    #     c = Client()
-    #     shop1 = shop_detail.objects.first()
-    #     round1 = round.objects.first()
-    #     queue = round1
-    #     queue.delete()
+    def test_del_queue(self):
+        c = Client()
+        shop1 = shop_detail.objects.first()
+        round1 = round.objects.filter()
+        queue = round1.filter(shop=shop1)
+        find = queue.exists()
+        q = round1.get(shop=shop1)
+        q.shop.remove(shop1)
+        q.numshop -= 1
+
+        self.assertTrue(find)
+        self.assertEqual(q.numshop, q.shop.count())
 
     def test_queue(self):
         c = Client()
