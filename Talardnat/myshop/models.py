@@ -13,8 +13,7 @@ class shop_detail(models.Model):
     category = models.CharField(max_length=10, null=True)
     in_interact = models.CharField(max_length=100, null=True)
     ex_interact = models.CharField(max_length=64, null=True)
-    #expire = models.IntegerField(null=True)
-    #queue = models.IntegerField(null=True)
+    shop_im = models.ImageField(upload_to='images/', default = "images/cartoon-style-cafe-front-shop-view_134830-697.webp")
     payment = models.CharField(max_length=100, null=True)
 
     def __str__(self):

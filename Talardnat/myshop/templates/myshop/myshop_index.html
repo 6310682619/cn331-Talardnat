@@ -9,6 +9,7 @@
     <ul>
     {% for s in shop %}
         <li>
+            <img src="{{ s.shop_im.url }}" style="width: 200px; height:200px;">
             <a href= "{% url 'myshop' s.id %}" class="slist">
                 {{ s }}
             </a>
