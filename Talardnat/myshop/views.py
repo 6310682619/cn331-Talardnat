@@ -131,3 +131,4 @@ def queue(request, shop_id):
             "shop":  s, 
             "round": allr,
         })
+
