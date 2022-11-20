@@ -41,34 +41,33 @@ class SellerViewsTest(TestCase):
         )
 
     def test_index(self):
+        """Test if seller_index page can access"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
                'password': 'sunday11'})
         seller1 = seller_detail.objects.first()
         response = c.get(reverse('seller_index', args=[seller1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'seller/seller_index.html')
 
     def test_login_view(self):
+        """Test if login page can access"""
         c = Client()
         response = c.get(reverse('seller_login'))
-        # Check response
         self.assertEqual(response.status_code, 200)
 
     def test_logged_out(self):
+        """Test if user logout"""
         c = Client()
         response = c.get(reverse('seller_logout'))
 
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['message'] == 'You are logged out')
-        # Check template
         self.assertTemplateUsed(response, 'seller/seller_login.html')
 
     def test_not_user_login(self):
+        """Test if unauthenticated user login"""
         c = Client()
         response = c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -83,7 +82,7 @@ class SellerViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_not_seller(self):
-        """Test if user not customer"""
+        """Test if user not seller"""
         c = Client()
         c.login(username='monday', password='monday22')
         customer1 = User.objects.get(username='monday')
@@ -91,6 +90,7 @@ class SellerViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_signup_get(self):
+        """Test if user can signup"""
         c = Client()
         response = c.get(reverse('seller_signup'))
         self.assertEqual(response.status_code, 200)
@@ -100,12 +100,12 @@ class SellerViewsTest(TestCase):
         """Test correct signup"""
         c = Client()
         form_data={
-            'username':'sunday',  
-            'email':'sunday@morning.com',
-            'first_name':'sunday',
+            'username':'tuesday',  
+            'email':'tuesday@morning.com',
+            'first_name':'tuesday',
             'last_name':'weekends',
-            'password1': 'sunday11',
-            'password2': 'sunday11'
+            'password1': 'tuesday11',
+            'password2': 'tuesday11'
         }
         
         c.post(reverse('seller_signup'), form_data)
