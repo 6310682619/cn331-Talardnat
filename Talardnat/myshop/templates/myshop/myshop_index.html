@@ -6,31 +6,32 @@
     </div>
     <br><br>
     <h1>My Shop List</h1>
-    <div class="previewtalardbox"></div>
     <ul>
     {% for s in shop %}
-    <div class="previewtalardbox">
-        <li>
-            <body>
-            <a href= "{% url 'myshop' s.id %}">
-                {{ s }}
-            </a>
-            <br><img src="{{ s.shop_im.url }}" class="shopimg">
-            {{ s.ex_interact }}
-            </body>
-            <br>
-            <a href= "{% url 'delshop' s.id %}"
-                onclick="
-                if (confirm('Are you sure to remove your shop?')){
-                    return true;
-                }
-                else{
-                    event.stopPropagation();
-                    event.preventDefault();
-                };"
-                class="remove">remove</a>
-        </li>
-    </div>
+    
+    <li>
+        <div class="previewtalardbox">
+        <a href= "{% url 'myshop' s.id %}">
+        <div class="goshop"></div>
+            
+            {{ s }}
+            <br><img src="{{ s.shop_im.url }}" class="shopimg"><br>
+            <div class="spacetb">{{ s.ex_interact }}</div>
+        
+        </a>
+        </div>
+        <a href= "{% url 'delshop' s.id %}"
+            onclick="
+            if (confirm('Are you sure to remove your shop?')){
+                return true;
+            }
+            else{
+                event.stopPropagation();
+                event.preventDefault();
+            };"
+            class="remove">remove</a>
+    </li>
+    
     {% empty %}
         <li>NO SHOP</li>
     {% endfor %}<br><br>
