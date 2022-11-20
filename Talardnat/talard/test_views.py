@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 from customer.models import Profile
-from myshop.models import *
-from seller.models import *
+from myshop.models import shop_detail
+from seller.models import seller_detail
 from PIL import Image
 import tempfile
 import datetime
@@ -41,12 +41,30 @@ class TalardViewsTest(TestCase):
         )
         user2.save()
 
+        user3 = User.objects.create_user(
+            username='tuesday', 
+            password='tuesday33', 
+            email='tuesday@morning.com',
+            first_name='tuesday',
+            last_name='weekdays',
+        )
+        user3.save()
+
         seller1 = seller_detail.objects.create(
             sname = user1
         )
 
         customer1 = Profile.objects.create(
             customer = user2,
+            address = "Citypark",
+            city = "TU",
+            state = "Bkk",
+            zip = 11111,
+            phone = "123456789"
+        )
+
+        customer2 = Profile.objects.create(
+            customer = user3,
             address = "Citypark",
             city = "TU",
             state = "Bkk",
@@ -69,6 +87,14 @@ class TalardViewsTest(TestCase):
         product1 = product.objects.create(
             shop = shop1,
             product_name = "Chocolate",
+            price = 50,
+            product_im=test_image.name,
+            count = 10
+        )
+
+        product2 = product.objects.create(
+            shop = shop1,
+            product_name = "Milk",
             price = 50,
             product_im=test_image.name,
             count = 10
@@ -216,52 +242,60 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/rate.html')
 
-    # def test_buy_view(self):
-    #     """Test if page is accessible, check response and template"""
+    def test_buy_view(self):
+        """Test if can buy product"""
 
-    #     c = Client()
-    #     c.post(reverse('customer_login'),
-    #            {'username': 'monday', 
-    #            'password': 'monday22'})
+        c = Client()
+        c.login(username = "monday", password = "monday22")
+        customer1 = User.objects.get(username="monday")
+        shop1 = shop_detail.objects.first()
+        product1 = product.objects.get(product_name = "Milk")
+        c.post(reverse('buy',args=[customer1.id, shop1.id, product1.id]),{"count":"1"})
+        response = c.get(reverse("thisshop", args=(customer1.id,shop1.id)))
+        self.assertEqual(response.status_code, 200)
 
-    #     customer1 = Profile.objects.first()
-    #     shop1 = shop_detail.objects.first()
-    #     product1 = product.objects.first()
-    #     response=c.post(reverse('buy',args=[customer1.id, shop1.id, product1.id]))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'talard/shop.html')
- 
+    def test_cannot_buy_view(self):
+        """Test if can not buy product"""
+        c = Client()
+        c.login(username = "monday", password = "monday22")
+        customer1 = User.objects.get(username="monday")
+        shop1 = shop_detail.objects.first()
+        product1 = product.objects.get(product_name = "Milk")
+        c.post(reverse('buy',args=[customer1.id, shop1.id, product1.id]),{"count":"200"})
+        response = c.get(reverse("thisshop", args=(customer1.id,shop1.id)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_del_order(self):
+        c = Client()
+        c.login(username = "monday", password = "monday22")
+        user = User.objects.get(username="monday")
+        customer = Profile.objects.get(customer = user)
+        order = MyOrder.objects.first()
+        c.post(reverse("delorder", args = (customer.id,order.id,)))
+        self.assertEqual(customer.order.count(), 0)
+
+    def test_recieved_order(self):
+        c = Client()
+        c.login(username = "monday", password = "monday22")
+        user = User.objects.get(username="monday")
+        customer = Profile.objects.get(customer = user)
+        order = MyOrder.objects.first()
+        c.post(reverse("recieved", args = (customer.id,order.id,)))
+        o =  MyOrder.objects.first()
+        self.assertEqual(o.confirmrecieved, "recieved")
+
     # def test_addReview(self):
     #     c = Client()
-    #     user1 = User.objects.first()
-    #     customer1 = Profile.objects.create(
-    #         customer = user1,
-    #         address = "Citypark",
-    #         city = "TU",
-    #         state = "Bkk",
-    #         zip = 11111,
-    #         phone = "123456789"
-    #     )
-    #     shop1 = shop_detail.objects.first()
-    #     review1 = Review.objects.first()
-    #     response=c.post(reverse('addreview', args=[customer1.id, shop1.id]),{
-    #         'review_text': review1.review_text,
-    #         'review_rating': review1.review_rating, 
+    #     c.login(username = "tuesday", password = "tuesday22")
+    #     user = User.objects.get(username="tuesday")
+    #     customer = Profile.objects.get(customer = user)
+    #     shop = shop_detail.objects.first()
+    #     c.post(reverse("addreview", args = (customer.id,shop.id,)),{
+    #         'review_text': "good",
+    #         'review_rating': 5
     #     })
-    #     self.assertEqual(response.status_code, 302)
-
-    # def test_review_post(self):
-    #     c = Client()
-    #     user1 = User.objects.first()
-    #     shop1 = shop_detail.objects.first()
-    #     review1 = Review.objects.first()
-    #     request = HttpRequest()
-    #     request.method = 'POST'
-    #     request.POST['review_text'] = review1.review_text
-    #     request.POST['review_rating'] = review1.review_rating
-    #     request.META['HTTP_HOST'] = 'localhost'
-    #     response=c.post(reverse('addreview', args=[user1.id, shop1.id]))
-    #     self.assertEquals(response.status_code, 200)
+    #     response = c.get(reverse("thisshop", args=(customer.id,shop.id)))
+    #     self.assertEqual(response.status_code, 200)
 
     def test_rating_post(self):
         c = Client()
