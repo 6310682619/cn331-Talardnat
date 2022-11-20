@@ -2,8 +2,10 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from myshop.models import *
-from seller.models import seller_detail
-from seller import forms
+from .models import *
+from . import forms
+from django.http import HttpRequest
+from . import views
 
 # Create your tests here.
 
@@ -78,18 +80,30 @@ class SellerViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'seller/seller_signup.html')
 
-    def test_signup_post(self):
-        c = Client()
-        response = c.post(reverse('seller_signup'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
-        seller1 = seller_detail.objects.first()
+    # def test_signup_post(self):
+    #     c = Client()
+    #     response = c.post(reverse('seller_signup'),
+    #            {'username': 'sunday', 
+    #            'password': 'sunday11'})
+    #     seller1 = seller_detail.objects.first()
 
-        response = c.post(reverse('seller_index', args=[seller1.id]),{
-            'username':'sunday', 
-            'password':'sunday11', 
-            'email':'sunday@morning.com',
-            'first_name':'sunday',
-            'last_name':'weekends'
-        })
-        self.assertEqual(response.status_code, 302)
+    #     response = c.post(reverse('seller_index', args=[seller1.id]),{
+    #         'username':'sunday', 
+    #         'password':'sunday11', 
+    #         'email':'sunday@morning.com',
+    #         'first_name':'sunday',
+    #         'last_name':'weekends'
+    #     })
+    #     self.assertEqual(response.status_code, 302)
+
+    def test_signup_post(self):
+        seller1 = seller_detail.objects.first()
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['username'] = seller1.sname.username
+        request.POST['password'] = seller1.sname.password
+        request.POST['first_name'] = seller1.sname.first_name
+        request.POST['last_name'] = seller1.sname.last_name
+        request.META['HTTP_HOST'] = 'localhost'
+        response = views.signup(request)
+        self.assertEquals(response.status_code, 200)

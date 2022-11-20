@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from customer import forms
 from customer.models import Profile
+from django.http import HttpRequest
+from . import views
 
 # Create your tests here.
 
@@ -76,3 +78,20 @@ class CustomerViewTest(TestCase):
 
         self.failUnless(isinstance(response.context['form'],
                                    forms.RegisterForm))
+
+    def test_register_post(self):
+        customer1 = Profile.objects.first()
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['username'] = customer1.customer.username
+        request.POST['password'] = customer1.customer.password
+        request.POST['first_name'] = customer1.customer.first_name
+        request.POST['last_name'] = customer1.customer.last_name
+        request.POST['address'] = customer1.address
+        request.POST['city'] = customer1.city
+        request.POST['state'] = customer1.state
+        request.POST['zip'] = customer1.zip
+        request.POST['phone'] = customer1.phone
+        request.META['HTTP_HOST'] = 'localhost'
+        response = views.register(request)
+        self.assertEquals(response.status_code, 200)
