@@ -31,6 +31,7 @@ class TalardViewsTest(TestCase):
             first_name='sunday',
             last_name='weekends',
         )
+        user1.save()
         user2 = User.objects.create_user(
             username='monday', 
             password='monday22', 
@@ -38,6 +39,7 @@ class TalardViewsTest(TestCase):
             first_name='monday',
             last_name='weekdays',
         )
+        user2.save()
 
         seller1 = seller_detail.objects.create(
             sname = user1
@@ -182,15 +184,19 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
 
-    def test_del_order(self):
-        c = Client()
-        c.post(reverse('customer_login'),
-               {'username': 'monday', 
-               'password': 'monday22'})
-
-        order = MyOrder.objects.all()
-        order.delete()
-        self.assertEqual(order.count(), 0)
+    # def test_del_order(self):
+    #     c = Client()
+    #     c.post(reverse('customer_login'),
+    #            {'username': 'monday', 
+    #            'password': 'monday22'})
+    #     customer1 = Profile.objects.first()
+    #     order1 = MyOrder.objects.first()
+    #     order = MyOrder.objects.all()
+    #     order.delete()
+    #     self.assertEqual(order.count(), 0)
+    #     c.post(reverse('del_order', args=[customer1.id, order1.id]))
+    #     response = c.get(reverse('del_order', args=[customer1.id, order1.id]))
+    #     self.assertEqual(response.status_code, 302)
 
     def test_valid_rating(self):
         rateus1 = RateUs.objects.first()
@@ -209,6 +215,21 @@ class TalardViewsTest(TestCase):
         response=c.get(reverse('rateus'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/rate.html')
+
+    # def test_buy_view(self):
+    #     """Test if page is accessible, check response and template"""
+
+    #     c = Client()
+    #     c.post(reverse('customer_login'),
+    #            {'username': 'monday', 
+    #            'password': 'monday22'})
+
+    #     customer1 = Profile.objects.first()
+    #     shop1 = shop_detail.objects.first()
+    #     product1 = product.objects.first()
+    #     response=c.post(reverse('buy',args=[customer1.id, shop1.id, product1.id]))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'talard/shop.html')
  
     # def test_addReview(self):
     #     c = Client()
@@ -230,21 +251,28 @@ class TalardViewsTest(TestCase):
     #     self.assertEqual(response.status_code, 302)
 
     # def test_review_post(self):
+    #     c = Client()
+    #     user1 = User.objects.first()
+    #     shop1 = shop_detail.objects.first()
     #     review1 = Review.objects.first()
     #     request = HttpRequest()
     #     request.method = 'POST'
     #     request.POST['review_text'] = review1.review_text
     #     request.POST['review_rating'] = review1.review_rating
     #     request.META['HTTP_HOST'] = 'localhost'
-    #     response = views.addreview(request)
+    #     response=c.post(reverse('addreview', args=[user1.id, shop1.id]))
     #     self.assertEquals(response.status_code, 200)
 
-    # def test_rating_post(self):
-    #     rateus1 = RateUs.objects.first()
-    #     request = HttpRequest()
-    #     request.method = 'POST'
-    #     request.POST['rate_text'] = rateus1.rate_text
-    #     request.POST['rating'] = rateus1.rating
-    #     request.META['HTTP_HOST'] = 'localhost'
-    #     response = views.addreview(request)
-    #     self.assertEquals(response.status_code, 200)
+    def test_rating_post(self):
+        c = Client()
+        data = {
+            'rate_text':'good',
+            'rating':5
+        }
+        c.post(reverse('rating'), data)
+        response = c.get(reverse('index'))
+        self.assertEquals(response.status_code, 200)
+
+    # def test_review_post(self):
+    #     c = Client()
+
