@@ -4,9 +4,9 @@
     <a href="{{ request.META.HTTP_REFERER }}"><button class="back">Back</button></a><br>
     <div class = "headbox"><b>My order</b></div><br>
 
-    <div class = "menubox" style="width: 820px;">
+    <div class = "menubox" style="width: 840px;">
         <h3 style="font-size: 40px;">Shopping Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></h3>
-        <table class="menulist" style="border-radius: 8px;">
+        <table class="menulist" style="border-radius: 8px; width: 820px; margin-left: auto; margin-right: auto;">
             <script>
                 var sum = 0;
                 var p;
@@ -46,7 +46,7 @@
         </div>
         
     </div>
-    <br><br>
+    <br>
 
     <!-- <div class= "menubox">
         <button id="checkout">Check Out</button>
@@ -78,66 +78,85 @@
     </div> -->
 
     
-    <div class= "menubox" style="width: 820px;">
-        <div class="box-review">
-            <h3 style="line-height: 0.5;">Check Out</h3>
-            <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div>
-                  <label>Card Number</label>
-                  <input name="card-number" type="text" required>
-                </div>
-                <div>
-                  <label>Card Verification Value</label>
-                  <input name="name" type="text" placeholder="CVV" required>
-                </div>
-                <div>
-                  <label>Expiry Date</label>
-                  <input name="card-number" type="text" placeholder="MM/YY" maxlength="3" required>
-                </div>
-                
-                <input type="submit" value="submit" class="submit">
-              </form>
+    <div class= "menubox" style="width: 840px;">
+        <div class="box-review" style="line-height: normal;">
+            <h3 style="text-align: center; font-size: 40px;">Check Out</h3>
+            <div style="text-align: justify; display: flex; justify-content: center;">
+                <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        <label style="line-height: 0.3; font-size: 25px;">Card Number</label><br>
+                        <input name="card-number" type="text" style="width: 400px; line-height: 1.4;" required>
+                    </div>
+                    <div>
+                        <label style="line-height: 0.3; font-size: 25px;">Card Verification Value</label><br>
+                        <input name="name" type="text" style="width: 400px; line-height: 1.4;"  placeholder="CVV" required>
+                    </div>
+                    <div>
+                        <label style="line-height: 0.3; font-size: 25px;">Expiry Date</label><br>
+                        <input name="card-number" type="text" style="width: 400px; line-height: 1.4;"  placeholder="MM/YY" maxlength="3" required>
+                    </div><br>
+                    <input type="submit" value="submit" class="submit" style="text-align: center;">
+                </form>
+            </div>
         </div>
     </div>
 
-    <div class= "menubox" style="width: 820px;">
+    <div class= "menubox" style="width: 840px;">
         <div class="box-review">
-            <h3>Carry Out</h3>
-        <script>
-            var n;
-        </script>
-            {% for o in order %}
-                {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
-                    <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                    </li>
-                    <a href="{% url 'recieved' u_id o.id %}">recieved</a>
-                {% else %}
-                    <script>
-                        n = "No orders yet";
-                    </script>
-                {% endif %}
-            {% endfor %}
-            <p> 
+            <h3 style="font-size: 40px;">Carry Out</h3>
+            <script>
+                var n;
+            </script>
+            <table class="menulist" style="border-radius: 8px; width: 800px; margin-left: auto; margin-right: auto;">
+                <tr>
+                    <th>Shop</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Order Date</th>
+                    <th>Actions </th>
+                </tr>
+                    {% for o in order %}
+                        {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
+                            <tr>
+                                <td>{{ o.shop }}</td>
+                                <td>{{ o.prod }}</td>
+                                <td>{{ o.count }}</td>
+                                <td><a id='n'>{{ o.price }}</a></td>
+                                <td>{{o.date}}</td>
+                                <td><a href="{% url 'recieved' u_id o.id %}">recieved</a>
+                            </tr>     
+                        {% else %}
+                            <script>
+                                n = "No orders yet";
+                            </script>
+                        {% endif %}
+                    {% endfor %}
+            </table>
+            <br>
+            <!-- <p> 
                 <script>
                     document.write(n);
                 </script>
-            </p>
+            </p> -->
         </div>
         
     </div>
 
-    <div class= "menubox" style="width: 820px;">
+    <div class= "menubox" style="width: 840px;">
         <div class="box-review">
-            <h3>Finished</h3>
+            <h3 style="font-size: 40px;">Finished</h3>
             <script>
                 var n;
             </script>
             {% for o in order %}
                 {% if o.confirmrecieved == "recieved" %}
-                    <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                    <li class="listpro">
+                        Product: {{ o.prod }}<br> 
+                        Shop: {{ o.shop }}<br>
+                        Quantity: x{{ o.count }} Unit Price: <a id='n'>{{ o.price }}</a><br>
+                        Order on: {{o.date}}   
                     </li>
                 {% else %}
                     <script>
@@ -145,11 +164,11 @@
                     </script>
                 {% endif %}
             {% endfor %}
-            <p> 
+            <!-- <p> 
                 <script>
                     document.write(n);
                 </script>
-            </p>
+            </p> -->
         </div>
     </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
