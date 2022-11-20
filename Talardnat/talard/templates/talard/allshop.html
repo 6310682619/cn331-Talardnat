@@ -54,7 +54,27 @@
                 {% endif %}
             {% endfor %}
             <br>
-            <a href="{% url 'order' u_id %}"><button class = "myorder">My Order</button></a>
+            <a href="{% url 'order' u_id %}"><button class = "myorder">
+                <!--<script>
+                    var sum = 0;
+                    var p;
+                </script>
+                {% for o in order %}
+                    {% if o.confirmpay != "paid" %}
+                        <a id='n'>{{ o.count }}</a>
+                            <script>
+                                p = "{{ o.count }}";
+                                sum += Number(p);
+                            </script>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                My Order (
+                    <script>
+                        document.write(sum);
+                    </script>)-->
+                    My Order
+            </button></a>
         </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
     </div>
