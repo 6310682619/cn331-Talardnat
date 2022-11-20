@@ -2,7 +2,7 @@
 {% block body%}
     <div>
         <div class="backq">
-            <p2>Back</p2>
+            <a href="{% url 'myshop' shop.id %}">Back</a>
         </div>
         <div class="delq">
             <p1>YOUR QUEUE: </p1>
@@ -16,6 +16,7 @@
                     event.preventDefault();
                 };">CANCLE QUEUE</a>
         <br>
+        </div>
         <div id="ald">   
         {% if message %}
             {{message}}<br>
