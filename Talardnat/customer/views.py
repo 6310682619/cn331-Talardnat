@@ -54,7 +54,7 @@ def register(request):
 
 def profile(request,u_id):
     user = User.objects.get(username=request.user.username)
-    customer = Profile.objects.filter(customer=user).exists()
+    customer = Profile.objects.get(customer=user)
     if not (request.user.is_authenticated and customer):
         return HttpResponseRedirect(reverse('customer_login'))
     return render(request, 'customer/profile.html', {'customer':customer})

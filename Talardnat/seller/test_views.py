@@ -9,7 +9,13 @@ from seller import forms
 
 class SellerViewsTest(TestCase):
     def setUp(self):
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
 
         seller1 = seller_detail.objects.create(
             sname = user1
@@ -69,21 +75,21 @@ class SellerViewsTest(TestCase):
     def test_signup_get(self):
         c = Client()
         response = c.get(reverse('seller_signup'))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'seller/seller_signup.html')
 
-        self.failUnless(isinstance(response.context['form'],
-                                   forms.sellerForm))
-
-    def test_signup_success(self):
+    def test_signup_post(self):
         c = Client()
         response = c.post(reverse('seller_signup'),
                {'username': 'sunday', 
                'password': 'sunday11'})
         seller1 = seller_detail.objects.first()
 
-        response = c.get(reverse('seller_index', args=[seller1.id]))
-        # Check response
+        response = c.post(reverse('seller_index', args=[seller1.id]),{
+            'username':'sunday', 
+            'password':'sunday11', 
+            'email':'sunday@morning.com',
+            'first_name':'sunday',
+            'last_name':'weekends'
+        })
         self.assertEqual(response.status_code, 302)

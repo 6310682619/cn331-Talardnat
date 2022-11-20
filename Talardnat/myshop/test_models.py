@@ -95,7 +95,6 @@ class MyShopModelsTest(TestCase):
         
 
     def test_product_ordered(self):
-        shop1 = shop_detail.objects.first()
         product1 = product.objects.first()
         #self.assertEqual(product1.ordered(), product1.count -1)
 

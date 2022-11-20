@@ -5,8 +5,8 @@ from customer.models import Profile
 from myshop.models import shop_detail, product
 from seller.models import seller_detail
 from talard.models import *
-from myshop import forms
 from .models import *
+from .forms import *
 from PIL import Image
 import tempfile
 from django.test import override_settings
@@ -225,8 +225,7 @@ class MyShopViewsTest(TestCase):
         product1 = product.objects.first()
         response=c.get(reverse('editprod', args=[shop1.id, product1.id]))
         self.assertEqual(response.status_code, 200)
-        self.failUnless(isinstance(response.context['form'],
-                                   forms.ProductForm))
+        self.failUnless(isinstance(response.context['form'],ProductForm))
         self.assertTemplateUsed(response, 'myshop/editprod.html')
 
         response=c.post(reverse('editprod', args=[shop1.id, product1.id]),{
@@ -301,15 +300,6 @@ class MyShopViewsTest(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
-    def test_del_shop(self):
-        c = Client()
-        c.post(reverse('customer_login'),
-               {'username': 'monday', 
-               'password': 'monday22'})
-
-        shop1 = shop_detail.objects.all()
-        shop1.delete()
-        self.assertEqual(shop1.count(), 0)
 
     def test_del_queue(self):
         c = Client()
@@ -332,6 +322,8 @@ class MyShopViewsTest(TestCase):
 
         shop1 = shop_detail.objects.first()
         allround = round.objects.filter().order_by('round_queue')
+        find = round.objects.all().exists()
+
         response=c.get(reverse('queue', args=[shop1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'myshop/queue.html')
@@ -360,11 +352,15 @@ class MyShopViewsTest(TestCase):
     #     temp_img = tempfile.NamedTemporaryFile()
     #     test_image = create_image(temp_img)
     #     shop1 = shop_detail.objects.first()
+    #     product1 = product.objects.first()
     #     data={
     #         'product_name': 'pudding',
     #         'price': 10,
     #         'count': 'eat it',
     #         'product_im': test_image.name,
     #     }
+    #     form = ProductForm(data=data)
+    #     self.assertTrue(ProductForm.is_valid())
     #     response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
     #     self.assertEqual(response.status_code, 200)
+    #     self.assertContains(response, 'pudding')
