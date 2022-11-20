@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from customer import forms
+from customer.forms import RegisterForm
 from customer.models import Profile
+from seller.models import seller_detail
 from django.http import HttpRequest
 from . import views
 
@@ -11,6 +12,7 @@ from . import views
 class CustomerViewTest(TestCase):
     def setUp(self):
         user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
+        user2 = User.objects.create_user(username='monday', password='monday11', email='monday@morning.com')
 
         customer1 = Profile.objects.create(
             customer = user1,
@@ -20,6 +22,8 @@ class CustomerViewTest(TestCase):
             zip = 11111,
             phone = "123456789"
         )
+
+        seller1 = seller_detail(sname=user2)
 
     def test_profile(self):
         """Test if user can access profile"""
@@ -34,6 +38,14 @@ class CustomerViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # Check template
         self.assertTemplateUsed(response, 'customer/profile.html')
+
+    def test_not_profile(self):
+        """Test if user not customer"""
+        c = Client()
+        c.login(username='monday', password='monday11')
+        seller1 = User.objects.get(username='monday')
+        response = c.get(reverse('profile', args=[seller1.id]))
+        self.assertEqual(response.status_code, 302)
 
     def test_login_view(self):
         """Test if user can login"""
@@ -69,6 +81,7 @@ class CustomerViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_register_get(self):
+        """Test uncorrect register data"""
         c = Client()
         response = c.get(reverse('register'))
         # Check response
@@ -77,21 +90,24 @@ class CustomerViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer/register.html')
 
         self.failUnless(isinstance(response.context['form'],
-                                   forms.RegisterForm))
+                                   RegisterForm))
 
     def test_register_post(self):
-        customer1 = Profile.objects.first()
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['username'] = customer1.customer.username
-        request.POST['password'] = customer1.customer.password
-        request.POST['first_name'] = customer1.customer.first_name
-        request.POST['last_name'] = customer1.customer.last_name
-        request.POST['address'] = customer1.address
-        request.POST['city'] = customer1.city
-        request.POST['state'] = customer1.state
-        request.POST['zip'] = customer1.zip
-        request.POST['phone'] = customer1.phone
-        request.META['HTTP_HOST'] = 'localhost'
-        response = views.register(request)
-        self.assertEquals(response.status_code, 200)
+        """Test correct register data"""
+        c = Client()
+        form_data = {
+            'username': "demo",
+            'first_name': "demo",
+            'last_name': "demo",
+            'email': "demo@example.com",
+            'password1': "demopassword",
+            'password2': "demopassword",
+            'address': "demoA",
+            'city': "demoC",
+            'state': "demoS",
+            'zip': 12345,
+            'phone': 12345
+        }
+        c.post(reverse('register'),form_data)
+        response = c.get(reverse("customer_login"))
+        self.assertEqual(response.status_code, 200)
