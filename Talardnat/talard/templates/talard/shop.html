@@ -1,8 +1,8 @@
 {% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
-    <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a>
-    <div class = "headbox">{{ this_shop.name }}</div>
+    <a href="{% url 'allshop' this_shop.category u_id %}"><button class="back">Back</button></a>
+    <div class = "headbox"><b>{{ this_shop.name }}</b></div>
 
     <div class="container">
         <p2 class="expired">Expire: {{ expire }}</p2>
@@ -10,11 +10,15 @@
     </div>
 
     <div class="menubox">
-        <body>{{this_shop.in_interact}}</body>
+        <body style="font-size: 32px;"><b>{{this_shop.in_interact}}</b></body>
     </div>
     
     <div id="conmenu">
-        <h4>Menu</h4>
+        {% if this_shop.category == 'food' %}
+            <h4>Menu</h4>
+        {% else %}
+            <h4>Product</h4>
+        {% endif %}
     </div>
 
     <div class="menubox">
@@ -43,15 +47,14 @@
     </div>
 
     <div class="menubox">
-        <p style="font-size: 20px;">Customer Reviews </p>
-        <h3>Reviews - <span>{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star"></i></h3>
-    </div>
+        <div class="box-review">
+            <h3>{{ this_shop.name }} Ratings - <span>{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star"></i></h3>
+        </div>
 
-    <div class="menubox">
 		<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
 			{% csrf_token %}
-			<h5>Write Your Review</h5>
-				<label>How do you rate this shop?</label>
+			<h3 style="font-size: 30px; line-height: normal;">Write Your Review</h3>
+				<label style="line-height: 0.5;">How do you rate this shop?</label>
 				<br>
 				<div class="rate">
 					<input type="radio" name="review_rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
@@ -72,10 +75,11 @@
         </form>   
 
         <div>
+            <h3 style="line-height: 0.5;">Customer Reviews </h3>
             {% for review in reviews %}
-                <article class="box-body">
+                <article class="box-body" style="border-radius: 8px;">
                     <h6>{{review.user}} </h6>
-                        <div class="rating-star">
+                        <div class="rating-star" style="line-height: normal;">
                             <span>
                                 <i class="fa fa-star{% if review.review_rating == 1 %}{% endif %}" aria-hidden="true"></i>
                                 <i class="fa fa-star{% if review.review_rating == 1.5 %}-half-o{% elif review.review_rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
