@@ -91,6 +91,7 @@ def order(request, u_id):
     customer = cs.objects.get(customer=user)
     od = MyOrder.objects.filter(customer=customer)
     od2 = MyOrder.objects.filter(customer=customer).values
+    haveorder = MyOrder.objects.filter(customer=customer).exists()
     if request.method == 'POST':
         for o in od:
             prod = o.prod
@@ -104,7 +105,7 @@ def order(request, u_id):
                 prod.save()
                 o.confirmpay = "paid"
                 o.save()
-    return render(request, "talard/order.html", {"order" : od, "u_id":u_id, "od2":od2})
+    return render(request, "talard/order.html", {"order" : od, "u_id":u_id, "od2":od2, "haveorder": haveorder})
 
 def del_order(request, u_id, oid):
     order = MyOrder.objects.get(id=oid)
