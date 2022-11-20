@@ -6,8 +6,8 @@
         </div>
         <div class="delq">
             <p1>YOUR QUEUE: </p1>
-        <a href="{% url 'delqueue' shop.id %}" class="delqueue"
-        onclick="
+            <a href="{% url 'delqueue' shop.id %}" class="delqueue"
+            onclick="
                 if (confirm('Are you sure to cancle queue?')){
                     return true;
                 }
@@ -29,13 +29,13 @@
                     {% if r.round_queue == 0 %}
                         <div class="round">{{ r }}</div>
                         <div class="dateq">{{ r.start }} - {{ r.expire }}</div>
-                        Numbers of shop: {{ r.bumber }}<br>
-                        Expire: {{ r.expire|timeuntil }}
+                        <div style="font-family: Caveat;">Numbers of shop: {{ r.bumber }}<br>
+                        Expire: {{ r.expire|timeuntil }}</div>
                     {% else %}
                     <div class="round">{{ r }}</div><br>
                     <div class="dateq">{{ r.start }} - {{ r.expire }}</div>
-                    Numbers of shop: {{ r.bumber }}<br>
-                    Expire: {{ r.expire|timeuntil:r.start }}
+                    <div style="font-family: Caveat;">Numbers of shop: {{ r.bumber }}<br>
+                    Expire: {{ r.expire|timeuntil:r.start }}</div>
                     {% endif %}
                     <div class="listq">
                         <p1>QUEUE</p1><br>
