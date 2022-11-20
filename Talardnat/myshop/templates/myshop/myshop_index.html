@@ -2,16 +2,23 @@
 {% block body %}
 <div class="conbox">
     <div class="back">
-        <a href= "{% url "seller_index" sid %}"><p>Back</p></a>
+        <a href= "{% url 'seller_index' sid %}"><p>Back</p></a>
     </div>
     <br><br>
     <h1>My Shop List</h1>
+    <div class="previewtalardbox"></div>
     <ul>
     {% for s in shop %}
+    <div class="previewtalardbox">
         <li>
+            <body>
             <a href= "{% url 'myshop' s.id %}">
                 {{ s }}
             </a>
+            <br><img src="{{ s.shop_im.url }}" class="shopimg">
+            {{ s.ex_interact }}
+            </body>
+            <br>
             <a href= "{% url 'delshop' s.id %}"
                 onclick="
                 if (confirm('Are you sure to remove your shop?')){
@@ -22,8 +29,8 @@
                     event.preventDefault();
                 };"
                 class="remove">remove</a>
-            <br><img src="{{ s.shop_im.url }}" class="shopimg">
         </li>
+    </div>
     {% empty %}
         <li>NO SHOP</li>
     {% endfor %}<br><br>
