@@ -2,11 +2,14 @@
 {% block body %}
 <div>
     <a href="{% url 'allshop' this_shop.category u_id %}"><button class="back">Back</button></a>
-    <div class = "headbox"><b>{{ this_shop.name }}</b></div>
+    <!--<div class = "headbox"><b>{{ this_shop.name }}</b></div>-->
 
     <div class="container">
         <p2 class="expired" style="line-height: 1.2;">Expire: {{ expire }}</p2>
-        <div class="seller"></div>
+    </div><br>
+
+    <div class="seller">
+        <div class = "shopheadbox"><b>{{ this_shop.name }}</b></div>
     </div>
 
     <div class="menubox">
