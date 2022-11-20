@@ -18,6 +18,14 @@ class SellerViewsTest(TestCase):
             first_name='sunday',
             last_name='weekends',
         )
+        
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
 
         seller1 = seller_detail.objects.create(
             sname = user1
@@ -74,6 +82,14 @@ class SellerViewsTest(TestCase):
         response = c.get(reverse('taview'))
         self.assertEqual(response.status_code, 200)
 
+    def test_not_seller(self):
+        """Test if user not customer"""
+        c = Client()
+        c.login(username='monday', password='monday22')
+        customer1 = User.objects.get(username='monday')
+        response = c.get(reverse('seller_index', args=[customer1.id]))
+        self.assertEqual(response.status_code, 302)
+
     def test_signup_get(self):
         c = Client()
         response = c.get(reverse('seller_signup'))
@@ -81,27 +97,17 @@ class SellerViewsTest(TestCase):
         self.assertTemplateUsed(response, 'seller/seller_signup.html')
 
     def test_signup_post(self):
+        """Test correct signup"""
         c = Client()
-        data={
-            'username':'sunday', 
-            'password':'sunday11', 
+        form_data={
+            'username':'sunday',  
             'email':'sunday@morning.com',
             'first_name':'sunday',
-            'last_name':'weekends'
+            'last_name':'weekends',
+            'password1': 'sunday11',
+            'password2': 'sunday11'
         }
         
-        c.post(reverse('seller_signup'), data)
+        c.post(reverse('seller_signup'), form_data)
         response = c.get(reverse('seller_login'))
         self.assertEqual(response.status_code, 200)
-
-    # def test_signup_post(self):
-    #     seller1 = seller_detail.objects.first()
-    #     request = HttpRequest()
-    #     request.method = 'POST'
-    #     request.POST['username'] = seller1.sname.username
-    #     request.POST['password'] = seller1.sname.password
-    #     request.POST['first_name'] = seller1.sname.first_name
-    #     request.POST['last_name'] = seller1.sname.last_name
-    #     request.META['HTTP_HOST'] = 'localhost'
-    #     response = views.signup(request)
-    #     self.assertEquals(response.status_code, 200)
