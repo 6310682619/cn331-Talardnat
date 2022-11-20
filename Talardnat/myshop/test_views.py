@@ -271,9 +271,10 @@ class MyShopViewsTest(TestCase):
         round1.shop.add(shop2)
         round1.numshop += 1
 
-        response=c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
+        c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
             'round_queue': 1
         })
+        response=c.get(reverse('addqueue', args=[shop2.id, round1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(round1.shop.count(), 2)
         self.assertEqual(round1.numshop, 2)
@@ -281,7 +282,6 @@ class MyShopViewsTest(TestCase):
     def test_next_round(self):
         c = Client()
         seller1 = seller_detail.objects.first()
-        shop1 = shop_detail.objects.first()
         shop2 = shop_detail.objects.create(
             seller_id = seller1,
             name = "PetShop",
@@ -294,10 +294,12 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(round1.round_queue, len(allround))
         newround = round.objects.create(round_queue = (round1.round_queue + 1), numshop = 1) 
         newround.shop.set([shop2])
+        data ={
+            'round_queue': newround
+        }
 
-        response=c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
-            'round_queue': newround.round_queue
-        })
+        c.post(reverse('addqueue', args=[shop2.id, round1.id]), data)
+        response=c.get(reverse('addqueue', args=[shop2.id, round1.id]))
         self.assertEqual(response.status_code, 200)
 
 
@@ -310,6 +312,12 @@ class MyShopViewsTest(TestCase):
         q = round1.get(shop=shop1)
         q.shop.remove(shop1)
         q.numshop -= 1
+        data ={
+            'round_queue': q
+        }
+        c.post(reverse('delqueue', args=[shop1.id]),data)
+        response = c.get(reverse('queue', args=[shop1.id]))
+        self.assertEqual(response.status_code, 200)
 
         self.assertTrue(find)
         self.assertEqual(q.numshop, q.shop.count())
@@ -333,6 +341,10 @@ class MyShopViewsTest(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
+    def test_queue_round(self):
+        c = Client()
+        c.login(username='sunday', password='sunday11')
+        shop1 = shop_detail.objects.first()
 
 
 
@@ -349,6 +361,8 @@ class MyShopViewsTest(TestCase):
     #     self.assertEqual(response.status_code, 200)
 
     # def test_product_form(self):
+
+    #     c = Client()
     #     temp_img = tempfile.NamedTemporaryFile()
     #     test_image = create_image(temp_img)
     #     shop1 = shop_detail.objects.first()
@@ -359,8 +373,6 @@ class MyShopViewsTest(TestCase):
     #         'count': 'eat it',
     #         'product_im': test_image.name,
     #     }
-    #     form = ProductForm(data=data)
-    #     self.assertTrue(ProductForm.is_valid())
-    #     response = self.client.post(reverse('product', args=(shop1.id,)), data=data)
+    #     c.post(reverse('product', args=(shop1.id,)), data=data)
+    #     response = c.get(reverse('product', args=(shop1.id,)))
     #     self.assertEqual(response.status_code, 200)
-    #     self.assertContains(response, 'pudding')

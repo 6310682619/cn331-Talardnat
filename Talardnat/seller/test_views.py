@@ -18,6 +18,14 @@ class SellerViewsTest(TestCase):
             first_name='sunday',
             last_name='weekends',
         )
+        
+        user2 = User.objects.create_user(
+            username='monday', 
+            password='monday22', 
+            email='monday@morning.com',
+            first_name='monday',
+            last_name='weekdays',
+        )
 
         seller1 = seller_detail.objects.create(
             sname = user1
@@ -33,34 +41,33 @@ class SellerViewsTest(TestCase):
         )
 
     def test_index(self):
+        """Test if seller_index page can access"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
                'password': 'sunday11'})
         seller1 = seller_detail.objects.first()
         response = c.get(reverse('seller_index', args=[seller1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'seller/seller_index.html')
 
     def test_login_view(self):
+        """Test if login page can access"""
         c = Client()
         response = c.get(reverse('seller_login'))
-        # Check response
         self.assertEqual(response.status_code, 200)
 
     def test_logged_out(self):
+        """Test if user logout"""
         c = Client()
         response = c.get(reverse('seller_logout'))
 
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['message'] == 'You are logged out')
-        # Check template
         self.assertTemplateUsed(response, 'seller/seller_login.html')
 
     def test_not_user_login(self):
+        """Test if unauthenticated user login"""
         c = Client()
         response = c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -74,34 +81,33 @@ class SellerViewsTest(TestCase):
         response = c.get(reverse('taview'))
         self.assertEqual(response.status_code, 200)
 
+    def test_not_seller(self):
+        """Test if user not seller"""
+        c = Client()
+        c.login(username='monday', password='monday22')
+        customer1 = User.objects.get(username='monday')
+        response = c.get(reverse('seller_index', args=[customer1.id]))
+        self.assertEqual(response.status_code, 302)
+
     def test_signup_get(self):
+        """Test if user can signup"""
         c = Client()
         response = c.get(reverse('seller_signup'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'seller/seller_signup.html')
 
     def test_signup_post(self):
+        """Test correct signup"""
         c = Client()
-        data={
-            'username':'sunday', 
-            'password':'sunday11', 
-            'email':'sunday@morning.com',
-            'first_name':'sunday',
-            'last_name':'weekends'
+        form_data={
+            'username':'tuesday',  
+            'email':'tuesday@morning.com',
+            'first_name':'tuesday',
+            'last_name':'weekends',
+            'password1': 'tuesday11',
+            'password2': 'tuesday11'
         }
         
-        c.post(reverse('seller_signup'), data)
+        c.post(reverse('seller_signup'), form_data)
         response = c.get(reverse('seller_login'))
         self.assertEqual(response.status_code, 200)
-
-    # def test_signup_post(self):
-    #     seller1 = seller_detail.objects.first()
-    #     request = HttpRequest()
-    #     request.method = 'POST'
-    #     request.POST['username'] = seller1.sname.username
-    #     request.POST['password'] = seller1.sname.password
-    #     request.POST['first_name'] = seller1.sname.first_name
-    #     request.POST['last_name'] = seller1.sname.last_name
-    #     request.META['HTTP_HOST'] = 'localhost'
-    #     response = views.signup(request)
-    #     self.assertEquals(response.status_code, 200)
