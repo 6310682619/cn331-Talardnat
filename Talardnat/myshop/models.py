@@ -35,9 +35,6 @@ class product(models.Model):
     def prodcount(self):
         return self.count
 
-    def ordered(self):
-        return self.count - 1
-
 class MyOrder(models.Model):
     customer = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True , related_name="order")
     shop = models.ForeignKey(shop_detail, on_delete=models.CASCADE, null=True , related_name="myorder")
