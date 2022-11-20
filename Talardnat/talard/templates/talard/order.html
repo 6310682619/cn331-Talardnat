@@ -1,33 +1,46 @@
 {% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
-    <a href="{% url 'talard' u_id %}"><button class="back">Back</button></a><br>
-    <div class = "headbox">My order</div>
+    <a href="{{ request.META.HTTP_REFERER }}"><button class="back">Back</button></a><br>
+    <div class = "headbox"><b>My order</b></div>
+
     <div class = "menubox">
-        <ul class="menulist">
+        <h3>New Order</h3>
+        <table class="menulist" style="border: 2px;">
             <script>
                 var sum = 0;
                 var p;
-
             </script>
-            <h3>New Order</h3>
+            <tr>
+                <th>Shop</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Order Date</th>
+                <th>Actions</th>
+            </tr>
             {% for o in order %}
                 {% if o.confirmpay != "paid" %}
-                    <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                    <tr>
+                        <td>{{ o.shop }}</td>
+                        <td>{{ o.prod }}</td>
+                        <td>{{ o.count }}</td>
+                        <td><a id='n'>{{ o.price }}</a></td>
+                        <td>{{o.date}}</td>
+                        <td><a href="{% url 'delorder' u_id o.id %}">remove</a></td>
                         <script>
                             p = "{{ o.price }}";
                             sum += Number(p);
                         </script>
-                        <a href="{% url 'delorder' u_id o.id %}">remove</a>
-                    </li>
+                    </tr>
                 {% endif %}
             {% endfor %}
-            Total:
+        </table>
+        <p>Total: 
             <script>
                 document.write(sum);
             </script>
-        </ul>
+        </p>
     </div>
     <br><br>
 
