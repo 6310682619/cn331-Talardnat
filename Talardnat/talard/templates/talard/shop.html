@@ -9,12 +9,15 @@
     </div><br>
 
     <div class="seller">
+        <div style ="margin-top:25px;"></div>
         <div class = "shopheadbox"><b>{{ this_shop.name }}</b></div>
+        <div class = "interactbox"><b>{{this_shop.in_interact}}</b></div>
+    </div>
     </div>
 
-    <div class="menubox">
+    <!--<div class="menubox">
         <body style="font-size: 32px;"><b>{{this_shop.in_interact}}</b></body>
-    </div>
+    </div>-->
     
     <div id="conmenu">
         {% if this_shop.category == 'food' %}
