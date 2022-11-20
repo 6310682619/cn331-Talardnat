@@ -84,13 +84,9 @@ class CustomerViewTest(TestCase):
         """Test uncorrect register data"""
         c = Client()
         response = c.get(reverse('register'))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'customer/register.html')
-
-        self.failUnless(isinstance(response.context['form'],
-                                   RegisterForm))
+        self.failUnless(isinstance(response.context['form'],RegisterForm))
 
     def test_register_post(self):
         """Test correct register data"""
