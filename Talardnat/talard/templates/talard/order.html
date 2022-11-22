@@ -48,77 +48,61 @@
     </div>
     <br>
 
-    <!-- <div class= "menubox">
-        <button id="checkout">Check Out</button>
-            <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div>
-              <label>Card Number</label>
-              <input name="card-number" type="text" required>
-            </div>
-            <div>
-              <label>Card Verification Value</label>
-              <input name="name" type="text" placeholder="CVV" required>
-            </div>
-            <div>
-              <label>Expiry Date</label>
-              <input name="card-number" type="text" placeholder="MM/YY" maxlength="3" required>
-            </div>
-            
-            <input type="submit" value="submit" class="submit">
-            </form>
+    <button class="myorder" onclick="document.getElementById('checkout').style.display='block'" style="border: solid 4px; font-size: 42px;">Check Out</button>
 
-        <script>
-        document.getElementById("checkout").onclick = function() {myFunction()};
-        
-        function myFunction() {
-          document.getElementById("pay").classList.toggle("show");
-        }
-        </script>
-    </div> -->
+    <div id="checkout" class="modal">
+        <span onclick="document.getElementById('checkout').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <form class="modal-content" action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
+            <div style="padding: 16px;">
+                <h3 style="text-align: center; font-size: 40px;">Check Out</h3>
+                <div style="text-align: justify; display: flex; justify-content: center;"></div>
+                {% csrf_token %}
+                <div>
+                    <label style="margin-bottom: 1px; font-size: 25px;">Card Number</label><br>
+                    <input name="card-number" type="text" required>
+                </div>
+                <div>
+                    <label style="margin-bottom: 1px; font-size: 25px;">Card Verification Value</label><br>
+                    <input name="name" type="text" placeholder="CVV" required>
+                </div>
+                <div>
+                    <label style="margin-bottom: 1px; font-size: 25px;">Expiry Date</label><br>
+                    <input name="card-number" type="text" placeholder="MM/YY" maxlength="3" required>
+                </div><br>
 
-    
-    <div class= "menubox" style="width: 840px;">
-        <div class="box-review" style="line-height: normal;">
-            <h3 style="text-align: center; font-size: 40px;">Check Out</h3>
-            <div style="text-align: justify; display: flex; justify-content: center;">
-                <form action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div>
-                        <label style="line-height: 0.3; font-size: 25px;">Card Number</label><br>
-                        <input name="card-number" type="text" style="width: 400px; line-height: 1.4;" required>
-                    </div>
-                    <div>
-                        <label style="line-height: 0.3; font-size: 25px;">Card Verification Value</label><br>
-                        <input name="name" type="text" style="width: 400px; line-height: 1.4;"  placeholder="CVV" required>
-                    </div>
-                    <div>
-                        <label style="line-height: 0.3; font-size: 25px;">Expiry Date</label><br>
-                        <input name="card-number" type="text" style="width: 400px; line-height: 1.4;"  placeholder="MM/YY" maxlength="3" required>
-                    </div><br>
-                    <input type="submit" value="submit" class="submit" style="text-align: center;">
-                </form>
+                <input type="submit" value="submit" class="submit" style="font-size: 30px; margin-bottom: 50px;">
             </div>
-        </div>
+        </form>  
     </div>
 
+    <script>
+        var modal = document.getElementById('checkout');
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display='none';
+          }
+        }
+    </script>
+    <hr style="border: 1px solid #00000060; margin-bottom: 70px; margin-top: 70px;">
+
+    <h3 style="font-size: 40px;">Status</h3>
     <div class= "menubox" style="width: 840px;">
         <div class="box-review">
             <h3 style="font-size: 40px;">Carry Out</h3>
             <script>
-                var n;
+                var n = 0;
             </script>
-            <table class="menulist" style="border-radius: 8px; width: 800px; margin-left: auto; margin-right: auto;">
-                <tr>
-                    <th>Shop</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Order Date</th>
-                    <th>Actions </th>
-                </tr>
-                    {% for o in order %}
-                        {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
+            {% for o in order %}
+                {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
+                    <table class="menulist" style="border-radius: 8px; width: 800px; margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <th>Shop</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Order Date</th>
+                            <th>Actions </th>
+                        </tr>
                             <tr>
                                 <td>{{ o.shop }}</td>
                                 <td>{{ o.prod }}</td>
@@ -127,19 +111,21 @@
                                 <td>{{o.date}}</td>
                                 <td><a href="{% url 'recieved' u_id o.id %}">recieved</a>
                             </tr>     
-                        {% else %}
-                            <script>
-                                n = "No orders yet";
-                            </script>
-                        {% endif %}
-                    {% endfor %}
+                {% else %}
+                    <script>
+                        n = 1;
+                    </script>
+                {% endif %}
+            {% endfor %}
             </table>
             <br>
-            <!-- <p> 
+            <p> 
                 <script>
-                    document.write(n);
+                    if(n>0){
+                        document.write("No orders yet");
+                    }
                 </script>
-            </p> -->
+            </p>
         </div>
         
     </div>
@@ -148,7 +134,7 @@
         <div class="box-review">
             <h3 style="font-size: 40px;">Finished</h3>
             <script>
-                var n;
+                var n = 0;
             </script>
             {% for o in order %}
                 {% if o.confirmrecieved == "recieved" %}
@@ -160,15 +146,17 @@
                     </li>
                 {% else %}
                     <script>
-                        n = "No orders yet";
+                        n = 1;
                     </script>
                 {% endif %}
             {% endfor %}
-            <!-- <p> 
+            <p> 
                 <script>
-                    document.write(n);
+                    if(n>0){
+                        document.write("No orders yet");
+                    }
                 </script>
-            </p> -->
+            </p>
         </div>
     </div>
     <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>

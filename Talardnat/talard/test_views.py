@@ -210,28 +210,17 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
 
-    # def test_del_order(self):
-    #     c = Client()
-    #     c.post(reverse('customer_login'),
-    #            {'username': 'monday', 
-    #            'password': 'monday22'})
-    #     customer1 = Profile.objects.first()
-    #     order1 = MyOrder.objects.first()
-    #     order = MyOrder.objects.all()
-    #     order.delete()
-    #     self.assertEqual(order.count(), 0)
-    #     c.post(reverse('del_order', args=[customer1.id, order1.id]))
-    #     response = c.get(reverse('del_order', args=[customer1.id, order1.id]))
-    #     self.assertEqual(response.status_code, 302)
+    
 
     def test_valid_rating(self):
+        c = Client()
         rateus1 = RateUs.objects.first()
         data={
             "user": rateus1.user,
             "rate_text": rateus1.rate_text,
             "rating": rateus1.rating
         }
-        response = self.client.post(reverse('rating'), data=data)
+        response = c.post(reverse('rating'), data=data)
         self.assertEqual(response.status_code, 302)
 
     def test_rateus_view(self):
@@ -306,7 +295,4 @@ class TalardViewsTest(TestCase):
         c.post(reverse('rating'), data)
         response = c.get(reverse('index'))
         self.assertEquals(response.status_code, 200)
-
-    # def test_review_post(self):
-    #     c = Client()
 
