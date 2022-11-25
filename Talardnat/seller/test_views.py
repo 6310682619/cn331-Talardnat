@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from myshop.models import *
 from .models import *
-from . import forms
+from .forms import sellerForm
 from django.http import HttpRequest
 from . import views
 
@@ -100,6 +100,23 @@ class SellerViewsTest(TestCase):
         """Test correct signup"""
         c = Client()
         form_data={
+            'username':'tuesday',
+            'first_name':'tuesday',
+            'last_name':'weekends',
+            'email':'tuesday@morning.com',
+            'password1': 'tuesday11',
+            'password2': 'tuesday11'
+        }
+
+        response = c.post(reverse('seller_signup'), form_data)
+        response = c.get(reverse('seller_login'))
+        self.assertEqual(response.status_code, 200)
+        response = c.post('/seller/signup', data=form_data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_valid_signup_form(self):
+        """Test valid signup form"""
+        form_data={
             'username':'tuesday',  
             'email':'tuesday@morning.com',
             'first_name':'tuesday',
@@ -107,7 +124,5 @@ class SellerViewsTest(TestCase):
             'password1': 'tuesday11',
             'password2': 'tuesday11'
         }
-        
-        c.post(reverse('seller_signup'), form_data)
-        response = c.get(reverse('seller_login'))
-        self.assertEqual(response.status_code, 200)
+        form = sellerForm(data=form_data)
+        self.assertTrue(form.is_valid)

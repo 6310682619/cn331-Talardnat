@@ -1,8 +1,6 @@
 from django.db import models
 from customer.models import *
 from myshop.models import *
-from django.db.models import Avg, Count
-from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
