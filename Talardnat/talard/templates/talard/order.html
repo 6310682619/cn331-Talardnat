@@ -1,7 +1,7 @@
 {% extends 'talard/layout_talard.html' %}
 {% block body %}
 <div>
-    <a href="{{ request.META.HTTP_REFERER }}"><button class="back">Back</button></a><br>
+    <button onclick="history.back()" class="back">Back</button><br>
     <div class = "headbox"><b>My order</b></div><br>
 
     <div class = "menubox" style="width: 840px;">
@@ -56,7 +56,7 @@
     <button class="myorder" onclick="document.getElementById('checkout').style.display='block'" style="border: solid 4px; font-size: 42px;">Check Out</button>
 
     <div id="checkout" class="modal">
-        <span onclick="document.getElementById('checkout').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <span onclick="document.getElementById('checkout').style.display='none'" class="close" title="Close">&times;</span>
         <form class="modal-content" action="{% url 'order' u_id %}" method="POST" enctype="multipart/form-data">
             <div style="padding: 16px;">
                 <h3 style="text-align: center; font-size: 40px;">Check Out</h3>
