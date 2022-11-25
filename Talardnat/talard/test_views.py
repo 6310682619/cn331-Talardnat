@@ -10,8 +10,7 @@ from PIL import Image
 import tempfile
 import datetime
 from django.http import HttpRequest
-from . import views
-from django.db.models import Avg
+from .views import *
 
 # Create your tests here.
 
@@ -205,9 +204,7 @@ class TalardViewsTest(TestCase):
             phone = "123456789"
         )
         myorder = MyOrder.objects.first()
-        response=c.post(reverse('order', args=[customer1.id]),{
-            "order" : myorder, 
-        })
+        response=c.post(reverse('order', args=[customer1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
 
@@ -275,20 +272,35 @@ class TalardViewsTest(TestCase):
         self.assertEqual(o.confirmrecieved, "recieved")
 
     def test_addReview(self):
-        c = Client()
-        c.login(username = "tuesday", password = "tuesday22")
+        '''can reveiw'''
         user = User.objects.get(username="tuesday")
         customer = Profile.objects.get(customer = user)
         shop = shop_detail.objects.first()
-        c.post(reverse("addreview", args = (customer.id,shop.id,)),{
-            'review_text': "good",
-            'review_rating': 5
-        })
-        response = c.get(reverse("thisshop", args=(customer.id,shop.id)))
-        self.assertEqual(response.status_code, 200)
+        data = {
+            "review_text" : "so good",
+            "review_rating" : 5
+        }
 
-    def test_rating_post(self):
         c = Client()
+        c.login(username = "tuesday", password = "tuesday33")
+        response = c.post(reverse("addreview", args = (customer.id,shop.id)),data,HTTP_REFERER=reverse("thisshop", args=(customer.id,shop.id,)))
+        self.assertRedirects(response, reverse("thisshop", args=(customer.id,shop.id,)))
+
+    def test_cannot_rating_post(self):
+        '''if not login'''
+        c = Client()
+        data = {
+            'rate_text':'good',
+            'rating':5
+        }
+        c.post(reverse('rating'), data)
+        response = c.get(reverse('index'))
+        self.assertEquals(response.status_code, 200)
+
+    def test__rating_post(self):
+        '''if login'''
+        c = Client()
+        c.login(username = "tuesday", password = "tuesday33")
         data = {
             'rate_text':'good',
             'rating':5

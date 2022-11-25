@@ -12,7 +12,8 @@ def index(request, sid):
     isseller = seller_detail.objects.filter(sname=user).exists()
     if not (request.user.is_authenticated and isseller):
         return HttpResponseRedirect(reverse("seller_login"))
-    return render(request, "seller/seller_index.html", {'sid': sid})
+    seller = seller_detail.objects.get(sname=user)
+    return render(request, "seller/seller_index.html", {'sid': seller.id})
 
 def signup(request):
     if request.method == 'POST':

@@ -65,7 +65,7 @@ def del_prod(request,shop_id,prod_id):
 def edit(request,shop_id):
     s = shop_detail.objects.get(pk=shop_id)
     if request.method == 'POST':
-        form = ShopForm(request.POST, instance=s)
+        form = ShopForm(request.POST, request.FILES, instance=s)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("myshop", args=(shop_id,)))
@@ -76,7 +76,7 @@ def edit(request,shop_id):
 def editprod(request,shop_id,prod_id):
     p = pd.objects.get(pk=prod_id)
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=p)
+        form = ProductForm(request.POST, request.FILES, instance=p)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("product", args=(shop_id,)))
