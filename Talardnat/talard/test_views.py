@@ -11,6 +11,7 @@ import tempfile
 import datetime
 from django.http import HttpRequest
 from . import views
+from django.db.models import Avg
 
 # Create your tests here.
 
@@ -273,18 +274,18 @@ class TalardViewsTest(TestCase):
         o =  MyOrder.objects.first()
         self.assertEqual(o.confirmrecieved, "recieved")
 
-    # def test_addReview(self):
-    #     c = Client()
-    #     c.login(username = "tuesday", password = "tuesday22")
-    #     user = User.objects.get(username="tuesday")
-    #     customer = Profile.objects.get(customer = user)
-    #     shop = shop_detail.objects.first()
-    #     c.post(reverse("addreview", args = (customer.id,shop.id,)),{
-    #         'review_text': "good",
-    #         'review_rating': 5
-    #     })
-    #     response = c.get(reverse("thisshop", args=(customer.id,shop.id)))
-    #     self.assertEqual(response.status_code, 200)
+    def test_addReview(self):
+        c = Client()
+        c.login(username = "tuesday", password = "tuesday22")
+        user = User.objects.get(username="tuesday")
+        customer = Profile.objects.get(customer = user)
+        shop = shop_detail.objects.first()
+        c.post(reverse("addreview", args = (customer.id,shop.id,)),{
+            'review_text': "good",
+            'review_rating': 5
+        })
+        response = c.get(reverse("thisshop", args=(customer.id,shop.id)))
+        self.assertEqual(response.status_code, 200)
 
     def test_rating_post(self):
         c = Client()

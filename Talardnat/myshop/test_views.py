@@ -289,13 +289,13 @@ class MyShopViewsTest(TestCase):
             in_interact = "For your puppy",
             ex_interact = "Puppy care",
         )
-        allround = round.objects.filter().order_by('round_queue')
+
         round1 = round.objects.first()
-        self.assertEqual(round1.round_queue, len(allround))
         newround = round.objects.create(round_queue = (round1.round_queue + 1), numshop = 1) 
         newround.shop.set([shop2])
         data ={
-            'round_queue': newround
+            'round_queue': newround.round_queue,
+            'numshop': newround.numshop
         }
 
         c.post(reverse('addqueue', args=[shop2.id, round1.id]), data)
@@ -306,21 +306,14 @@ class MyShopViewsTest(TestCase):
     def test_del_queue(self):
         c = Client()
         shop1 = shop_detail.objects.first()
-        round1 = round.objects.filter()
-        queue = round1.filter(shop=shop1)
+        queue = round.objects.filter(shop=shop1)
         find = queue.exists()
-        q = round1.get(shop=shop1)
-        q.shop.remove(shop1)
-        q.numshop -= 1
-        data ={
-            'round_queue': q
-        }
-        c.post(reverse('delqueue', args=[shop1.id]),data)
-        response = c.get(reverse('queue', args=[shop1.id]))
-        self.assertEqual(response.status_code, 200)
 
+        c.get(reverse('delqueue', args=[shop1.id]), follow=True)
+        response = c.post(reverse('delqueue', args=[shop1.id]),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse('queue', args=[shop1.id]), status_code=302)
         self.assertTrue(find)
-        self.assertEqual(q.numshop, q.shop.count())
 
     def test_queue(self):
         c = Client()
@@ -341,38 +334,33 @@ class MyShopViewsTest(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
-    def test_queue_round(self):
+    def test_shop_form(self):
         c = Client()
-        c.login(username='sunday', password='sunday11')
         shop1 = shop_detail.objects.first()
+        data={
+            'name': 'pudding',
+            'category': 'food',
+            'in_interact': 'eat it',
+            'ex_interact': 'eat',
+            'payment': '123',
+        }
+        c.post(reverse('myshop', args=(shop1.id,)), data)
+        response = c.get(reverse('myshop', args=(shop1.id,)))
+        self.assertEqual(response.status_code, 200)
 
-
-
-    # def test_shop_form(self):
-    #     shop1 = shop_detail.objects.first()
-    #     data={
-    #         'name': 'pudding',
-    #         'category': 'food',
-    #         'in_interact': 'eat it',
-    #         'ex_interact': 'eat',
-    #         'payment': '123',
-    #     }
-    #     response = self.client.post(reverse('myshop', args=(shop1.id,)), data=data)
-    #     self.assertEqual(response.status_code, 200)
-
-    # def test_product_form(self):
-
-    #     c = Client()
-    #     temp_img = tempfile.NamedTemporaryFile()
-    #     test_image = create_image(temp_img)
-    #     shop1 = shop_detail.objects.first()
-    #     product1 = product.objects.first()
-    #     data={
-    #         'product_name': 'pudding',
-    #         'price': 10,
-    #         'count': 'eat it',
-    #         'product_im': test_image.name,
-    #     }
-    #     c.post(reverse('product', args=(shop1.id,)), data=data)
-    #     response = c.get(reverse('product', args=(shop1.id,)))
-    #     self.assertEqual(response.status_code, 200)
+    def test_product_form(self):
+        c = Client()
+        temp_img = tempfile.NamedTemporaryFile()
+        test_image = create_image(temp_img)
+        shop1 = shop_detail.objects.first()
+        product1 = product.objects.first()
+        data={
+            'shop': shop1,
+            'product_name': 'pudding',
+            'price': 10,
+            'count': 'eat it',
+            'product_im': test_image.name,
+        }
+        c.post(reverse('product', args=(shop1.id,)), data=data)
+        response = c.get(reverse('product', args=(shop1.id,)))
+        self.assertEqual(response.status_code, 200)
