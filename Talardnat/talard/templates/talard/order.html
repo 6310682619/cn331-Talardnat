@@ -27,7 +27,7 @@
                         <td>{{ o.count }}</td>
                         <td><a id='n'>{{ o.price }}</a></td>
                         <td>{{o.date}}</td>
-                        <td><a href="{% url 'delorder' u_id o.id %}">remove</a></td>
+                        <td><a href="{% url 'delorder' u_id o.id %}"><button class="myorder" style="width: auto; height: auto; font-size: 25px; font-weight: normal; border: 2px black solid;">remove</button></a></td>
                         <script>
                             p = "{{ o.price }}";
                             sum += Number(p);
