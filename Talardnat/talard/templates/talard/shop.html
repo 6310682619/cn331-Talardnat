@@ -5,7 +5,7 @@
     <!--<div class = "headbox"><b>{{ this_shop.name }}</b></div>-->
 
     <div class="container">
-        <p2 class="expired" style="line-height: 1.2;">Expire: {{ expire }}</p2>
+        <p2 class="expired" style="right: 10%;">Expire: {{ expire }}</p2>
     </div><br>
 
     <div class="seller">
@@ -71,17 +71,17 @@
 				</div>
                 <br>
 				Review:
-				<textarea name="review_text" rows="4"></textarea>
-                <input type="submit" value="submit">
-                <br><br>
-				<!-- {% if canReview %}  -->                
-				<!-- {% else %} 
-					<p>You must purchase from this shop to post a review.</p>
-				{% endif %}  -->
-        </form>   
+				<textarea name="review_text" rows="4"></textarea><br>
+                {% if canReview %} 
+                <input class="submit" style="font-size: 30px; margin-bottom: 50px;" type="submit" value="submit">               
+				{% else %} 
+					<p style="color: rgb(149, 0, 0);">You must purchase from this shop to post a review.</p>
+				{% endif %} 
+                
+        </form> 
 
         <div>
-            <hr style="margin-top: 50px;">
+            <hr style="margin-top: 50px; margin-bottom: 50px;">
             <h3 style="line-height: 0.5;">Customer Reviews </h3>
             {% for review in reviews %}
                 <article class="box-body" style="border-radius: 8px;">
