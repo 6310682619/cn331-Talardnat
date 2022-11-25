@@ -27,7 +27,9 @@
             {% for o in order %}
                 {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
                     <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
+                        Date: {{o.date}}<br>
+                        Product: {{ o.prod }}<br>
+                        Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
                     </li>
                 {% endif %}
             {% empty %}
@@ -40,15 +42,50 @@
                     <li>
                         Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }}</a>
                     </li>
+
+
+
+                    <table class="menulist" style="border-radius: 8px; width: 820px; margin-left: auto; margin-right: auto;"> 
+                        <tr>
+                            <th>Shop</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Order Date</th>
+                        </tr>
+                        <tr>
+                            <td>{{ o.shop }}</td>
+                            <td>{{ o.prod }}</td>
+                            <td>{{ o.count }}</td>
+                            <td>{{o.date}}</td>
+                        </tr>
+                    </table>
+
+
                 {% endif %}
             {% endfor %}
 
             <h3>Recieved Order</h3>
+            
                 {% for o in order %}
                     {% if o.confirmrecieved == "recieved" %}
-                        <li>
-                            Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                        </li>
+                    <table class="menulist" style="border-radius: 8px; width: 820px; margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <th>Shop</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Order Date</th>
+                            <th>Price</th>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <td>{{ o.shop }}</td>
+                            <td>{{ o.prod }}</td>
+                            <td>{{ o.count }}</td>
+                            <td>{{o.date}}</td>
+                            <td>{{ o.price }}</td>
+                        </tr>
+                    </table>
                         {% endif %}
                 {% endfor %}
         </ul> </div>
