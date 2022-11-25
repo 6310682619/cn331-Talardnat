@@ -113,7 +113,8 @@ def recieved(request, u_id, oid):
 def addreview(request, u_id, shop_id):
     url = request.META.get('HTTP_REFERER')
     shop = shop_detail.objects.get(id=shop_id)
-    user = cs.objects.get(customer=u_id)
+    u = User.objects.get(pk = u_id)
+    user = cs.objects.get(customer=u)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -138,7 +139,6 @@ def rating(request):
             rate.user = request.user
             rate.save()
             return HttpResponseRedirect(reverse("index"))
-    return render(request, 'talard/rate.html')
     
 
 def rateus(request):
