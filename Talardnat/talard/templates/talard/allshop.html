@@ -54,9 +54,9 @@
                 {% endif %}
             {% endfor %}
             <br>
-            <a href="{% url 'order' u_id %}"><button class = "myorder">My Order</button></a>
+            <a href="{% url 'order' u_id %}"><button class = "myorder">My Order</button></a><br>
+            <a class="logout" href="{% url 'customer_logout' %}">Logout</a>
         </div>
-    <a class="logout" href="{% url 'customer_logout' %}">Logout</a><br><br>
     </div>
 </div>
 {% endblock body %}
