@@ -43,15 +43,7 @@ def thisshop(request, u_id, shop_id):
     user = User.objects.get(id=u_id)
     customer = cs.objects.get(customer=user)
     reviews = Review.objects.filter(shop=this_shop)
-
-    if request.user.is_authenticated:
-        try:
-            canReview = MyOrder.objects.filter(customer=request.user.id, shop=this_shop).exists()
-        except MyOrder.DoesNotExist:
-            canReview = None
-    else:
-        canReview = None
-    
+    canReview = MyOrder.objects.filter(customer=customer, shop=this_shop).exists()
     avg_reviews = reviews.aggregate(avg_rating = Avg('review_rating'))
 
     return render(request, 'talard/shop.html', {
