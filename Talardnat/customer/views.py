@@ -14,10 +14,10 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        u = User.objects.get(username=username)
         iscustomer = Profile.objects.filter(customer=user).exists()
         if (user is not None) and iscustomer:
             login(request, user)
+            u = User.objects.get(username=username)
             return HttpResponseRedirect(reverse('profile', args=(u.id,)))
         else:
             return render(request, 'customer/login.html', {
@@ -54,7 +54,8 @@ def register(request):
 
 def profile(request,u_id):
     user = User.objects.get(username=request.user.username)
-    customer = Profile.objects.filter(customer=user)
-    if not (request.user.is_authenticated and customer):
+    iscustomer = Profile.objects.filter(customer=user)
+    if not (request.user.is_authenticated and iscustomer):
         return HttpResponseRedirect(reverse('customer_login'))
+    customer = Profile.objects.get(customer=user)
     return render(request, 'customer/profile.html', {'customer':customer})
