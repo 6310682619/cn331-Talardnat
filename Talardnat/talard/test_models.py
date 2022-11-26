@@ -53,11 +53,13 @@ class ReviewTestCase(TestCase):
         )
 
     def test_review_model(self):
+        """test string method of model Review"""
         r = Review.objects.first()
         self.assertTrue(isinstance(r, Review))
         self.assertEqual(r.__str__(), str(r.review_rating))
 
     def test_rateus_model(self):
+        """test string method of model RateUs"""
         r = RateUs.objects.first()
         self.assertTrue(isinstance(r, RateUs))
         self.assertEqual(r.__str__(), str(r.rating))

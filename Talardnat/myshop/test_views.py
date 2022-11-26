@@ -142,7 +142,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/queue.html')
 
     def test_myshop_delshop(self):
-        """test delete shop"""
+        """test if can delete shop"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -153,7 +153,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_product(self):
-        """test access product page"""
+        """test access to product page"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -165,7 +165,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/product.html')
     
     def test_myshop_delproduct(self):
-        """test delete product"""
+        """test if can delete product"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -177,7 +177,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_edit(self):
-        """test edit shop"""
+        """test if can edit shop that already exist"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -199,7 +199,7 @@ class MyShopViewsTest(TestCase):
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_image_upload(self):
-        """test upload product image"""
+        """test if can upload product image"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -212,7 +212,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
     def test_myshop_myreview(self):
-        """test access to myreview"""
+        """test if shop owner can access to myreview"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -224,7 +224,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/myreview.html')
 
     def test_myshop_edit_prod(self):
-        """test edit product"""
+        """test if can edit product that already exist"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -243,7 +243,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_addqueue(self):
-        """test add queue"""
+        """test if can add new shop to queue"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -301,7 +301,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(queue, 1)
 
     def test_del_queue(self):
-        """test delete queue"""
+        """test if can delete already exist queue"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -320,12 +320,9 @@ class MyShopViewsTest(TestCase):
         response = c.post(reverse('delqueue', args=[shop1.id]),follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, reverse('queue', args=[shop1.id]), status_code=302)
-        
-        response = c.delete(reverse('delqueue', args=[shop1.id]))
-        self.assertEqual(response.status_code, 302)
 
     def test_shop_form(self):
-        """test ShopForm"""
+        """test create new shop with ShopForm"""
         c = Client()
         shop1 = shop_detail.objects.first()
         data={
@@ -340,7 +337,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_new_product(self):
-        """test add new product"""
+        """test if can add new product"""
         c = Client()
         shop1 = shop_detail.objects.first()
         self.test_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))

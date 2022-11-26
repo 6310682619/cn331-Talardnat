@@ -64,13 +64,6 @@ class MyShopModelsTest(TestCase):
             phone = "123456789"
         )
 
-        review1 = Review.objects.create(
-            user = customer1,
-            shop = shop1,
-            review_text = "so good",
-            review_rating = 5
-        )
-
         order1 = MyOrder.objects.create(
             customer = customer1,
             shop = shop1,
@@ -80,48 +73,40 @@ class MyShopModelsTest(TestCase):
 
 
     def test_shop_detail(self):
+        """test string method of model shop_detail"""
         shop1 = shop_detail.objects.first()
         seller1 = seller_detail.objects.first()
 
-        self.assertEqual(str(shop1.name),'ChocolateFactory')
-        self.assertEqual(str(shop1.seller_id), str(seller1.sname))
+        self.assertEqual(shop1.name.__str__(),'ChocolateFactory')
+        self.assertEqual(shop1.seller_id.__str__(), seller1.sname.__str__())
 
     def test_product(self):
+        """test method of model product"""
         product1 = product.objects.first()
 
-        self.assertEqual(str(product1.product_name),'Chocolate bar')
+        self.assertEqual(product1.product_name.__str__(),'Chocolate bar')
         self.assertEqual(product1.prodprice(), product1.price)
-        self.assertTrue(int(product1.id) < 10)
-        
-
-    def test_product_ordered(self):
-        product1 = product.objects.first()
-        #self.assertEqual(product1.ordered(), product1.count -1)
-
-    def test_review(self):
-        review1 = Review.objects.first()
-        shop1 = shop_detail.objects.first()
-
-        self.assertEqual(review1.review_rating, 5)
-        self.assertEqual(review1.shop, shop1)
-        self.assertTrue(len(review1.review_text) < 300)
 
     def test_product_available(self):
+        """test if product available"""
         product1 = product.objects.first()
         c = product1.prodcount()
         self.assertTrue(c > 0)
 
     def test_product_not_available(self):
+        """test if product not available"""
         product1 = product.objects.first()
         c = product1.prodcount()
         c-=1
         self.assertFalse(c > 0)
 
     def test_myorder(self):
+        """test method of model MyOrder"""
         order1 = MyOrder.objects.first()
         self.assertEqual(order1.price(), order1.prod.price * order1.count)
 
     def test_round(self):
+        """test string method of model round"""
         shop1 = shop_detail.objects.first()
         round1 = round.objects.create(
             round_queue = 1,
