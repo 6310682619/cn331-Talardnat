@@ -11,6 +11,8 @@ from PIL import Image
 import tempfile
 from django.test import override_settings
 import datetime
+import os
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 # Create your tests here.
       
@@ -273,6 +275,30 @@ class MyShopViewsTest(TestCase):
         response=c.get(reverse('queue', args=[shop2.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'myshop/queue.html')
+        queue = round.objects.get().numshop
+        self.assertEqual(queue, 2)
+
+    def test_cannot_addqueue(self):
+        """test cannot add queue"""
+        c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
+
+        round1 = round.objects.create(
+            round_queue = 1,
+            numshop = 1,
+            expire = datetime.datetime(2022, 11, 20),
+            start = datetime.datetime(2022, 11, 25)
+        )
+        shop1 = shop_detail.objects.first()
+        round1.shop.set([shop1])
+        c.post(reverse('addqueue', args=[shop1.id, round1.id]))
+        response=c.get(reverse('queue', args=[shop1.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myshop/queue.html')
+        queue = round.objects.get().numshop
+        self.assertEqual(queue, 1)
 
     def test_del_queue(self):
         """test delete queue"""
@@ -316,26 +342,16 @@ class MyShopViewsTest(TestCase):
     def test_new_product(self):
         """test add new product"""
         c = Client()
-        c.post(reverse('seller_login'),
-               {'username': 'sunday', 
-               'password': 'sunday11'})
-        temp_img = tempfile.NamedTemporaryFile()
-        test_image = create_image(temp_img)
         shop1 = shop_detail.objects.first()
-        response=c.get(reverse('product', args=[shop1.id]))
-        # response = c.post(reverse('product', args=[shop1.id]),{
-        #     'product_name': 'popcorn',
-        #     'price': 10,
-        #     'product_im': test_image,
-        #     'count': 20,
-        # })
+        self.test_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+        image_path = os.path.join(self.test_root, "media/images/1.jpg")
+        image = SimpleUploadedFile(name='1.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')
+        response = c.post(reverse('product', args=(shop1.id,)),{
+            'product_name': "popcorn",
+            'price': 10,
+            'product_im': image,
+            'count': 20
+        })
         self.assertEqual(response.status_code, 200)
-        product2 = product.objects.create(
-            shop = shop1,
-            product_name = "Popcorn",
-            price = 20,
-            product_im=test_image.name,
-            count = 10
-        )
         prod = product.objects.filter(shop=shop1)
         self.assertEqual(prod.count(),2)
