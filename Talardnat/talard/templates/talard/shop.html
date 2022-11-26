@@ -51,8 +51,9 @@
         <div class="box-review">
             <h3>{{ this_shop.name }} Ratings - <span>{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star"></i></h3>
         </div>
+        <br>
 
-		<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
+		<!--<form action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
 			{% csrf_token %}
 			<h3 style="font-size: 30px; line-height: normal;">Write Your Review</h3>
 				<label style="line-height: 0.5;">How do you rate this shop?</label>
@@ -73,7 +74,35 @@
 					<p style="color: rgb(149, 0, 0);">You must purchase from this shop to post a review.</p>
 				{% endif %} 
                 
-        </form> 
+        </form> -->
+
+        <button class="myorder" onclick="document.getElementById('order').style.display='block'" style='border: solid 4px; font-size: 35px;'>Write Your Review</button>
+
+    <div id="order" class="modal">
+        <span onclick="document.getElementById('order').style.display='none'" class="close" title="Close">&times;</span>
+        <form class="modal-review" action="{% url 'addreview' u_id this_shop.id  %}" method="POST">
+			{% csrf_token %}
+			<h3 style="font-size: 30px; line-height: normal;">Write Your Review</h3>
+				<label style="line-height: 0.5;">How do you rate this shop?</label>
+				<br>
+				<div class="rate">
+					<input type="radio" name="review_rating" id="rating5" value="5" required /><label for="rating5" title="5"></label>
+					<input type="radio" name="review_rating" id="rating4" value="4" required /><label for="rating4" title="4"></label>
+					<input type="radio" name="review_rating" id="rating3" value="3" required /><label for="rating3" title="3"></label>
+					<input type="radio" name="review_rating" id="rating2" value="2" required /><label for="rating2" title="2"></label>
+					<input type="radio" name="review_rating" id="rating1" value="1" required /><label for="rating1" title="1"></label>
+				</div>
+                <br>
+				Review:
+				<textarea name="review_text" rows="4"></textarea><br>
+                {% if canReview %} 
+                <input class="submit" style="font-size: 30px; margin-bottom: 50px;" type="submit" value="submit">               
+				{% else %} 
+					<p style="color: rgb(149, 0, 0);">You must purchase from this shop to post a review.</p>
+				{% endif %} 
+                
+        </form>  
+    </div>
 
         <div>
             <hr style="margin-top: 50px; margin-bottom: 50px;">
