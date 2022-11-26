@@ -99,6 +99,7 @@ class CustomerViewTest(TestCase):
             'zip': 12345,
             'phone': 12345
         }
-        c.post(reverse('register'),form_data)
-        response = c.get(reverse("customer_login"))
-        self.assertEqual(response.status_code, 200)
+        response1 = c.post(reverse('register'),form_data)
+        response2 = c.get(reverse("customer_login"))
+        self.assertEqual(response1.status_code, 302)
+        self.assertEqual(response2.status_code, 200)
