@@ -26,20 +26,22 @@
             <h3>Already Paid</h3>
             <table class="tableorder"> 
                 <tr>
-                    <th>Shop</th>
+                    <th>Customer</th>
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Order Date</th>
                     <th>Price</th>
+                    <th>Address</th>
                 </tr>
                 {% for o in order %}
                     {% if o.confirmpay != "paid" %}
                         <tr>
-                            <td>{{ o.shop }}</td>
+                            <td>{{ o.customer }}</td>
                             <td>{{ o.prod }}</td>
                             <td>{{ o.count }}</td>
                             <td>{{o.date}}</td>
                             <td>{{ o.price }}</td>
+                            <td>{{ o.customer.address }}, {{ o.customer.city }}, {{ o.customer.state }}, {{ o.customer.zip }}</td>
                         </tr>
                     {% endif %}
                     {% empty %}
@@ -52,7 +54,7 @@
             
                 <table class="tableorder"> 
                         <tr>
-                            <th>Shop</th>
+                            <th>Customer</th>
                             <th>Product</th>
                             <th>Quantity</th>
                             <th>Order Date</th>
@@ -60,7 +62,7 @@
                     {% for o in order %}
                     {% if o.confirmpay != "paid" %}
                         <tr>
-                            <td>{{ o.shop }}</td>
+                            <td>{{ o.customer }}</td>
                             <td>{{ o.prod }}</td>
                             <td>{{ o.count }}</td>
                             <td>{{o.date}}</td>
@@ -73,20 +75,22 @@
             <h3>Recieved Order</h3>
                 <table class="tableorder">
                     <tr>
-                        <th>Shop</th>
+                        <th>Customer</th>
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Order Date</th>
                         <th>Price</th>
+                        <th>Address</th>
                     </tr>
                     {% for o in order %}
                         {% if o.confirmrecieved == "recieved" %}
                             <tr>
-                                <td>{{ o.shop }}</td>
+                                <td>{{ o.customer }}</td>
                                 <td>{{ o.prod }}</td>
                                 <td>{{ o.count }}</td>
                                 <td>{{o.date}}</td>
                                 <td>{{ o.price }}</td>
+                                <td>{{ o.customer.address }}, {{ o.customer.city }}, {{ o.customer.state }}, {{ o.customer.zip }}</td>
                             </tr>
                     
                         {% endif %}

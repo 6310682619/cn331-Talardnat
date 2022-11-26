@@ -3,7 +3,7 @@
     <div>
         
         <div class="delq">
-            <p1>YOUR QUEUE: </p1>
+            <p1>QUEUE : {{shop.addqueue.get.round_queue}}</p1>
             <a href="{% url 'delqueue' shop.id %}" class="delqueue"
             onclick="
                 if (confirm('Are you sure to cancle queue?')){
