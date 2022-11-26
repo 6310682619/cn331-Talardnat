@@ -8,8 +8,8 @@
 <ul>
     {% for r in rev %}
     <li>
-        Score: {{r.review_rating }} <br>
-        Comment: {{r.review_text}}
+        {{r.review_rating }} <i class="fa fa-star" style="color:#C7B800;"></i> &nbsp; 
+        {{r.review_text}}
     </li>
     {% empty %}
     <li>No Review</li>

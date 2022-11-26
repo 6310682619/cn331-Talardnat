@@ -24,33 +24,74 @@
     <div class="orderbox">
         <ul class="orderlist">
             <h3>Already Paid</h3>
-            {% for o in order %}
-                {% if o.confirmpay == "paid" and o.confirmrecieved != "recieved" %}
-                    <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                    </li>
-                {% endif %}
-            {% empty %}
-            <li>No order.</li>
-            {% endfor %}
+            <table class="tableorder"> 
+                <tr>
+                    <th>Shop</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Price</th>
+                </tr>
+                {% for o in order %}
+                    {% if o.confirmpay != "paid" %}
+                        <tr>
+                            <td>{{ o.shop }}</td>
+                            <td>{{ o.prod }}</td>
+                            <td>{{ o.count }}</td>
+                            <td>{{o.date}}</td>
+                            <td>{{ o.price }}</td>
+                        </tr>
+                    {% endif %}
+                    {% empty %}
 
+                <li>No order.</li>
+                {% endfor %}
+            </table>
+            
             <h3>New Order</h3>
-            {% for o in order %}
-                {% if o.confirmpay != "paid" %}
-                    <li>
-                        Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
+            
+                <table class="tableorder"> 
+                        <tr>
+                            <th>Shop</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Order Date</th>
+                        </tr>
+                    {% for o in order %}
+                    {% if o.confirmpay != "paid" %}
+                        <tr>
+                            <td>{{ o.shop }}</td>
+                            <td>{{ o.prod }}</td>
+                            <td>{{ o.count }}</td>
+                            <td>{{o.date}}</td>
+                        </tr>
+                    
+                    {% endif %}
+                    {% endfor %}
+                </table>
 
             <h3>Recieved Order</h3>
-                {% for o in order %}
-                    {% if o.confirmrecieved == "recieved" %}
-                        <li>
-                            Date: {{o.date}} Shop: {{ o.shop }} Product: {{ o.prod }} Count: {{ o.count }} Price: <a id='n'>{{ o.price }}</a>
-                        </li>
+                <table class="tableorder">
+                    <tr>
+                        <th>Shop</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Order Date</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for o in order %}
+                        {% if o.confirmrecieved == "recieved" %}
+                            <tr>
+                                <td>{{ o.shop }}</td>
+                                <td>{{ o.prod }}</td>
+                                <td>{{ o.count }}</td>
+                                <td>{{o.date}}</td>
+                                <td>{{ o.price }}</td>
+                            </tr>
+                    
                         {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </table>
         </ul> </div>
     </div>
     <br><br>
