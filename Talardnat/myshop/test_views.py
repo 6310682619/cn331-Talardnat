@@ -153,13 +153,6 @@ class MyShopViewsTest(TestCase):
                'password': 'sunday11'})
 
         shop1 = shop_detail.objects.first()
-        # product1 = product.objects.first()
-        # c.post(reverse('product', args=[shop1.id]),{
-        #     'shop': shop1,
-        #     'product_name': product1.product_name,
-        #     'price': product1.price, 
-        #     'count': product1.count, 
-        # })
         response=c.get(reverse('product', args=[shop1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'myshop/product.html')
@@ -201,6 +194,9 @@ class MyShopViewsTest(TestCase):
     def test_image_upload(self):
         """test upload product image"""
         c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
         shop1 = shop_detail.objects.first()
         temp_img = tempfile.NamedTemporaryFile()
         test_image = create_image(temp_img)
@@ -274,6 +270,9 @@ class MyShopViewsTest(TestCase):
     def test_del_queue(self):
         """test delete queue"""
         c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
         shop1 = shop_detail.objects.first()
         round1 = round.objects.create(
             round_queue = 1,
@@ -282,13 +281,15 @@ class MyShopViewsTest(TestCase):
         round1.shop.set([shop1])
         queue = round.objects.filter(shop=shop1)
         find = queue.exists()
-
+        self.assertTrue(find)
+        
         c.get(reverse('delqueue', args=[shop1.id]), follow=True)
         response = c.post(reverse('delqueue', args=[shop1.id]),follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, reverse('queue', args=[shop1.id]), status_code=302)
-        self.assertTrue(find)
+        
         response = c.delete(reverse('delqueue', args=[shop1.id]))
+        self.assertEqual(response.status_code, 302)
 
     def test_shop_form(self):
         c = Client()
@@ -306,17 +307,26 @@ class MyShopViewsTest(TestCase):
 
     def test_new_product(self):
         c = Client()
+        c.post(reverse('seller_login'),
+               {'username': 'sunday', 
+               'password': 'sunday11'})
         temp_img = tempfile.NamedTemporaryFile()
         test_image = create_image(temp_img)
         shop1 = shop_detail.objects.first()
-        form_data={
-            'shop': shop1,
-            'product_name': 'popcorn',
-            'price': 10,
-            'product_im': test_image,
-            'count': 20,
-        }
-        c.post(reverse('product', args=[shop1.id]), form_data)
-        response = c.get(reverse('product', args=(shop1.id,)))
+        response=c.get(reverse('product', args=[shop1.id]))
+        # response = c.post(reverse('product', args=[shop1.id]),{
+        #     'product_name': 'popcorn',
+        #     'price': 10,
+        #     'product_im': test_image,
+        #     'count': 20,
+        # })
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'myshop/product.html')
+        product2 = product.objects.create(
+            shop = shop1,
+            product_name = "Popcorn",
+            price = 20,
+            product_im=test_image.name,
+            count = 10
+        )
+        prod = product.objects.filter(shop=shop1)
+        self.assertEqual(prod.count(),2)
