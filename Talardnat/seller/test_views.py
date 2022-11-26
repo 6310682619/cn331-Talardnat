@@ -82,7 +82,7 @@ class SellerViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_not_seller(self):
-        """Test if user not seller"""
+        """Test if user not seller try to login"""
         c = Client()
         c.login(username='monday', password='monday22')
         customer1 = User.objects.get(username='monday')
