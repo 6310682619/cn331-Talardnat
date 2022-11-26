@@ -88,6 +88,7 @@ class MyShopViewsTest(TestCase):
         )
 
     def test_myshop_index(self):
+        """test access myshop_index page"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -108,6 +109,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_myshop_shop(self):
+        """test access shop page with necessary data"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -125,6 +127,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/shop.html')
 
     def test_myshop_queue(self):
+        """test access queue page"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -137,6 +140,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/queue.html')
 
     def test_myshop_delshop(self):
+        """test delete shop"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -147,6 +151,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_product(self):
+        """test access product page"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -205,7 +210,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
     def test_myshop_myreview(self):
-        """test myreview"""
+        """test access to myreview"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -217,6 +222,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/myreview.html')
 
     def test_myshop_edit_prod(self):
+        """test edit product"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -235,6 +241,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_addqueue(self):
+        """test add queue"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -292,6 +299,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_shop_form(self):
+        """test ShopForm"""
         c = Client()
         shop1 = shop_detail.objects.first()
         data={
@@ -306,6 +314,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_new_product(self):
+        """test add new product"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
