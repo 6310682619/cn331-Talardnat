@@ -202,6 +202,7 @@ class TalardViewsTest(TestCase):
         self.assertTemplateUsed(response, 'talard/about.html')
 
     def test_thisshop_view(self):
+        """Test if about page is accessible, check response and template"""
         c = Client()
         user2 = User.objects.get(username='monday')
         shop1 = shop_detail.objects.first()
@@ -235,21 +236,9 @@ class TalardViewsTest(TestCase):
         response=c.post(reverse('order', args=(user3.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
-    
-
-    def test_valid_rating(self):
-        c = Client()
-        rateus1 = RateUs.objects.first()
-        data={
-            "user": rateus1.user,
-            "rate_text": rateus1.rate_text,
-            "rating": rateus1.rating
-        }
-        response = c.post(reverse('rating'), data=data)
-        self.assertEqual(response.status_code, 302)
 
     def test_rateus_view(self):
-        """Test if page is accessible, check response and template"""
+        """Test if Rate us page is accessible, check response and template"""
 
         c = Client()
         response=c.get(reverse('rateus'))
@@ -280,6 +269,7 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_del_order(self):
+        """test delete order"""
         c = Client()
         c.login(username = "monday", password = "monday22")
         user = User.objects.get(username="monday")
@@ -289,6 +279,7 @@ class TalardViewsTest(TestCase):
         self.assertEqual(customer.order.count(), 0)
 
     def test_recieved_order(self):
+        """test if customer recieved order"""
         c = Client()
         c.login(username = "monday", password = "monday22")
         user = User.objects.get(username="monday")
@@ -299,7 +290,7 @@ class TalardViewsTest(TestCase):
         self.assertEqual(o.confirmrecieved, "recieved")
 
     def test_addReview(self):
-        '''can reveiw'''
+        """test if customer can add reveiw"""
         user = User.objects.get(username="tuesday")
         customer = Profile.objects.get(customer = user)
         shop = shop_detail.objects.first()
@@ -312,9 +303,10 @@ class TalardViewsTest(TestCase):
         c.login(username = "tuesday", password = "tuesday33")
         response = c.post(reverse("addreview", args = (customer.id,shop.id)),data,HTTP_REFERER=reverse("thisshop", args=(customer.id,shop.id,)))
         self.assertRedirects(response, reverse("thisshop", args=(customer.id,shop.id,)))
+        self.assertEqual(response.status_code, 302)
 
     def test_cannot_rating_post(self):
-        '''if not login'''
+        """test can not rate website if not login and return index page"""
         c = Client()
         data = {
             'rate_text':'good',
@@ -322,10 +314,10 @@ class TalardViewsTest(TestCase):
         }
         c.post(reverse('rating'), data)
         response = c.get(reverse('index'))
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test__rating_post(self):
-        '''if login'''
+        """test can rate website if login"""
         c = Client()
         c.login(username = "tuesday", password = "tuesday33")
         data = {
@@ -334,5 +326,5 @@ class TalardViewsTest(TestCase):
         }
         c.post(reverse('rating'), data)
         response = c.get(reverse('index'))
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 

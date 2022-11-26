@@ -197,7 +197,7 @@ class MyShopViewsTest(TestCase):
 
     @override_settings(MEDIA_ROOT=tempfile.gettempdir())
     def test_image_upload(self):
-        """test upload product image"""
+        """test if can upload product image"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -241,7 +241,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_addqueue(self):
-        """test add queue"""
+        """test if can add new shop to queue"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -275,7 +275,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/queue.html')
 
     def test_del_queue(self):
-        """test delete queue"""
+        """test if can delete queue"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
