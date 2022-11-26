@@ -132,11 +132,6 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.first()
         found = round.objects.all().exists()
         self.assertFalse(found)
-        # round1 = round.objects.create(round_queue = 0)
-        # round1.save()
-        # c.post(reverse('queue', args=[shop1.id]),{
-        #     'round_queue': 0
-        # })
         response=c.get(reverse('queue', args=[shop1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'myshop/queue.html')
@@ -158,12 +153,13 @@ class MyShopViewsTest(TestCase):
                'password': 'sunday11'})
 
         shop1 = shop_detail.objects.first()
-        product1 = product.objects.first()
-        c.post(reverse('product', args=[shop1.id]),{
-            'product_name': product1.product_name,
-            'price': product1.price, 
-            'count': product1.count, 
-        })
+        # product1 = product.objects.first()
+        # c.post(reverse('product', args=[shop1.id]),{
+        #     'shop': shop1,
+        #     'product_name': product1.product_name,
+        #     'price': product1.price, 
+        #     'count': product1.count, 
+        # })
         response=c.get(reverse('product', args=[shop1.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'myshop/product.html')
@@ -304,22 +300,23 @@ class MyShopViewsTest(TestCase):
             'ex_interact': 'eat',
             'payment': '123',
         }
-        c.post(reverse('myshop', args=(shop1.id,)), data)
+        c.post(reverse('myshop', args=[shop1.id]), data)
         response = c.get(reverse('myshop', args=(shop1.id,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_product_form(self):
+    def test_new_product(self):
         c = Client()
         temp_img = tempfile.NamedTemporaryFile()
         test_image = create_image(temp_img)
         shop1 = shop_detail.objects.first()
-        data={
+        form_data={
             'shop': shop1,
-            'product_name': 'pudding',
+            'product_name': 'popcorn',
             'price': 10,
-            'product_im': test_image.name,
+            'product_im': test_image,
             'count': 20,
         }
-        c.post(reverse('product', args=(shop1.id,)), data)
+        c.post(reverse('product', args=[shop1.id]), form_data)
         response = c.get(reverse('product', args=(shop1.id,)))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myshop/product.html')
