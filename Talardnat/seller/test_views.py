@@ -100,29 +100,13 @@ class SellerViewsTest(TestCase):
         """Test correct signup"""
         c = Client()
         form_data={
-            'username':'tuesday',
-            'first_name':'tuesday',
-            'last_name':'weekends',
-            'email':'tuesday@morning.com',
-            'password1': 'tuesday11',
-            'password2': 'tuesday11'
+            'username':'demo',
+            'first_name':'demo',
+            'last_name':'demo',
+            'email':'demo@morning.com',
+            'password1': 'demopassword',
+            'password2': 'demopassword'
         }
 
         response = c.post(reverse('seller_signup'), form_data)
-        response = c.get(reverse('seller_login'))
-        self.assertEqual(response.status_code, 200)
-        response = c.post('/seller/signup', data=form_data)
-        self.assertEqual(response.status_code, 200)
-
-    def test_valid_signup_form(self):
-        """Test valid signup form"""
-        form_data={
-            'username':'tuesday',  
-            'email':'tuesday@morning.com',
-            'first_name':'tuesday',
-            'last_name':'weekends',
-            'password1': 'tuesday11',
-            'password2': 'tuesday11'
-        }
-        form = sellerForm(data=form_data)
-        self.assertTrue(form.is_valid)
+        self.assertEqual(response.status_code, 302)
