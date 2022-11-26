@@ -40,14 +40,6 @@ class MyShopModelsTest(TestCase):
             ex_interact = "A land of Chocolate",
         )
 
-        # shop2 = shop_detail.objects.create(
-        #     seller_id = seller1,
-        #     name = "PetShop",
-        #     category = "utensil",
-        #     in_interact = "For your puppy",
-        #     ex_interact = "Puppy care",
-        # )
-
         product1 = product.objects.create(
             shop = shop1,
             product_name = "Chocolate bar",
