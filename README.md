@@ -69,7 +69,7 @@
 
 7. Open project using browser.
 
-   Open URL: **`https://127.0.0.1:8000`**.
+   Open URL: [**`https://127.0.0.1:8000`**](https://127.0.0.1:8000)
 
 ------
 ## Usage
