@@ -87,7 +87,6 @@ class MyShopViewsTest(TestCase):
             count = 1
         )
 
-
     def test_myshop_index(self):
         c = Client()
         c.post(reverse('seller_login'),
@@ -133,12 +132,14 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.first()
         found = round.objects.all().exists()
         self.assertFalse(found)
-        round1 = round.objects.create(round_queue = 0)
-        round1.save()
-        response=c.post(reverse('queue', args=[shop1.id]))
-        self.assertEqual(response.status_code, 200)
+        # round1 = round.objects.create(round_queue = 0)
+        # round1.save()
+        # c.post(reverse('queue', args=[shop1.id]),{
+        #     'round_queue': 0
+        # })
         response=c.get(reverse('queue', args=[shop1.id]))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myshop/queue.html')
 
     def test_myshop_delshop(self):
         c = Client()
@@ -259,22 +260,23 @@ class MyShopViewsTest(TestCase):
         round1 = round.objects.create(
             round_queue = 1,
             numshop = 1,
+            expire = datetime.datetime(2022, 11, 20),
+            start = datetime.datetime(2022, 11, 25)
         )
         round1.shop.set([shop1])
-        round1.shop.add(shop2)
-        round1.numshop += 1
         c.post(reverse('addqueue', args=[shop2.id, round1.id]),{
             'shop': shop2,
-            'round': round1,
+            'round_queue': round1.round_queue,
+            'numshop': (round1.numshop + 1),
+            'expire': datetime.datetime(2022, 11, 20),
+            'start': datetime.datetime(2022, 11, 25)
         })
         response=c.get(reverse('queue', args=[shop2.id]))
         self.assertEqual(response.status_code, 200)
-        # find = round.objects.filter(shop = shop1).exists()
-        # notfind = round.objects.filter(shop = shop2).exists()
-        # self.assertTrue(find)
-        # self.assertFalse(notfind)
+        self.assertTemplateUsed(response, 'myshop/queue.html')
 
     def test_del_queue(self):
+        """test delete queue"""
         c = Client()
         shop1 = shop_detail.objects.first()
         round1 = round.objects.create(
@@ -315,8 +317,8 @@ class MyShopViewsTest(TestCase):
             'shop': shop1,
             'product_name': 'pudding',
             'price': 10,
-            'count': 'eat it',
             'product_im': test_image.name,
+            'count': 20,
         }
         c.post(reverse('product', args=(shop1.id,)), data)
         response = c.get(reverse('product', args=(shop1.id,)))
