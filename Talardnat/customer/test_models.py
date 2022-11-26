@@ -20,10 +20,12 @@ class CustomerModelsTestCase(TestCase):
         )
 
     def test_customer(self):
+        """test string method of Profile"""
         customer1 = Profile.objects.first()
         self.assertEqual(customer1.__str__(),customer1.customer.username)
 
     def test_customer_profile(self):
+        """test if profile exist"""
         customer1 = Profile.objects.first()
         user1 = User.objects.first()
 
