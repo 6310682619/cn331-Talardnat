@@ -1,7 +1,7 @@
 {% extends 'myshop/layout.html' %}
 {% block body %}
 <div class="temp">
-    <p class="back"><a>Back</a></p><br>
+    <a href= "{% url 'product' shop_id %}"><p class="back">Back</p></a><br>
     <h1>Edit Product</h1>
 
         <form method = "post" enctype="multipart/form-data">

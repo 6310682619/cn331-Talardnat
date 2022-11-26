@@ -82,7 +82,7 @@ def editprod(request,shop_id,prod_id):
             return HttpResponseRedirect(reverse("product", args=(shop_id,)))
     else:
         form = ProductForm(instance=p)
-    return render(request, 'myshop/editprod.html', {'form' : form, 'prod_id':prod_id})
+    return render(request, 'myshop/editprod.html', {'form' : form, 'prod_id':prod_id, 'shop_id': shop_id})
 
 def myreview(request, shop_id):
     s = shop_detail.objects.get(pk=shop_id)

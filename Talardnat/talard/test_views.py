@@ -120,6 +120,13 @@ class TalardViewsTest(TestCase):
             count = 1
         )
 
+        order2 = MyOrder.objects.create(
+            customer = customer2,
+            shop = shop1,
+            prod = product1,
+            count = 100
+        )
+
         round1 = round.objects.create(
             round_queue = 1,
             numshop = 1,
@@ -150,8 +157,29 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'talard/category.html')
 
-    def test_allshop_view(self):
-        """Test if page is accessible, check response and template"""
+    def test_allshop_non_round0(self):
+        """Test if round0 is none, check response and template"""
+        shop1 = shop_detail.objects.first()
+        customer1 = Profile.objects.first()
+               
+        round0 = round.objects.create(
+            round_queue = 0,
+            numshop = 1,
+            start = datetime.datetime(2022, 11, 17),
+            expire = datetime.datetime(2022, 11, 20)
+        )
+        round0.shop.set([shop1])
+        c = Client()
+        c.post(reverse('customer_login'),
+               {'username': 'monday', 
+               'password': 'monday22'})
+               
+        response=c.get(reverse('allshop', args=[shop1.category, customer1.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'talard/allshop.html')
+
+    def test_allshop_round0(self):
+        """Test if round0 is founded, check response and template"""
 
         c = Client()
         c.post(reverse('customer_login'),
@@ -193,21 +221,20 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_order(self):
+        """can order"""
         c = Client()
-        user1 = User.objects.first()
-        customer1 = Profile.objects.create(
-            customer = user1,
-            address = "Citypark",
-            city = "TU",
-            state = "Bkk",
-            zip = 11111,
-            phone = "123456789"
-        )
-        myorder = MyOrder.objects.first()
-        response=c.post(reverse('order', args=[customer1.id]))
+        user2 = User.objects.get(username="monday")
+        response=c.post(reverse('order', args=(user2.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
 
+    def test_cannot_order(self):
+        """out of stock"""
+        c = Client()
+        user3 = User.objects.get(username="tuesday")
+        response=c.post(reverse('order', args=(user3.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(MyOrder.objects.all().exists())
     
 
     def test_valid_rating(self):

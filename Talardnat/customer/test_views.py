@@ -34,9 +34,7 @@ class CustomerViewTest(TestCase):
 
         customer1 = Profile.objects.first()
         response = c.get(reverse('profile', args=[customer1.id]))
-        # Check response
         self.assertEqual(response.status_code, 200)
-        # Check template
         self.assertTemplateUsed(response, 'customer/profile.html')
 
     def test_not_profile(self):
@@ -51,7 +49,6 @@ class CustomerViewTest(TestCase):
         """Test if user can login"""
         c = Client()
         response = c.get(reverse('customer_login'))
-        # Check response
         self.assertEqual(response.status_code, 200)
 
     def test_logged_out(self):
@@ -59,10 +56,8 @@ class CustomerViewTest(TestCase):
         c = Client()
         response = c.get(reverse('customer_logout'))
 
-        # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['message'] == 'You are logged out!')
-        # Check template
         self.assertTemplateUsed(response, 'customer/login.html')
 
     def test_not_user_login(self):
