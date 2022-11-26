@@ -7,15 +7,21 @@ from customer.models import Profile
 class CustomerModelsTestCase(TestCase):
     def setUp(self):
 
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
+        user1 = User.objects.create_user(
+            username='sunday', 
+            password='sunday11', 
+            email='sunday@morning.com',
+            first_name='sunday',
+            last_name='weekends',
+        )
 
         customer1 = Profile.objects.create(
             customer = user1
         )
 
     def test_customer(self):
-        customer = Profile.objects.first()
-        self.assertEqual(str(customer),'sunday')
+        customer1 = Profile.objects.first()
+        self.assertEqual(customer1.__str__(),customer1.customer.username)
 
     def test_customer_profile(self):
         customer1 = Profile.objects.first()

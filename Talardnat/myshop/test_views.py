@@ -127,7 +127,7 @@ class MyShopViewsTest(TestCase):
         self.assertTemplateUsed(response, 'myshop/shop.html')
 
     def test_myshop_queue(self):
-        """test access queue page"""
+        """test if queue not exist"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
@@ -175,7 +175,7 @@ class MyShopViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_edit(self):
-        """test edit myshop"""
+        """test edit shop"""
         c = Client()
         c.post(reverse('seller_login'),
                {'username': 'sunday', 
