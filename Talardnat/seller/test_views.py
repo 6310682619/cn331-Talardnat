@@ -107,8 +107,8 @@ class SellerViewsTest(TestCase):
             'password1': 'tuesday11',
             'password2': 'tuesday11'
         }
-
-        response = c.post(reverse('seller_signup'), form_data)
+        
+        c.post(reverse('seller_signup'), form_data)
         response = c.get(reverse('seller_login'))
         self.assertEqual(response.status_code, 200)
         response = c.post('/seller/signup', data=form_data)
