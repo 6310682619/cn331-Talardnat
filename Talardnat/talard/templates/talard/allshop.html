@@ -17,15 +17,7 @@
                             <a href= "{% url 'thisshop' u_id c.id %}"><button class="gotoshop">
                                 {{ c }}
                             </button></a>
-                            <!--{% if c.shop_im.url != null %}-->
                                 <img src="{{ c.shop_im.url }}" class="shoppic">
-                            <!--{% else %}
-                                {% if c.category == 'food' %}
-                                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041357465343770654/IMG_5166.gif" class="shoppic" >
-                                {% else %}
-                                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041360390027743323/IMG_5167.gif" class="shoppic">
-                                {% endif %}
-                            {% endif %}-->
                                 {{ c.ex_interact }}
                         </body>
                     </div>
@@ -39,15 +31,7 @@
                             <a href= "{% url 'thisshop' u_id x.id %}"><button class="gotoshop">
                                 {{ x }}
                             </button></a>
-                            <!--{% if x.shop_im.url != null %}-->
                                 <img src="{{ x.shop_im.url }}" class="shoppic">
-                            <!--{% else %}
-                                {% if x.category == 'food' %}
-                                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041357465343770654/IMG_5166.gif" class="shoppic">
-                                {% else %}
-                                    <img src="https://cdn.discordapp.com/attachments/859376635697168395/1041360390027743323/IMG_5167.gif" class="shoppic">
-                                {% endif %}
-                            {% endif %}-->
                                 {{ x.ex_interact }}
                         </body>
                     </div>
