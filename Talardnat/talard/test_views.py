@@ -237,14 +237,6 @@ class TalardViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(MyOrder.objects.all().exists())
 
-    def test_rateus_view(self):
-        """Test if Rate us page is accessible, check response and template"""
-
-        c = Client()
-        response=c.get(reverse('rateus'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'talard/rate.html')
-
     def test_buy_view(self):
         """Test if can buy product"""
 
@@ -298,23 +290,20 @@ class TalardViewsTest(TestCase):
             "review_text" : "so good",
             "review_rating" : 5
         }
-
         c = Client()
         c.login(username = "tuesday", password = "tuesday33")
-        response = c.post(reverse("addreview", args = (customer.id,shop.id)),data,HTTP_REFERER=reverse("thisshop", args=(customer.id,shop.id,)))
+        url = reverse("thisshop", args=(customer.id,shop.id,))
+        response = c.post(reverse("addreview", args = (customer.id,shop.id)),data,HTTP_REFERER=url)
         self.assertRedirects(response, reverse("thisshop", args=(customer.id,shop.id,)))
         self.assertEqual(response.status_code, 302)
 
-    def test_cannot_rating_post(self):
-        """test can not rate website if not login and return index page"""
+    def test_rateus_view(self):
+        """Test if Rate us page is accessible, check response and template"""
+
         c = Client()
-        data = {
-            'rate_text':'good',
-            'rating':5
-        }
-        c.post(reverse('rating'), data)
-        response = c.get(reverse('index'))
+        response=c.get(reverse('rateus'))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'talard/rate.html')
 
     def test__rating_post(self):
         """test can rate website if login"""
@@ -328,3 +317,13 @@ class TalardViewsTest(TestCase):
         response = c.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
 
+    def test_cannot_rating_post(self):
+        """test can not rate website if not login and return index page"""
+        c = Client()
+        data = {
+            'rate_text':'good',
+            'rating':5
+        }
+        c.post(reverse('rating'), data)
+        response = c.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
