@@ -6,32 +6,32 @@ YOUR PROFILE
 
 <div class="box-body">
     <h1>Your Profile : Customer</h1>
-    <div style="font-size: 30px;">
+    <ul>
         <div>
             <label>Name: </label>
             {{ request.user.first_name }} {{ request.user.last_name }}
-        </div>
+        </div><br>
         
         <div>
             <label>Username: </label>
             {{ request.user.username }}
-        </div>
+        </div><br>
         
         <div>
             <label>Email: </label>
             {{ request.user.email }}
-        </div>
+        </div><br>
         
         <div>
             <label>Address: </label>
             {{ customer.address }}, {{ customer.city }}, {{ customer.state }}, {{ customer.zip }}
-        </div>
+        </div><br>
         
         <div>
             <label>Phone: </label>
             {{ customer.phone }}
-        </div><br><br>
-    </div>
+        </div><br>
+    </ul>>
 
     <a href="{% url 'talard' user.id %}"><button class="shop">SHOP</button></a><br><br>
     <a class="logoutt" href="{% url 'customer_logout' %}">Logout</a><br><br><br><br>
