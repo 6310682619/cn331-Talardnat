@@ -7,8 +7,9 @@ from seller.models import seller_detail
 
 class SellerModelsTest(TestCase):
     def setUp(self):
-        user1 = User.objects.create_user(username='sunday', password='sunday11', email='sunday@morning.com')
-
+        user1 = User.objects.create_user(username='sunday',
+         password='sunday11', email='sunday@morning.com')
+         
         seller1 = seller_detail.objects.create(sname = user1)
 
     def test_seller(self):
