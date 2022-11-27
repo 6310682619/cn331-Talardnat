@@ -150,6 +150,8 @@ class MyShopViewsTest(TestCase):
 
         shop1 = shop_detail.objects.first()
         response=c.get(reverse('delshop', args=[shop1.id]))
+        allshop = shop_detail.objects.all()
+        self.assertEqual(allshop.count(), 0)
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_product(self):
@@ -174,6 +176,8 @@ class MyShopViewsTest(TestCase):
         shop1 = shop_detail.objects.first()
         product1 = product.objects.first()
         response=c.get(reverse('delprod', args=[shop1.id, product1.id]))
+        allprod = product.objects.filter(shop=shop1)
+        self.assertEqual(allprod.count(), 0)
         self.assertEqual(response.status_code, 302)
 
     def test_myshop_edit(self):
