@@ -158,3 +158,8 @@ TEMPLATE_DIRS = (
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CSRF = ["http://127.0.0.1"]
+
+import django_heroku
+django_heroku.settings(locals())

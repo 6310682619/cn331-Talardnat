@@ -95,7 +95,7 @@ def addqueue(request, shop_id, q_id):
     find = allr.filter(shop = s).exists()
     if not find:
         a = round.objects.get(pk = q_id)
-        if a.numshop < 9:
+        if a.numshop < 8:
             a.shop.add(s)
             a.numshop += 1
             a.save()

@@ -1,1 +1,1 @@
-web: gunicorn Talardnat.wsgi --log-file -
+web: gunicorn --pythonpath Talardnat Talardnat.wsgi
