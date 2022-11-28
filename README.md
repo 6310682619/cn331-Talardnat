@@ -81,7 +81,6 @@ Link to heroku<br>
 
 
 ## Usage
-
 ### **USER PART**
 
 [![Homepage](Talardnat/images/2022-11-26.png)](Talardnat/images/2022-11-26.png)
@@ -99,39 +98,77 @@ Link to heroku<br>
 [![Customer Login](Talardnat/images/cuslog.png)](Talardnat/images/cuslog.png)
 หาก user ยังไม่มีบัญชี สามารถกดไปที่ Sign Up as Customer เพื่อสร้างบัญชีได้
 [![Customer Signup](Talardnat/images/cussign.png)](Talardnat/images/cussign.png)
+
 2. หลังจาก login สำเร็จจะเข้าไปที่หน้า Your Profile : Customer ที่จะแสดงข้อมูลของเจ้าของบัญชี
 [![Customer Profile](Talardnat/images/cuspro.png)](Talardnat/images/cuspro.png)
+
 3. กดปุ่ม SHOP จะเข้าสู่หน้า catagory ซึ่งจะมีให้เลือกระหว่างจะไปโซน food(ขายอาหาร) หรือ utensil(ขายของใช้) โดยที่ตรงมุมล่างซ้ายมีปุ่มที่สามารถไปหน้า Home, Rate us, About us, My order และ log out
 [![Category](Talardnat/images/category.png)](Talardnat/images/category.png)
+
 4. หากกดไปที่ปุ่ม food จะเข้าไปที่หน้า talard หน้านั้นจะเรียงร้านค้า ซึ่งส่วนหน้าจะเป็นร้านขายอาหารแล้วส่วนท้ายจะเป็นร้านขายของใช้ 
 [![Food](Talardnat/images/food.png)](Talardnat/images/food.png)
 หากกดไปที่ปุ่ม utensil ร้านขายของใช้จะเรียงอยู่ที่ส่วนหน้า แล้วมีร้านขายอาหารอยู่ในส่วนท้าย
 โดยด้านล่างจะมีปุ่ม My order เพื่อเข้าไปหน้า order ของฉันทันที
 [![Utensil](Talardnat/images/uten.png)](Talardnat/images/uten.png)
-5. เมื่อกดเข้าไปในร้าน จะเจอกับหน้าร้าน และ Product ของร้านนั้นๆ เราสามารถเลือกสินค้าที่ต้องการ ใส่จำนวน แล้วกดปุ่ม add แล้วรายการสินค้านั้นจะไปปรากฏที่หน้า my order 
-6. เมื่อเลื่อนลงไปข้างล่างจะเจอกับ review ของร้านค้าร้านนี้ ซึ่งเราสามารถเขียน review ให้ร้านค้าร้านนี้ได้หากเราเคยซื้อของจากร้านค้าร้านนี้แล้ว โดยต้องกดเข้าไปที่ปุ่ม write your review แล้วจะมีหน้าต่างเด้งขึ้นมาให้เขียน review ซึ่ง review ของเรา จะไปปรากฏอยู่ข้างล่าง และถ้ามี review ที่ลูกค้าคนอื่นเขียนอยู่เราก็สามารถอ่านได้
-7. หลังจากเลือกซื้อสินค้าที่ต้องการเรียบร้อย ก็กดเข้าไปที่ปุ่ม my order เพื่อเข้าไปดูสินค้าที่เราเลือกในหน้า order ของฉัน ในส่วนของ Shopping cart คือตารางของสินค้าที่เราเลือก add เข้ามา แต่ยังไม่จ่ายเงิน
-8. หากต้องการชำระค่าสินค้า ก็กดที่ปุ่ม Check Out แล้วจะมีหน้าต่างเด้งขึ้นมาให้ใส่ข้อมูลของบัตรที่จะใช้ชำระเงิน หลังจากชำระเงินเรียบร้อย สินค้าของเราจะเข้าไปอยู่ในตาราง Carry out ซึ่งเป็นตารางของสินค้าที่ชำระเงินแล้ว แต่สินค้ายังไม่มาถึงมือลูกค้า
-9. เมื่อลูกค้าได้รับสินค้าแล้วก็ต้องกด recieved เพื่อยืนยันว่าได้รับสินค้าแล้ว จากนั้นสินค้าที่ยืนยันว่าได้รับแล้วจะไปอยู่ที่ Finished เพื่อแสดงว่ากระบวนการซื้อสินค้านี้เสร็จสิ้นแล้ว
+
+5. เมื่อกดเข้าไปในร้าน จะเจอกับหน้าร้าน และ Product ของร้าน 
+[![Shop](Talardnat/images/shop.png)](Talardnat/images/shop.png)
+เราสามารถเลือกสินค้าที่ต้องการ ใส่จำนวนแล้วกดปุ่ม add เพื่อสร้าง order
+[![Shop](Talardnat/images/shop2.png)](Talardnat/images/shop2.png)
+ 
+6. ที่ด้านล่างจะเจอกับ review ของร้านค้าร้านนี้ ซึ่งเราสามารถอ่าน review จากผู้ใช้คนอื่น หรือเขียน review ได้
+![review](Talardnat/images/rev1.png)
+โดยผู้ใช้จะไม่สามารถเขียน review ได้หากไม่เคยสั่งซื้อสินค้าของร้านนี้
+![Can't review](Talardnat/images/notre.png)
+ แต่หากผู้ใช้ได้ทำการสั่งซื้อสินค้าแล้ว ผู้ใช้สามารถเขียน review ได้ 
+![Can review](Talardnat/images/rev.png)
+
+7. ลูกค้าสามารถเข้าไปดูสินค้าที่เลือกในหน้า My order ในส่วนของ Shopping cart คือตารางของสินค้าที่เราหยิบใส่ตะกร้า แต่ยังไม่ได้ทำการจ่ายเงิน
+![My Order](Talardnat/images/order.png)
+8. หากต้องการชำระค่าสินค้าให้กดที่ปุ่ม Check Out แล้วจะมีหน้าต่างเด้งขึ้นมาให้ใส่ข้อมูลของบัตรที่จะใช้ชำระเงิน
+![Check Out](Talardnat/images/check.png)
+หลังจากชำระเงินเรียบร้อย สินค้าของเราจะเข้าไปอยู่ในตาราง Carry out ซึ่งเป็นตารางของสินค้าที่ชำระเงินแล้วและอยู่ในระหว่างจัดส่ง โดยเมื่อลูกค้าได้รับสินค้าแล้วให้ทำการกด recieved
+![Carry](Talardnat/images/carry.png)
+9. จากนั้นสินค้าที่ยืนยันว่าได้รับแล้วจะไปอยู่ที่ Finished เพื่อแสดงว่ากระบวนการซื้อสินค้านี้เสร็จสิ้นแล้ว
+
 
 #### SELLER
 
-1. เมื่อเข้ามาที่หน้า seller จะปรากฏหน้า login ซึ่ง user สามารถเข้าได้ด้วยการใส่ username และ password หาก password หรือ user ไม่ถูกต้องจะให้ใส่ username และ password อีกครั้ง และมีประโยค "Invalid credentials." ขึ้นมาเตือน
+1. เมื่อเข้ามาที่หน้า seller จะปรากฏหน้า login ซึ่ง user สามารถเข้าได้ด้วยการใส่ username และ password
+![Seller Login](Talardnat/images/sellog.png)
 หาก user ยังไม่มีบัญชี สามารถกดไปที่ Sign Up as Seller เพื่อสร้างบัญชีได้
-2.หากใส่ password และ user ในหน้า login ถูกต้อง จะปรากฎหน้า Profile ซึ่งจะแสดงข้อมูลของ User ได้แก่ Name Username และ Email จาก Profile เราสามารถ เข้าไปที่ Myshop ได้
+![Seller Signup](Talardnat/images/selsign.png)
+
+2. หากใส่ password และ user ในหน้า login ถูกต้อง จะปรากฎหน้า Profile ซึ่งจะแสดงข้อมูลของ Seller จาก Profile เราสามารถ เข้าไปที่ Myshop ได้
+![Seller Profile](Talardnat/images/selpro.png)
+
 3. ที่หน้า Myshop จะแสดง My shop list ซึ่งเป็นร้านค้าต่างๆของเรา สามารถเลือกกดร้านค้าที่เราจะเข้าไปจัดการได้
+![Shop list](Talardnat/images/slist.png)
 หรือหากอยากเพิ่มร้านค้าตัวเองก็สามารถกดเพิ่มร้านค้าที่ ADD SHOP ด้านล่างสุดได้
-4. เมื่อเข้ามาที่หน้าร้านค้าที่เลือก (MYSHOP) ก็จะสามารถจัดการกับร้านค้าของเราได้ โดยมีปุ่มให้เลือก 4 ปุ่ม คือ product, edit, review, add queue และมีรายการ order จากที่ลูกค้ากดเลือกซื้อแสดงอยู่ด้านล่างของหน้าเพจ โดยมี
+![Add Shop](Talardnat/images/adds.png)
+
+4. เมื่อเข้ามาที่หน้าร้านค้าที่เลือก (MYSHOP) ก็จะสามารถจัดการกับร้านค้าของเราได้ โดยมีปุ่มให้เลือก 4 ปุ่ม คือ product, edit, review, add queue
+![MyShop](Talardnat/images/bear.png)
+ จะมีรายการ order จากที่ลูกค้ากดเลือกซื้อแสดงอยู่ด้านล่างของหน้า โดยมี
 Aleready paid คือรายการสินค้าที่จ่ายเงินซื้อเรียบร้อนแล้ว
 New Order คือ รายการสินค้าที่ถูกใส่ไว้ในตระกร้าแล้ว แต่ยังไม่ได้จ่ายเงิน
 Recieved Order คือรายการสินค้าที่ลูกค้ากดว่าได้รับแล้ว
+![Shop Order](Talardnat/images/ors.png)
+
 5. เมื่อเข้าไปที่หน้า My product จากหน้า My shop แล้ว เราก็จะสามารถ ดูรายการสินค้า แก้ไขรายละเอียดสินค้า ลบสินค้า หรือ เพิ่มสินค้าได้
+![Product](Talardnat/images/prod.png)
+
 6. เมื่อเข้าไปที่หน้า Edit detail จากหน้า My shop แล้ว เราก็จะสามารถแก้ไขรายละเอียดของร้านค้าต่างๆได้ ทั้ง Name, Category, In interact, Ex interact, Shop image, Payment
+![Edit](Talardnat/images/edit.png)
+
 7. เมื่อเข้าไปที่หน้า My Review จากหน้า My shop เราก็จะสามารถเห็นดาว และรีวิวจากลูกค้าที่มารีวิวร้านของเราได้
-8. เมื่อเข้าไปที่หน้า Add Queue จากหน้า My shop เราจะสามารถกด Add Queue ร้านเพื่อไปขายจริงได้ โดยจะแบ่งเป็นรอบๆตามวันที่ที่กำหนด หากอยากยกเลิก Queue ก็สามารถกด Cancle Queue ที่ด้านบนสุดได้
+![My review](Talardnat/images/mrev.png)
+
+8. เมื่อเข้าไปที่หน้า Add Queue จากหน้า My shop เราจะสามารถกด Add Queue ร้านเพื่อไปขายจริงได้ โดยจะแบ่งเป็นรอบตามวันที่ที่กำหนด หากอยากยกเลิก Queue ก็สามารถกด Cancle Queue ที่ด้านบนสุดได้
+![Queue](Talardnat/images/queue.png)
 
 ### **ADMIN PART**
-มื่อเข้าหน้าเว็บไซต์จะปรากฏหน้าหลักของตลาด ต้องไปที่ URL เพื่อเพิ่ม /admin ต่อท้าย URL แล้วก็จะสามารถเข้าหน้า log in ของ admin ได้ ซึ่งต้องใช้ username และ password ของ admin ในการเข้าหน้า admin
+เมื่อเข้าหน้าเว็บไซต์จะปรากฏหน้าหลักของตลาด ต้องไปที่ URL เพื่อเพิ่ม /admin ต่อท้าย URL แล้วก็จะสามารถเข้าหน้า log in ของ admin ได้ ซึ่งต้องใช้ username และ password ของ admin ในการเข้าหน้า admin
 1. ผู้ที่เป็น admin สามารถดูได้ว่าใครเป็น user ของเว็บบ้าง โดยกดเข้าไปดูที่ Users รวมถึงสามารถเพิ่มและลบ user ได้
 2. ผู้ที่เป็น admin สามารถดูได้ว่าใครเป็น user ฝั่ง customer บ้าง โดยการกดไปที่ Profile และสามารเพิ่มและลบ user ที่เป็น customer ได้ รวมถึงสามารถแก้ไขข้อมูลของ user แต่ละคนได้ด้วย
 3. ผู้ที่เป็น admin สามารถดูได้ว่า user ที่เป็น customer สั่งสินค้าอะไรบ้าง จากร้านค้าไหนโดยไปดูที่ My order
